@@ -21,6 +21,7 @@ import { GetActiveServerType } from '../../@types/get-active-server'
 import { ServersType } from '../../@types/servers'
 
 import { calculateDaysFromTimestamp } from '../../utils/formatDateFromTimestamp'
+import { openTelegramLink } from '../../utils/open-telegram-link'
 
 import { SvgSelector } from '../../assets/svg-selector'
 import * as speedSticker from '../../assets/stickers/speed.json'
@@ -76,6 +77,9 @@ export const Home: FC<HomeProps> = ({ user, keysData, isSkippedIntroduction, use
     // Selected Server
     const [ selectedServer, setSelectedServer ] = useState<ServersType | undefined>(undefined)
 
+    // Connect Server
+    const [ connectServerData, setConnectServerData ] = useState<GetActiveServerType | undefined>(undefined)
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -93,12 +97,44 @@ export const Home: FC<HomeProps> = ({ user, keysData, isSkippedIntroduction, use
         fetchData()
     }, [])
 
+    async function createKey () {
+        if (!selectedServer) return
+        if (!connectServerData) {
+            try {
+                const keyData = await vpn.getKey(selectedServer?.id) as GetActiveServerType
+
+                setConnectServerData(keyData)
+            } catch (error) {
+                console.error('Error fetching key:', error)
+            }
+        }
+    }
+
+    useEffect(() => {
+        const connectServer = keysData?.find(el => el.id_server === selectedServer?.id)
+
+        if (!connectServer) {
+            createKey()
+        } else {
+            setConnectServerData(connectServer)
+        }
+    }, [ selectedServer ])
+
+    const handleConnectServer = async () => {
+        if (!connectServerData) {
+            console.error('connectServerData undefined')
+            return
+        }
+        openTelegramLink(connectServerData.key_data)
+    }
+
     const handleButton = () => {
         if (
             user?.user?.type_subscribe !== 0
             && user !== undefined
             && user?.user?.end_sub !== 1
         ) {
+            handleConnectServer()
             return
         }
 

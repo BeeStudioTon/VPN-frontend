@@ -1,140 +1,140 @@
 .promotion {
-  &Title {
-    display: flex;
-    gap: 3px;
-    align-items: center;
-    font-size: 14px;
-    font-weight: 700;
-    margin-bottom: 20px;
-    color: #fff;
-    &Loading {
-      color: #666;
-      margin-bottom: 5px;
-    }
-  }
-  &ActionPay {
-    height: auto;
-    font-size: 15px;
-    font-weight: 500;
-    border-radius: 10px;
-    background: #1C77FF;
-    padding: 14px;
-    width: 100%;
-    &:hover {
-      background: #1067eb;
-    }
-  }
-  &List {
-    margin-bottom: 15px;
-  }
-  &Li {
-    position: relative;
-    list-style-type: none;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding-bottom: 10px; 
-    cursor: pointer;
-    &::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      width: calc(100% - 39px);
-      right: 0;
-      height: 0.8px;
-      background: #C8C7CB;
-    }
-    &:not(:last-child) {
-      margin-bottom: 10px;
-    }
-    &Action {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      width: 100%;
-    }
-    &Info {
-      display: flex;
-      gap: 5px;
-      align-items: center;
-      margin-bottom: 2px;
-    }
-    &Badge {
-      font-size: 12px;
-      color: #fff;
-      background: var(--tg-theme-link-color);
-      padding: 2.8px 5px;
-      margin-left: 3px;
-      border-radius: 10px;
-    }
-    &Body {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 5px;
-      width: 90%;
-    }
-    &OldPrice {
-      color: var(--tg-theme-text-color);
-      text-decoration: line-through;
-    }
     &Title {
-      display: flex;
-      gap: 3px;
-      align-items: center;
-      font-size: 17px;
-      font-weight: 760;
-      color: var(--tg-theme-text-color);
-      &Loading {
-        color: #666;
-        margin-bottom: 5px;
-      }
-    }
-    &Description {
-      font-size: 14px;
-      font-weight: 410;
-      color: var(--tg-theme-hint-color);
-      max-width: 212px;
-      opacity: 0.6;
-    }
-    &Button {
-      min-width: 22px;
-      min-height: 22px;
-      background: transparent;
-      border: 2px solid #1C77FF;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      cursor: pointer;
-      transition: all 0.3s ease 0s;
-      &:hover {
-        background: transparent;
-        transform: scale(1.03);
-      }
-      > div {
-        display: flex;  
+        display: flex;
+        gap: 3px;
         align-items: center;
-        justify-content: center;
-        padding: 3px;
-        > svg {
-          > path {
-            stroke-width: 6px;
-          }
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        color: #fff;
+        &Loading {
+            color: #666;
+            margin-bottom: 5px;
         }
-      }
     }
-    &ButtonActive {
-      border: 0px solid #1C77FF;
+    &ActionPay {
+        height: auto;
+        font-size: 15px;
+        font-weight: 500;
+        border-radius: 10px;
+        background: #1c77ff;
+        padding: 14px;
+        width: 100%;
+        &:hover {
+            background: #1067eb;
+        }
     }
-  }
+    &List {
+        margin-bottom: 15px;
+    }
+    &Li {
+        position: relative;
+        list-style-type: none;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding-bottom: 10px;
+        cursor: pointer;
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            width: calc(100% - 39px);
+            right: 0;
+            height: 0.8px;
+            background: #c8c7cb;
+        }
+        &:not(:last-child) {
+            margin-bottom: 10px;
+        }
+        &Action {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+        }
+        &Info {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+            margin-bottom: 2px;
+        }
+        &Badge {
+            font-size: 12px;
+            color: #fff;
+            background: var(--tg-theme-link-color);
+            padding: 2.8px 5px;
+            margin-left: 3px;
+            border-radius: 10px;
+        }
+        &Body {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 5px;
+            width: 90%;
+        }
+        &OldPrice {
+            color: var(--tg-theme-text-color);
+            text-decoration: line-through;
+        }
+        &Title {
+            display: flex;
+            gap: 3px;
+            align-items: center;
+            font-size: 17px;
+            font-weight: 760;
+            color: var(--tg-theme-text-color);
+            &Loading {
+                color: #666;
+                margin-bottom: 5px;
+            }
+        }
+        &Description {
+            font-size: 14px;
+            font-weight: 410;
+            color: var(--tg-theme-hint-color);
+            max-width: 212px;
+            opacity: 0.6;
+        }
+        &Button {
+            min-width: 22px;
+            min-height: 22px;
+            background: transparent;
+            border: 2px solid #1c77ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease 0s;
+            &:hover {
+                background: transparent;
+                transform: scale(1.03);
+            }
+            > div {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 3px;
+                > svg {
+                    > path {
+                        strokewidth: 6px;
+                    }
+                }
+            }
+        }
+        &ButtonActive {
+            border: 0px solid #1c77ff;
+        }
+    }
 }
 
 .promotionLiPrice {
-  font-size: 17px;
-  color: #34C759;
+    font-size: 17px;
+    color: #34c759;
 }
 
 .promotionLiDescription {
-  color: var(--tg-theme-hint-color);
+    color: var(--tg-theme-hint-color);
 }

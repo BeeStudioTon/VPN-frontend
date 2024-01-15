@@ -4,6 +4,7 @@ export function openTelegramLink (key: string): void {
     if (isWindows) {
         const iframe: HTMLIFrameElement = document.createElement('iframe')
         iframe.style.display = 'none'
+
         document.body.appendChild(iframe)
 
         iframe.contentWindow?.location.replace(key)

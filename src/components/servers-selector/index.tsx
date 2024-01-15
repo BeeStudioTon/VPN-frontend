@@ -8,8 +8,9 @@ import { ServersType } from '../../@types/servers'
 
 import { SvgSelector } from '../../assets/svg-selector'
 
-import s from './servers-selector.module.scss'
 import { SkeletonInfo } from '../skeleton-info'
+
+import s from './servers-selector.module.scss'
 
 interface ServersSelectorProps {
     serversData: ServersType[];
