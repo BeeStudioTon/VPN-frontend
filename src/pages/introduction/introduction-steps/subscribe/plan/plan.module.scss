@@ -1,0 +1,15 @@
+.plan {
+  &Title {
+    color: var(--tg-theme-hint-color);
+    font-size: 13px;
+    margin: 35px 0 8px 0;
+    font-weight: 410;
+    text-transform: uppercase;
+    padding-left: 16px;
+  }
+  &Actions {
+    background: var(--tg-theme-bg-color);
+    padding: 12px 16px;
+    border-radius: 12px;
+  }
+}

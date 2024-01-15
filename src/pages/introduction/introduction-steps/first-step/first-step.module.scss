@@ -1,0 +1,36 @@
+.firstStep {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  position: relative;
+}
+
+.content {
+  margin-top: 50px;
+}
+
+.firstTitle {
+  font-size: 28px;
+  font-weight: 760;
+  margin: 40px 0 22px 0;
+  text-align: center;
+  color: var(--tg-theme-text-color);
+  span {
+    color: var(--tg-theme-button-color);
+  }
+}
+
+.firstText {
+  text-align: center;
+  font-size: 16px;
+  color: var(--tg-theme-hint-color);
+  &:not(:last-child) {
+    margin-top: 18px;
+  }
+}
+
+.firstButton {
+  margin: 40px 0 10px 0;
+}

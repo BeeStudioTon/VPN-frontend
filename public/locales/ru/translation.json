@@ -1,0 +1,73 @@
+{
+  "introduction": {
+    "welcome-title": "Добро пожаловать в ",
+    "welcome-description1": "Получите защищенное и быстрое соединение с помощью своего кошелька TON прямо внутри Telegram.",
+    "welcome-description2": "Чтобы начать, подключите свой кошелек"
+  },
+  "subscribe": {
+    "title": "Подписаться",
+    "unknown": "НЕИЗВЕСТНЫЙ",
+    "select-plan": "Выберите свой план",
+    "actions": "Действия",
+    "steps": {
+      "plan": "план",
+      "method": "метод",
+      "confirm": "подтвердить"
+    },
+    "method": {
+      "title": "платежный токен",
+      "total": "Итого:"
+    }
+  },
+  "home": {
+    "traffic-title": "Трафика осталось",
+    "ready-to-connect": "Готово к подключению",
+    "traffic-update-in": "ОБНОВЛЕНИЕ ТРАФИКА ЧЕРЕЗ",
+    "day": "День",
+    "days": "Дней"
+  },
+  "status": {
+    "succ-title": "Готово!",
+    "error-title": "Упс!",
+    "succ-description": "Вернитесь на главную и начните наслаждаться",
+    "error-description": "Что-то пошло не так"
+  },
+  "download": {
+    "title": "Скачать",
+    "description": "Загрузите утилиту Outline, чтобы добавить конфигурацию VPN на ваше устройство (просто установите, запускать не нужно)."
+  },
+  "pay-await": {
+    "title": "Ожидание транзакции...",
+    "description": "Это может занять до нескольких минут."
+  },
+  "common": {
+    "step": "Шаг",
+    "congratulations": "Поздравляем с активацией подписки DeVPN.",
+    "connect-btn": "Подключить кошелек",
+    "next": "Далее",
+    "used-subscription": "Вы уже использовали бесплатную подписку.",
+    "address-copied": "Адрес скопирован.",
+    "username-copied": "Имя пользователя скопировано.",
+    "address": "Адрес",
+    "language": "Язык",
+    "actions": "Действия",
+    "logout": "Выйти",
+    "you-sure": "Вы уверены?",
+    "something-went-wrong": "Что-то пошло не так.",
+    "refresh": "Обновить",
+    "oops": "Уупс!",
+    "search-token": "Поиск токена",
+    "connect": "Подключиться",
+    "select-plan": "Выберите план",
+    "close": "Закрыть",
+    "insufficient-balance": "Недостаточный баланс",
+    "pay-btn": "Подтвердить и оплатить",
+    "not-found": "Не найдено.",
+    "edit-plan": "Изменить план",
+    "return-to-main": "Вернуться на главную страницу",
+    "try-again": "Попробуйте еще раз",
+    "loading": "Загрузка...",
+    "not-active-plan": "План не активен",
+    "choose-plan": "Выберите план"
+  }
+}

@@ -1,0 +1,50 @@
+.inner {
+  margin-top: 31px;
+  background: var(--tg-theme-bg-color);
+  padding: 19px 24px;
+  border-radius: 12px;
+  .user {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+    &Avatar {
+      img {
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+      }
+      &Custom {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        font-size: 19px;
+        padding: 5px;
+        font-weight: 540;
+        justify-content: center;
+        text-transform: uppercase;
+        background: var(--tg-theme-button-color);
+        color: var(--tg-theme-button-text-color);
+      }
+    }
+    &Name {
+      font-size: 20px;
+      font-weight: 410;
+      color: var(--tg-theme-text-color);
+      margin-bottom: 1px;
+    }
+    &Address {
+      font-size: 16px;
+      color: var(--tg-theme-hint-color);
+    }
+    &Inner {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+  }
+}
