@@ -12,7 +12,7 @@ import { InfoType } from '../@types/info'
 import { TransactionType } from '../@types/transaction'
 
 export class VPN {
-    private _url: string = 'https://api-vpn.delabteam.com/'
+    private _url: string = 'https://lobster-app-7recs.ondigitalocean.app/'
 
     public async get (url: string, data: any): Promise<any | undefined> {
         try {
