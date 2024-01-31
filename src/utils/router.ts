@@ -4,5 +4,6 @@ export const ROUTES = {
     PROMOTIONS: '/promotions',
     INTRODUCTION: '/introduction',
     DOWNLOAD: '/download',
-    SOMETHING_WENT_WRONG: '/something_went_wrong'
+    SOMETHING_WENT_WRONG: '/something_went_wrong',
+    REDIRECT: '/redirect'
 } as const

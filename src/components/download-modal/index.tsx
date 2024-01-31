@@ -4,10 +4,12 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 import { Button, IconSelector, Li, Modal, Text, Title } from '@delab-team/de-ui'
+
 import { DownloadData } from '../../mocks/download-data'
 
-import s from './download-modal.module.scss'
 import { SvgSelector } from '../../assets/svg-selector'
+
+import s from './download-modal.module.scss'
 
 interface DownloadModalProps {
     showDownloadModal: boolean

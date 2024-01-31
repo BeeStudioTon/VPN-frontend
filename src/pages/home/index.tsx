@@ -144,6 +144,21 @@ export const Home: FC<HomeProps> = ({ user, keysData, isSkippedIntroduction, use
         window.location.href = '/introduction'
     }
 
+    const isWindows: boolean = navigator.platform.toUpperCase().indexOf('WIN') >= 0
+
+    const handleConnect = (key: string) => {
+        if (isWindows) {
+            const encodedUrl = encodeURIComponent(key)
+            const searchParams = new URLSearchParams()
+            searchParams.append('key', encodedUrl)
+            const queryString = searchParams.toString()
+            window.open(`/redirect?${queryString}`, '_blank')
+            return
+        }
+
+        openTelegramLink(key)
+    }
+
     return (
         <>
             {showDownloadModal && (
@@ -224,6 +239,8 @@ export const Home: FC<HomeProps> = ({ user, keysData, isSkippedIntroduction, use
                 </Title>
 
                 <Traffic limit={user?.infoUser.limit} used={user?.infoUser.used} isTg={isTg} userLoading={userLoading} />
+                        
+                {/* <button onClick={() => handleConnect('ss://y2hhy2hhmjatawv0zi1wb2x5mtmwntpwakn5bllyng5intm0tkjhwhhvchpp@178.62.200.20:51203/?outline=1')}>Open</button> */}
             </div>
         </>
     )

@@ -14,6 +14,7 @@ import { Home } from './pages/home'
 import { Introduction } from './pages/introduction'
 import { Profile } from './pages/profile'
 import { SomethingWentWrong } from './pages/something-went-wrong'
+import { Redirect } from './pages/redirect'
 
 import { ROUTES } from './utils/router'
 import './utils/i18n'
@@ -193,7 +194,8 @@ export const App: FC = () => {
                         />
                         <Route path={ROUTES.PROFILE} element={<Profile rawAddress={rawAddress} selectedLanguage={selectedLanguage} setSelectedLanguage={setSelectedLanguage} /> } />
                         <Route element={<SomethingWentWrong />} path={ROUTES.SOMETHING_WENT_WRONG} />
-                        <Route path="*" element={<Navigate to="/" replace />} />
+                        <Route element={<Redirect />} path={ROUTES.REDIRECT} />
+                        {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
                     </Routes>
                 )}
 
