@@ -83,9 +83,6 @@ export const App: FC = () => {
 
             const isTgCheck = window.Telegram.WebApp.initData !== ''
             const bodyStyle = document.body.style
-            if (window.location.pathname !== '/introduction') {
-                TgObj.requestWriteAccess()
-            }
 
             if (isTgCheck) {
                 TgObj.ready()
@@ -97,15 +94,33 @@ export const App: FC = () => {
 
                 bodyStyle.backgroundColor = 'var(--tg-theme-secondary-bg-color)'
                 bodyStyle.setProperty('background-color', 'var(--tg-theme-secondary-bg-color)', 'important')
+            } else {
+                navigate('/something_went_wrong')
+            }
+
+            if (window.location.pathname !== '/introduction') {
+                if (!isTg) {
+                    return
+                }
+                TgObj.requestWriteAccess()
             }
         }
 
+        if (window.location.pathname === ROUTES.SOMETHING_WENT_WRONG && !isError) {
+            navigate('/')
+        }
         vpn.getAutoKey()
     }, [])
 
     // introduction check
     useEffect(() => {
+        const isTgCheck = window.Telegram.WebApp.initData !== ''
         const hasPassedIntroduction = localStorage.getItem('hasPassedIntroduction')
+
+        if (!isTgCheck) {
+            navigate('/something_went_wrong')
+            return
+        }
 
         if (hasPassedIntroduction) {
             setShowIntroduction(false)
@@ -122,6 +137,12 @@ export const App: FC = () => {
             setIsSkippedIntroduction(true)
         }
     }, [])
+
+    useEffect(() => {
+        if (window.location.pathname === '/') {
+            TgObj.BackButton.hide()
+        }
+    }, [ window.location.pathname ])
 
     //= =======================================================================================================================================================
     const savedLanguage = localStorage.getItem('i18nextLng')
