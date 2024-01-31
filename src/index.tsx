@@ -15,7 +15,7 @@ const el = document.createElement('div')
 document.body.appendChild(el)
 
 root.render(
-    <TonConnectUIProvider manifestUrl="https://gist.github.com/anovic123/2ef0598e36883fa1ce7ef61b66b868de.txt">
+    <TonConnectUIProvider manifestUrl="https://gist.github.com/anovic123/877ea21972da920589c460075d9e6ddf.txt">
         <BrowserRouter>
             <App />
         </BrowserRouter>

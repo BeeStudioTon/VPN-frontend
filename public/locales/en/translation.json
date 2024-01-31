@@ -68,6 +68,8 @@
     "try-again": "Try Again",
     "loading": "Loading...",
     "not-active-plan": "Plan is not active",
-    "choose-plan": "Choose plan"
+    "choose-plan": "Choose plan",
+    "skip": "I'll connect later",
+    "skip-plan": "Skip plan"
   }
 }

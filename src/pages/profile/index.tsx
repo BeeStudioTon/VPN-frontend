@@ -118,18 +118,21 @@ export const Profile: FC<ProfileProps> = ({ rawAddress, selectedLanguage, setSel
                 </div>
             </div>
 
-            <Title variant="h3" className={s.title}>
-                {t('common.address')}
-            </Title>
-
-            <div className={s.action}>
-                <div className={`${s.accountAction} ${s.accountAddress}`}  onClick={() => {
-                    copy(rawAddress)
-                    setIsCopiedAddress(true)
-                }}>
-                    <div className={s.address}>{rawAddress} <SvgSelector id="copy" /></div>
-                </div>
-            </div>
+            {rawAddress && (
+                <>
+                    <Title variant="h3" className={s.title}>
+                        {t('common.address')}
+                    </Title>
+                    <div className={s.action}>
+                        <div className={`${s.accountAction} ${s.accountAddress}`}  onClick={() => {
+                            copy(rawAddress)
+                            setIsCopiedAddress(true)
+                        }}>
+                            <div className={s.address}>{rawAddress} <SvgSelector id="copy" /></div>
+                        </div>
+                    </div>
+                </>
+            )}
 
             <Title variant="h3" className={s.title}>
                 {t('common.language')}
@@ -199,19 +202,21 @@ export const Profile: FC<ProfileProps> = ({ rawAddress, selectedLanguage, setSel
             </Title>
 
             <div className={`${s.action}`}>
-                <motion.button
-                    className={`${s.actionButton}`}
-                    onClick={handleEditPlan}
-                    whileHover="hover"
-                    initial="nonHover"
-                >
-                    <SvgSelector id="usd2" />
-                    <div className={s.actionButtonInner}>
-                        <div className={`${s.accountAction} ${s.editPlan}`}>
-                            {t('common.edit-plan')}
+                {rawAddress && (
+                    <motion.button
+                        className={`${s.actionButton}`}
+                        onClick={handleEditPlan}
+                        whileHover="hover"
+                        initial="nonHover"
+                    >
+                        <SvgSelector id="usd2" />
+                        <div className={s.actionButtonInner}>
+                            <div className={`${s.accountAction} ${s.editPlan}`}>
+                                {t('common.edit-plan')}
+                            </div>
                         </div>
-                    </div>
-                </motion.button>
+                    </motion.button>
+                )}
                 <motion.button
                     className={`${s.actionButton}`}
                     onClick={handleExit}

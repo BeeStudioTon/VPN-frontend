@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable prefer-const */
 /* eslint-disable consistent-return */
 /* eslint-disable import/no-extraneous-dependencies */
@@ -178,6 +179,13 @@ export const Subscribe: FC<SubscribeProps> = ({ isTg, activeRate, setActiveRate,
         TgObj.MainButton.show()
 
         if (currentStep === 2) {
+            if (!rawAddress) {
+                TgObj.MainButton.text = t('common.connect-btn')
+                TgObj.MainButton.color = '#40a7e3'
+                TgObj.MainButton.enable()
+                return
+            }
+
             if (activeRate) {
                 TgObj.MainButton.text = t('common.next')
                 TgObj.MainButton.color = '#40a7e3'
@@ -217,6 +225,10 @@ export const Subscribe: FC<SubscribeProps> = ({ isTg, activeRate, setActiveRate,
 
     const handleBtn = async () => {
         if (currentStep === 2) {
+            if (!rawAddress) {
+                tonConnectUI.connectWallet()
+                return
+            }
             const price = activeRate?.price
 
             if (price === 0) {
@@ -307,6 +319,7 @@ export const Subscribe: FC<SubscribeProps> = ({ isTg, activeRate, setActiveRate,
                 activeRate={activeRate}
                 setActiveRate={setActiveRate}
                 isTg={isTg}
+                handleIntroductionClose={handleIntroductionClose}
             />}
 
             {currentStep === 3 && <Method

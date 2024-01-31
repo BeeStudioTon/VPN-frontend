@@ -15,11 +15,12 @@ import s from './first-step.module.scss'
 
 interface FirstStepProps {
     handleNextStep: () => void;
+    handleIntroductionClose: () => void;
     currentStep: number;
-    rawAddress: string | undefined
+    rawAddress: string | undefined;
 }
 
-export const FirstStep: FC<FirstStepProps> = ({ handleNextStep, currentStep, rawAddress }) => {
+export const FirstStep: FC<FirstStepProps> = ({ handleNextStep, currentStep, rawAddress, handleIntroductionClose }) => {
     const approveOptions: Options = {
         loop: true,
         autoplay: true,
@@ -56,6 +57,8 @@ export const FirstStep: FC<FirstStepProps> = ({ handleNextStep, currentStep, raw
                 <Text className={s.firstText}>{t('introduction.welcome-description2')}</Text>
 
                 <Button className={s.firstButton} onClick={() => tonConnectUI.connectWallet()}>{t('common.connect-btn')}</Button>
+
+                <Button className={s.skipButton} onClick={() => handleIntroductionClose()}>{t('common.skip')}</Button>
             </div>
         </div>
     )

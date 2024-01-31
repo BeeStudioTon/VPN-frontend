@@ -14,7 +14,7 @@
 .firstTitle {
   font-size: 28px;
   font-weight: 760;
-  margin: 40px 0 22px 0;
+  margin: 20px 0;
   text-align: center;
   color: var(--tg-theme-text-color);
   span {
@@ -32,5 +32,14 @@
 }
 
 .firstButton {
-  margin: 40px 0 10px 0;
+  margin: 20px 0 5px 0;
+}
+
+.skipButton {
+  background-color: transparent !important;
+  color: var(--tg-theme-hint-color) !important;
+  transition: all 0.3s ease 0s;
+  &:hover {
+    opacity: 0.8;
+  }
 }

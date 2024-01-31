@@ -118,7 +118,15 @@ export const Introduction: FC<IntroductionProps> = ({
     }, [ currentStep ])
     return (
         <div className={s.wrapper}>
-            {currentStep === 1 && <FirstStep currentStep={currentStep} handleNextStep={handleNextStep} rawAddress={rawAddress} />}
+            {currentStep === 1 && (
+                <FirstStep
+                    currentStep={currentStep}
+                    handleNextStep={handleNextStep}
+                    rawAddress={rawAddress}
+                    handleIntroductionClose={handleIntroductionClose}
+                />
+            )
+            }
             {(currentStep === 2 || currentStep === 3 || currentStep === 4) && (
                 <Subscribe
                     isTg={isTg}
