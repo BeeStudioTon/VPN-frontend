@@ -8,17 +8,20 @@ import { useTranslation } from 'react-i18next'
 import ReactCountryFlag from 'react-country-flag'
 import { motion } from 'framer-motion'
 
+import { UserType } from '../../@types/user'
+
 import { SvgSelector } from '../../assets/svg-selector'
 
 import s from './profile.module.scss'
 
 interface ProfileProps {
+    user: UserType | undefined
     rawAddress: string
     selectedLanguage: string
     setSelectedLanguage: (el: string) => void
 }
 
-export const Profile: FC<ProfileProps> = ({ rawAddress, selectedLanguage, setSelectedLanguage }) => {
+export const Profile: FC<ProfileProps> = ({ rawAddress, user, selectedLanguage, setSelectedLanguage }) => {
     const { t } = useTranslation()
 
     const TgObj = WebApp
@@ -202,7 +205,8 @@ export const Profile: FC<ProfileProps> = ({ rawAddress, selectedLanguage, setSel
             </Title>
 
             <div className={`${s.action}`}>
-                {rawAddress && (
+                {/* @ts-ignore */}
+                {rawAddress && (user?.user?.type_subscribe === 0 || user !== undefined || user?.user?.end_sub === 1) && (
                     <motion.button
                         className={`${s.actionButton}`}
                         onClick={handleEditPlan}

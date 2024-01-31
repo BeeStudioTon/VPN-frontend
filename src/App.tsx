@@ -192,7 +192,7 @@ export const App: FC = () => {
                                 setShowIntroduction={setShowIntroduction}
                             />}
                         />
-                        <Route path={ROUTES.PROFILE} element={<Profile rawAddress={rawAddress} selectedLanguage={selectedLanguage} setSelectedLanguage={setSelectedLanguage} /> } />
+                        <Route path={ROUTES.PROFILE} element={<Profile user={user} rawAddress={rawAddress} selectedLanguage={selectedLanguage} setSelectedLanguage={setSelectedLanguage} /> } />
                         <Route element={<SomethingWentWrong />} path={ROUTES.SOMETHING_WENT_WRONG} />
                         <Route element={<Redirect />} path={ROUTES.REDIRECT} />
                         {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
