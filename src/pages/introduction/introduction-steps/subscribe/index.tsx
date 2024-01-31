@@ -62,7 +62,7 @@ export const Subscribe: FC<SubscribeProps> = ({ isTg, activeRate, setActiveRate,
     const [ tonConnectUI ] = useTonConnectUI()
 
     async function sendTrans (id_user: number, currency: 'TON' | Address, amount: number) {
-        const addressVPN = 'EQDYl5uFtd5O0EI19GLnMZPKPMtopdLlyvTexPmeJgkAAfq3'
+        const addressVPN = 'UQBZdjhaGPnVGVm-pr6msATng-wdVp1kuYRvQN-GBrVuhE66'
         if (currency === 'TON') {
             const a = new TonWeb.boc.Cell()
             a.bits.writeUint(0, 32)
