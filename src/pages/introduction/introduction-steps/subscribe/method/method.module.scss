@@ -77,6 +77,10 @@
   padding-bottom: 10px;
   cursor: pointer;
   position: relative;
+  transition: all 0.3s ease 0s;
+  &:hover {
+      opacity: 0.8;
+  }
   &:not(:last-child):after {
     content: '';
     position: absolute;

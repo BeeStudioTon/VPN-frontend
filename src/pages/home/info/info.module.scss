@@ -3,6 +3,10 @@
   background: var(--tg-theme-bg-color);
   padding: 19px 24px;
   border-radius: 12px;
+  transition: all 0.3s ease 0s;
+  &:hover {
+    opacity: 0.8;
+  }
   .user {
     display: flex;
     align-items: center;
