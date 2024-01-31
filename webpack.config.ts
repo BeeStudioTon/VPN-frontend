@@ -1,8 +1,8 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
 import { Configuration, SourceMapDevToolPlugin, ProvidePlugin } from 'webpack'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
 import * as path from 'path'
 import 'webpack-dev-server'
 
@@ -48,26 +48,27 @@ const config: Configuration = {
             },
             {
                 test: /\.(css|scss)$/,
-                use: [ 'style-loader', 'css-loader', 'sass-loader' ]
+                use: ['style-loader', 'css-loader', 'sass-loader']
             },
             {
                 test: /\.js$/,
                 enforce: 'pre',
-                use: [ 'source-map-loader' ]
+                use: ['source-map-loader']
             },
             {
                 test: /\.(jpe?g|gif|png|svg)$/i,
-                exclude: /\.svg$/,
                 use: [
                     {
                         loader: 'file-loader',
-                        options: { limit: 10000 }
+                        options: {
+                            limit: 10000
+                        }
                     }
                 ]
             },
             {
                 test: /\.svg$/,
-                use: [ '@svgr/webpack' ]
+                use: ['@svgr/webpack']
             }
         ]
     },
@@ -89,13 +90,14 @@ const config: Configuration = {
         }),
         new CopyWebpackPlugin({
             patterns: [
-                { from: 'public/locales', to: 'locales' },
-            ],
+                { from: 'public/locales', to: 'locales' }
+            ]
         }),
     ],
     resolve: {
-        extensions: [ '.ts', '.tsx', '.js' ],
-        alias: { process: 'process/browser.js',
+        extensions: ['.ts', '.tsx', '.js'],
+        alias: {
+            process: 'process/browser.js',
             // react: require.resolve("react"),
             // 'react-dom': require.resolve('react-dom')
         },
@@ -108,11 +110,11 @@ const config: Configuration = {
             https: require.resolve('https-browserify'),
             os: require.resolve('os-browserify'),
             url: require.resolve('url'),
-            // path: require.resolve('path-browserify'),
-            // vm: require.resolve('vm-browserify'),
-            // module: require.resolve('module'),
-            // console: require.resolve('console-browserify'),
-            // constants: require.resolve('constants-browserify')
+            path: require.resolve('path-browserify'),
+            vm: require.resolve('vm-browserify'),
+            module: require.resolve('module'),
+            console: require.resolve('console-browserify'),
+            constants: require.resolve('constants-browserify')
         }
     }
 }
