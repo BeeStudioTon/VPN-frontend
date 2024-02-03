@@ -1,12 +1,11 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
 import { Configuration, SourceMapDevToolPlugin, ProvidePlugin } from 'webpack'
-import CopyWebpackPlugin from 'copy-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
-import * as path from 'path'
+import path from 'path'
 import 'webpack-dev-server'
 
-const { IgnorePlugin } = require('webpack');
+const { IgnorePlugin } = require('webpack')
 
 const config: Configuration = {
     mode: 'none',
@@ -24,9 +23,7 @@ const config: Configuration = {
             'Access-Control-Allow-Methods': '*'
         },
         historyApiFallback: true,
-        client: {
-            overlay: false,
-        }
+        client: { overlay: false }
     },
     module: {
         rules: [
@@ -34,45 +31,40 @@ const config: Configuration = {
                 test: /\.tsx?$/,
                 loader: 'ts-loader',
                 exclude: /node_modules/,
-                options: {
-                    allowTsInNodeModules: true,
-                },
+                options: { allowTsInNodeModules: true }
             },
             {
                 test: /\.tsx?$/,
                 include: /node_modules/,
                 loader: 'ts-loader',
-                options: {
-                    allowTsInNodeModules: true,
-                },
+                options: { allowTsInNodeModules: true }
             },
             {
                 test: /\.(css|scss)$/,
-                use: ['style-loader', 'css-loader', 'sass-loader']
+                use: [ 'style-loader', 'css-loader', 'sass-loader' ]
             },
             {
                 test: /\.js$/,
                 enforce: 'pre',
-                use: ['source-map-loader']
+                use: [ 'source-map-loader' ]
             },
             {
                 test: /\.(jpe?g|gif|png|svg)$/i,
+                exclude: /\.svg$/,
                 use: [
                     {
                         loader: 'file-loader',
-                        options: {
-                            limit: 10000
-                        }
+                        options: { limit: 10000 }
                     }
                 ]
             },
             {
                 test: /\.svg$/,
-                use: ['@svgr/webpack']
+                use: [ '@svgr/webpack' ]
             }
         ]
     },
-    ignoreWarnings: [/Failed to parse source map/],
+    ignoreWarnings: [ /Failed to parse source map/ ],
     output: {
         filename: '[name].js',
         path: path.resolve(__dirname, 'build'),
@@ -81,23 +73,14 @@ const config: Configuration = {
     plugins: [
         new HtmlWebpackPlugin({ template: path.join(__dirname, 'public', 'index.html') }),
         new SourceMapDevToolPlugin({ filename: '[file].map' }),
-        new ProvidePlugin({
-            Buffer: ['buffer', 'Buffer'],
-        }),
+        new ProvidePlugin({ Buffer: [ 'buffer', 'Buffer' ] }),
         new ProvidePlugin({ process: 'process/browser.js' }),
-        new IgnorePlugin({
-            resourceRegExp: /^node:(crypto|stream)$/,
-        }),
-        new CopyWebpackPlugin({
-            patterns: [
-                { from: 'public/locales', to: 'locales' }
-            ]
-        }),
+        new IgnorePlugin({ resourceRegExp: /^node:/ })
     ],
     resolve: {
-        extensions: ['.ts', '.tsx', '.js'],
+        extensions: [ '.ts', '.tsx', '.js' ],
         alias: {
-            process: 'process/browser.js',
+            process: 'process/browser.js'
             // react: require.resolve("react"),
             // 'react-dom': require.resolve('react-dom')
         },
