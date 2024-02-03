@@ -24,7 +24,7 @@ export const Traffic: FC<TrafficProps> = ({ limit = 0, used = 0, userLoading, is
     } else if (percentageUsed >= 10 && percentageUsed <= 70) {
         backgroundStyle = '#F67B22'
     } else {
-        backgroundStyle = 'var(--tg-theme-button-color)'
+        backgroundStyle = '#007AFF'
     }
 
     return (

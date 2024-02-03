@@ -6,7 +6,7 @@ import WebAppSDK from '@twa-dev/sdk'
 import copy from 'copy-to-clipboard'
 import { useTranslation } from 'react-i18next'
 
-import { Alert } from '@delab-team/de-ui'
+import { Alert, Div } from '@delab-team/de-ui'
 
 import { smlAddr } from '../../../utils/smlAddr'
 import { ROUTES } from '../../../utils/router'
@@ -67,12 +67,12 @@ export const Info: FC<InfoProps> = ({ rawAddress }) => {
                     </div>
                     <div className={s.userInfo}>
                         <div className={s.userName}>
-                            <div>
+                            <Div tgStyles={{ color: 'var(--tg-theme-text-color)' }}>
                                 {TgObj?.initDataUnsafe?.user?.first_name}
-                            </div>
-                            <div>
+                            </Div>
+                            <Div tgStyles={{ color: 'var(--tg-theme-text-color)' }}>
                                 {TgObj?.initDataUnsafe?.user?.last_name}
-                            </div>
+                            </Div>
                         </div>
                         <div
                             className={s.userAddress}

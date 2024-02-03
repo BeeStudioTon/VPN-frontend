@@ -42,8 +42,10 @@
       flex-wrap: wrap;
       font-size: 20px;
       font-weight: 410;
-      color: var(--tg-theme-text-color);
       margin-bottom: 1px;
+      > div {
+        color: var(--tg-theme-text-color);
+      }
       @media (max-width: 360px) {
         font-size: 18px;
       }

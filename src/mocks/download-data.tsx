@@ -12,7 +12,7 @@ export const DownloadData = [
     },
     {
         name: 'macOS',
-        link: 'https://itunes.apple.com/app/outline-app/id1356178125',
+        link: 'https://apps.apple.com/ru/app/outline-secure-internet-access/id1356178125?l=en-GB&mt=12',
         icon: <MACOS />
     },
     {

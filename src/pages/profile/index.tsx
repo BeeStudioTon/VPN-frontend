@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { FC, useEffect, useState } from 'react'
-import { Alert, Text, Title } from '@delab-team/de-ui'
+import { Alert, Div, Text, Title } from '@delab-team/de-ui'
 import { useNavigate } from 'react-router-dom'
 import WebApp from '@twa-dev/sdk'
 import copy from 'copy-to-clipboard'
@@ -113,12 +113,12 @@ export const Profile: FC<ProfileProps> = ({ rawAddress, user, selectedLanguage, 
                 {failedLoadAvatar && <div className={s.avatar}>{TgObj?.initDataUnsafe?.user?.username?.slice(0, 2)}</div>}
                 <div>
                     <div className={s.name}>
-                        <div>
+                        <Div tgStyles={{ color: 'var(--tg-theme-text-color)' }}>
                             {TgObj?.initDataUnsafe?.user?.first_name}
-                        </div>
-                        <div>
+                        </Div>
+                        <Div tgStyles={{ color: 'var(--tg-theme-text-color)' }}>
                             {TgObj?.initDataUnsafe?.user?.last_name}
-                        </div>
+                        </Div>
                     </div>
                     <div className={s.username} onClick={() => setIsCopiedUsername(true)}>
                       @{TgObj?.initDataUnsafe?.user?.username}

@@ -90,9 +90,7 @@ export const Home: FC<HomeProps> = ({
     )
 
     const isPaidUser = () => {
-        if (user?.user?.type_subscribe === 1 || user?.user?.type_subscribe === 2 || user?.user?.type_subscribe === 4) {
-            return true
-        } if (user?.user?.type_subscribe === 3) {
+        if ((user?.user?.type_subscribe === 1 || user?.user?.type_subscribe === 2 || user?.user?.type_subscribe === 4 || user?.user?.type_subscribe === 3) && user?.user?.end_sub !== 1) {
             return true
         } if (user?.user?.type_subscribe === 0 || user?.user?.end_sub === 1) {
             return false
