@@ -155,7 +155,7 @@ export const Home: FC<HomeProps> = ({
     const handleButton = () => {
         if (
             // @ts-ignore
-            (user?.user?.type_subscribe === 3 && user?.user?.type_subscribe !== 0) || user?.user?.end_sub !== 1
+            (user?.user?.type_subscribe === 3 || user?.user?.type_subscribe !== 0) || user?.user?.end_sub !== 1
         ) {
             handleConnectServer()
             return
@@ -249,7 +249,7 @@ export const Home: FC<HomeProps> = ({
                         ? t('common.loading')
                         : (
                             // @ts-ignore
-                            (user?.user?.type_subscribe === 3 && user?.user?.type_subscribe !== 0) || user?.user?.end_sub !== 1
+                            (user?.user?.type_subscribe === 3 || user?.user?.type_subscribe !== 0) || user?.user?.end_sub !== 1
                                 ? t('common.connect')
                                 : t('common.select-plan')
                         )
