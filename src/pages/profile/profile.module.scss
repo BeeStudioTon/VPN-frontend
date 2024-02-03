@@ -153,6 +153,15 @@
   color: var(--tg-theme-text-color);
   text-align: center;
   margin-bottom: 1px;
+
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+  justify-content: center;
+  @media (max-width: 360px) {
+    font-size: 18px;
+  }
 }
 
 .alert {

@@ -47,7 +47,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    flex-wrap: wrap;
     gap: 10px;
   }
   &Title {
@@ -56,6 +55,7 @@
     margin-bottom: 7px;
     text-transform: uppercase;
   }
+  // @media (max-width: )
 }
 
 .loading {

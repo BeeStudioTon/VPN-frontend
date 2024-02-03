@@ -113,7 +113,12 @@ export const Profile: FC<ProfileProps> = ({ rawAddress, user, selectedLanguage, 
                 {failedLoadAvatar && <div className={s.avatar}>{TgObj?.initDataUnsafe?.user?.username?.slice(0, 2)}</div>}
                 <div>
                     <div className={s.name}>
-                        {TgObj?.initDataUnsafe?.user?.first_name} {TgObj?.initDataUnsafe?.user?.last_name}
+                        <div>
+                            {TgObj?.initDataUnsafe?.user?.first_name}
+                        </div>
+                        <div>
+                            {TgObj?.initDataUnsafe?.user?.last_name}
+                        </div>
                     </div>
                     <div className={s.username} onClick={() => setIsCopiedUsername(true)}>
                       @{TgObj?.initDataUnsafe?.user?.username}

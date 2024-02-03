@@ -67,8 +67,12 @@ export const Info: FC<InfoProps> = ({ rawAddress }) => {
                     </div>
                     <div className={s.userInfo}>
                         <div className={s.userName}>
-                            {TgObj?.initDataUnsafe?.user?.first_name}
-                            {TgObj?.initDataUnsafe?.user?.last_name}
+                            <div>
+                                {TgObj?.initDataUnsafe?.user?.first_name}
+                            </div>
+                            <div>
+                                {TgObj?.initDataUnsafe?.user?.last_name}
+                            </div>
                         </div>
                         <div
                             className={s.userAddress}

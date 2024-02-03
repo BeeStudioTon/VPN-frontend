@@ -89,6 +89,18 @@ export const Home: FC<HomeProps> = ({
         undefined
     )
 
+    const isPaidUser = () => {
+        if (user?.user?.type_subscribe === 1 || user?.user?.type_subscribe === 2 || user?.user?.type_subscribe === 4) {
+            return true
+        } if (user?.user?.type_subscribe === 3) {
+            return true
+        } if (user?.user?.type_subscribe === 0 || user?.user?.end_sub === 1) {
+            return false
+        }
+    }
+
+    const isPaid = isPaidUser()
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -153,8 +165,7 @@ export const Home: FC<HomeProps> = ({
     }
 
     const handleButton = () => {
-        if (
-            (user?.user?.type_subscribe !== 0 && user?.user?.type_subscribe === 3) || user?.user?.end_sub !== 1) {
+        if (isPaid) {
             handleConnectServer()
             return
         }
@@ -188,7 +199,7 @@ export const Home: FC<HomeProps> = ({
                     </>
                 ) : (
                     <>
-                        {(user?.user?.type_subscribe !== 0 && user?.user?.type_subscribe === 3) || user?.user?.end_sub !== 1 ? (
+                        {isPaid ? (
                             <>
                                 <Lottie
                                     options={approveOptions}
@@ -241,13 +252,13 @@ export const Home: FC<HomeProps> = ({
                     {userLoading
                         ? t('common.loading')
                         : (
-                            (user?.user?.type_subscribe !== 0 && user?.user?.type_subscribe === 3) || user?.user?.end_sub !== 1
+                            isPaid
                                 ? t('common.connect')
                                 : t('common.select-plan')
                         )
                     }
                 </Button>
-                {(user?.user?.type_subscribe !== 0 && user?.user?.type_subscribe === 3) || user?.user?.end_sub !== 1 ? (
+                {isPaid ? (
                     <Button
                         className={s.downloadButton}
                         onClick={() => setShowDownloadModal(true)}
@@ -263,7 +274,7 @@ export const Home: FC<HomeProps> = ({
                     <Title variant="h3" className={s.trafficTitle}>
                         {t('home.traffic-title')}
                     </Title>
-                    { (user?.user?.type_subscribe !== 0 && user?.user?.type_subscribe === 3) || user?.user?.end_sub !== 1 ? (
+                    {isPaid ? (
                         <Title variant="h3" className={s.trafficTitle}>
                             {t('home.traffic-update-in')}{' '}
                             {calculateDaysFromTimestamp(user?.user?.date_subscribe)}{' '}
