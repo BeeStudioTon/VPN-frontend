@@ -15,31 +15,17 @@ export const tokensData = [
         tokenAddress: [ '0:f6eb371de82aa9cfb5b22ca547f31fdc0fa0fbb41ae89ba84a73272ff0bf2157', '0:c288b9102a934e1a93435f6a194470da340559a95e9c9816c682ccff2215149d' ]
     },
     {
+        token: 'ARBUZ',
+        tokenLogo: 'https://cache.tonapi.io/imgproxy/DPjV-M30WgZW_b9-jr3XKe47Fo_9YA8A7NyP55Irj-8/rs:fill:200:200:1/g:no/aHR0cHM6Ly9pLnBvc3RpbWcuY2MvWEpnVmY3cGIvYXJiLnBuZw.webp',
+        amount: '0',
+        amountUSD: '0.00',
+        tokenAddress: [ '0:0cd8a583a7d94dd18bf1bdf49b234af28c15f033bd2b6a4a4d2076ee1136ad45', '0:0cd8a583a7d94dd18bf1bdf49b234af28c15f033bd2b6a4a4d2076ee1136ad45' ]
+    },
+    {
         token: 'KINGY',
         tokenLogo: 'https://i.ibb.co/FbTCKRP/logotokenkingy.png',
         amount: '0',
         amountUSD: '0.00',
         tokenAddress: [ '0:beb5d4638e860ccf7317296e298fde5b35982f4725b0676dc98b1de987b82ebc', '0:d6170e963839321ab3c77e50bdc4c99101a9a9e17ad84544229e65a344685850' ]
-    },
-    {
-        token: 'DHD',
-        tokenLogo: 'https://raw.githubusercontent.com/DHDcoin/website/main/LOGO.png',
-        amount: '0',
-        amountUSD: '0.00',
-        tokenAddress: [ '0:421705bcb85521f9a99d466358f4dc9e0c469e0d85ddf608091ac89ca6a55c1e', '0:d6170e963839321ab3c77e50bdc4c99101a9a9e17ad84544229e65a344685850' ]
-    },
-    {
-        token: 'SCALE',
-        tokenLogo: 'https://cache.tonapi.io/imgproxy/jHx0m3tMBFj9z9vLy1cooH_v8DIi_2Zi43RLxyfga3g/rs:fill:200:200:1/g:no/aXBmczovL1FtU01pWHNaWU1lZndyVFEzUDZIbkRRYUNwZWNTNEVXTHBnS0s1RVgxRzhpQTg.webp',
-        amount: '0',
-        amountUSD: '0.00',
-        tokenAddress: [ '0:65aac9b5e380eae928db3c8e238d9bc0d61a9320fdc2bc7a2f6c87d6fedf9208', '0:d6170e963839321ab3c77e50bdc4c99101a9a9e17ad84544229e65a344685850' ]
-    },
-    {
-        token: 'BOLT',
-        tokenLogo: 'https://ton.app/media/jetton-d4419656-5067-4923-8f44-7ffd3da69242.jpg',
-        amount: '0',
-        amountUSD: '0.00',
-        tokenAddress: [ '0:f4bdd480fcd79d47dbaf6e037d1229115feb2e7ac0f119e160ebd5d031abdf2e', '0:d6170e963839321ab3c77e50bdc4c99101a9a9e17ad84544229e65a344685850' ]
     }
 ]
