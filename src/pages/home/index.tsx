@@ -155,7 +155,7 @@ export const Home: FC<HomeProps> = ({
     const handleButton = () => {
         if (
             // @ts-ignore
-            (user?.user?.type_subscribe === 3 || user?.user?.type_subscribe !== 0) || user?.user?.end_sub !== 1
+            (user?.user?.type_subscribe === 3 && user?.user?.type_subscribe !== 0) || user?.user?.end_sub !== 1
         ) {
             handleConnectServer()
             return
@@ -249,22 +249,21 @@ export const Home: FC<HomeProps> = ({
                         ? t('common.loading')
                         : (
                             // @ts-ignore
-                            (user?.user?.type_subscribe === 3 || user?.user?.type_subscribe !== 0) || user?.user?.end_sub !== 1
+                            (user?.user?.type_subscribe === 3 && user?.user?.type_subscribe !== 0) || user?.user?.end_sub !== 1
                                 ? t('common.connect')
                                 : t('common.select-plan')
                         )
                     }
                 </Button>
-                {user?.user?.type_subscribe !== 0
-                    && user !== undefined
-                    && user?.user?.end_sub !== 1 && (
+                {/* @ts-ignore */}
+                {(user?.user?.type_subscribe === 3 && user?.user?.type_subscribe !== 0) || user?.user?.end_sub !== 1 ? (
                     <Button
                         className={s.downloadButton}
                         onClick={() => setShowDownloadModal(true)}
                     >
                         <SvgSelector id="download" />
                     </Button>
-                )}
+                ) : <></>}
             </div>
 
             <div className={s.traffic}>
@@ -278,8 +277,6 @@ export const Home: FC<HomeProps> = ({
                     isTg={isTg}
                     userLoading={userLoading}
                 />
-
-                {/* <button onClick={() => handleConnect('ss://y2hhy2hhmjatawv0zi1wb2x5mtmwntpwakn5bllyng5intm0tkjhwhhvchpp@178.62.200.20:51203/?outline=1')}>Open</button> */}
             </div>
         </>
     )
