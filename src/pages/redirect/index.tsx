@@ -17,15 +17,19 @@ export const Redirect: FC<RedirectProps> = () => {
             return
         }
 
-        const decodeURI = decodeURIComponent(decodedUrl)
-        // alert(decodeURI)
+        try {
+            const decodedURI = decodeURIComponent(decodedUrl)
 
-        const iframe: HTMLIFrameElement = document.createElement('iframe')
-        iframe.style.display = 'none'
+            const iframe: HTMLIFrameElement = document.createElement('iframe')
+            iframe.style.display = 'none'
 
-        document.body.appendChild(iframe)
+            document.body.appendChild(iframe)
 
-        iframe.contentWindow?.location.replace(decodeURI)
+            iframe.contentWindow?.location.replace(decodedURI)
+        } catch (error) {
+            console.error('Error decoding URL:', error)
+            alert('Error decoding URL: ' + error.message)
+        }
     }, [ urlSearch ])
 
     return (
