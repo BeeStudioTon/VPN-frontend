@@ -28,7 +28,7 @@ export const Redirect: FC<RedirectProps> = () => {
             iframe.contentWindow?.location.replace(decodedURI)
         } catch (error) {
             console.error('Error decoding URL:', error)
-            alert('Error decoding URL: ' + error.message)
+            alert('Error decoding URL: ' + error)
         }
     }, [ urlSearch ])
 
