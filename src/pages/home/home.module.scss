@@ -22,12 +22,18 @@
 .connectInner {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 8px;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .downloadButton {
-  width: max-content !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 100%;
+  border-radius: 12px;
+  color: #007AFF !important;
   background: rgba(0, 122, 255, 0.15) !important;
   transition: all 0.3s ease 0s;
   &:hover {
@@ -36,12 +42,17 @@
 }
 
 .traffic {
-  margin-top: 34px;
+  margin-top: 30px;
+  &Top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
   &Title {
     font-size: 13px;
     color: var(--tg-theme-hint-color);
     margin-bottom: 7px;
-    padding-left: 16px;
     text-transform: uppercase;
   }
 }

@@ -154,9 +154,7 @@ export const Home: FC<HomeProps> = ({
 
     const handleButton = () => {
         if (
-            // @ts-ignore
-            (user?.user?.type_subscribe === 3 && user?.user?.type_subscribe !== 0) || user?.user?.end_sub !== 1
-        ) {
+            (user?.user?.type_subscribe !== 0 && user?.user?.type_subscribe === 3) || user?.user?.end_sub !== 1) {
             handleConnectServer()
             return
         }
@@ -182,16 +180,15 @@ export const Home: FC<HomeProps> = ({
                     <>
                         <Lottie
                             options={approveOptions3}
-                            height={190}
+                            height={180}
                             isClickToPauseDisabled={true}
-                            width={190}
+                            width={180}
                         />
                         <Text className={s.loading}>{t('common.loading')}</Text>
                     </>
                 ) : (
                     <>
-                        {/* @ts-ignore */}
-                        {(user?.user?.type_subscribe === 3 && user?.user?.type_subscribe !== 0) || user?.user?.end_sub !== 1 ? (
+                        {(user?.user?.type_subscribe !== 0 && user?.user?.type_subscribe === 3) || user?.user?.end_sub !== 1 ? (
                             <>
                                 <Lottie
                                     options={approveOptions}
@@ -208,20 +205,16 @@ export const Home: FC<HomeProps> = ({
                                     {t('home.ready-to-connect')}
                                 </Title>
                                 <Text className={s.statusText}>
-                                    {t('home.traffic-update-in')}{' '}
-                                    {calculateDaysFromTimestamp(user?.user?.date_subscribe)}{' '}
-                                    {calculateDaysFromTimestamp(user?.user?.date_subscribe) > 1
-                                        ? t('home.days')
-                                        : t('home.day')}
+                                    {t('common.download-text')}
                                 </Text>
                             </>
                         ) : (
                             <>
                                 <Lottie
                                     options={approveOptions2}
-                                    height={190}
+                                    height={180}
                                     isClickToPauseDisabled={true}
-                                    width={190}
+                                    width={180}
                                 />
 
                                 <Title variant="h2" className={s.statusTitle}>
@@ -248,28 +241,39 @@ export const Home: FC<HomeProps> = ({
                     {userLoading
                         ? t('common.loading')
                         : (
-                            // @ts-ignore
-                            (user?.user?.type_subscribe === 3 && user?.user?.type_subscribe !== 0) || user?.user?.end_sub !== 1
+                            (user?.user?.type_subscribe !== 0 && user?.user?.type_subscribe === 3) || user?.user?.end_sub !== 1
                                 ? t('common.connect')
                                 : t('common.select-plan')
                         )
                     }
                 </Button>
-                {/* @ts-ignore */}
-                {(user?.user?.type_subscribe === 3 && user?.user?.type_subscribe !== 0) || user?.user?.end_sub !== 1 ? (
+                {(user?.user?.type_subscribe !== 0 && user?.user?.type_subscribe === 3) || user?.user?.end_sub !== 1 ? (
                     <Button
                         className={s.downloadButton}
                         onClick={() => setShowDownloadModal(true)}
                     >
                         <SvgSelector id="download" />
+                        {t('common.download-app')}
                     </Button>
                 ) : <></>}
             </div>
 
             <div className={s.traffic}>
-                <Title variant="h3" className={s.trafficTitle}>
-                    {t('home.traffic-title')}
-                </Title>
+                <div className={s.trafficTop}>
+                    <Title variant="h3" className={s.trafficTitle}>
+                        {t('home.traffic-title')}
+                    </Title>
+                    { (user?.user?.type_subscribe !== 0 && user?.user?.type_subscribe === 3) || user?.user?.end_sub !== 1 ? (
+                        <Title variant="h3" className={s.trafficTitle}>
+                            {t('home.traffic-update-in')}{' '}
+                            {calculateDaysFromTimestamp(user?.user?.date_subscribe)}{' '}
+                            {calculateDaysFromTimestamp(user?.user?.date_subscribe) > 1
+                                ? t('home.days')
+                                : t('home.day')}
+                        </Title>) : (
+                        <></>
+                    )}
+                </div>
 
                 <Traffic
                     limit={user?.infoUser.limit}

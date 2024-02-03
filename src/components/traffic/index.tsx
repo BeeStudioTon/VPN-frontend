@@ -5,7 +5,7 @@ import { formatDataSize } from '../../utils/format-data-size'
 
 import s from './traffic.module.scss'
 import { SvgSelector } from '../../assets/svg-selector'
-import { SkeletonInfo } from '../skeleton-info';
+import { SkeletonInfo } from '../skeleton-info'
 
 interface TrafficProps {
     limit: number | undefined;
@@ -47,7 +47,7 @@ export const Traffic: FC<TrafficProps> = ({ limit = 0, used = 0, userLoading, is
                 </button> */}
             </div>
             <div className={s.progressBar}>
-                <div className={s.progressBarLine} style={{ width: `${percentageUsed}%`, background: userLoading ? 'transparent' : backgroundStyle }}></div>
+                <div className={s.progressBarLine} style={{ width: `${100 - percentageUsed}%`, background: userLoading ? 'transparent' : backgroundStyle }}></div>
             </div>
         </div>
     )

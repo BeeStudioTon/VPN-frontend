@@ -20,9 +20,9 @@
     }
   },
   "home": {
-    "traffic-title": "Traffic left",
+    "traffic-title": "Traffic used",
     "ready-to-connect": "Ready to connect",
-    "traffic-update-in": "TRAFFIC UPDATE IN",
+    "traffic-update-in": "Update in",
     "day": "Day",
     "days": "Days"
   },
@@ -71,6 +71,8 @@
     "choose-plan": "Choose plan",
     "skip": "I'll connect later",
     "skip-plan": "Skip plan",
-    "error-tg": "This application is only available in Telegram"
+    "error-tg": "This application is only available in Telegram",
+    "download-app": "Download App",
+    "download-text": "Download the app before connecting"
   }
 }
