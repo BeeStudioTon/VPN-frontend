@@ -18,9 +18,14 @@ export const Redirect: FC<RedirectProps> = () => {
         }
 
         const decodeURI = decodeURIComponent(decodedUrl)
-        alert(decodeURI)
+        // alert(decodeURI)
 
-        window.open(decodeURI, '_blank')
+        const iframe: HTMLIFrameElement = document.createElement('iframe')
+        iframe.style.display = 'none'
+
+        document.body.appendChild(iframe)
+
+        iframe.contentWindow?.location.replace(decodeURI)
     }, [ urlSearch ])
 
     return (

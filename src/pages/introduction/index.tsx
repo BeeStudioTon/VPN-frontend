@@ -79,6 +79,7 @@ export const Introduction: FC<IntroductionProps> = ({
         localStorage.removeItem('skippedIntroduction')
         setShowIntroduction(false)
         setCurrentStep(1)
+        TgObj.MainButton.hide()
         navigate('/')
         // window.location.pathname = '/'
     }

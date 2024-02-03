@@ -145,9 +145,8 @@ export const Home: FC<HomeProps> = ({ user, keysData, isSkippedIntroduction, use
 
     const handleButton = () => {
         if (
-            user?.user?.type_subscribe !== 0
-            && user !== undefined
-            && user?.user?.end_sub !== 1
+            // @ts-ignore
+            user?.user?.type_subscribe !== 3 || user !== undefined || user?.user?.end_sub !== 1
         ) {
             handleConnectServer()
             return
@@ -182,7 +181,8 @@ export const Home: FC<HomeProps> = ({ user, keysData, isSkippedIntroduction, use
                     </>
                 ) : (
                     <>
-                        {user?.user?.type_subscribe !== 0 && user !== undefined && user?.user?.end_sub !== 1 ? (
+                        {/* @ts-ignore */}
+                        {user?.user?.type_subscribe !== 3 || user !== undefined || user?.user?.end_sub !== 1 ? (
                             <>
                                 <Lottie
                                     options={approveOptions}
@@ -227,7 +227,8 @@ export const Home: FC<HomeProps> = ({ user, keysData, isSkippedIntroduction, use
                     disabled={userLoading}
                 >
                     {userLoading ? t('common.loading') : (
-                        user?.user?.type_subscribe !== 0 && user !== undefined && user?.user?.end_sub !== 1 ? t('common.connect') : t('common.select-plan')
+                        // @ts-ignore
+                        user?.user?.type_subscribe !== 3 || user !== undefined || user?.user?.end_sub !== 1 ? t('common.connect') : t('common.select-plan')
                     )}
                 </Button>
                 {user?.user?.type_subscribe !== 0 && user !== undefined && user?.user?.end_sub !== 1 && <Button className={s.downloadButton} onClick={() => setShowDownloadModal(true)}><SvgSelector id="download" /></Button>}
@@ -239,7 +240,7 @@ export const Home: FC<HomeProps> = ({ user, keysData, isSkippedIntroduction, use
                 </Title>
 
                 <Traffic limit={user?.infoUser.limit} used={user?.infoUser.used} isTg={isTg} userLoading={userLoading} />
-                        
+
                 {/* <button onClick={() => handleConnect('ss://y2hhy2hhmjatawv0zi1wb2x5mtmwntpwakn5bllyng5intm0tkjhwhhvchpp@178.62.200.20:51203/?outline=1')}>Open</button> */}
             </div>
         </>
