@@ -31,16 +31,23 @@ import * as loadingSticker from '../../assets/stickers/loading.json'
 import s from './home.module.scss'
 
 interface HomeProps {
-    user: UserType | undefined
-    userLoading: boolean
-    keysData: GetActiveServerType[] | undefined
-    isTg: boolean
-    isSkippedIntroduction: boolean
-    rawAddress: string
+    user: UserType | undefined;
+    userLoading: boolean;
+    keysData: GetActiveServerType[] | undefined;
+    isTg: boolean;
+    isSkippedIntroduction: boolean;
+    rawAddress: string;
 }
 
 const iconsTgStyles = { stroke: 'var(--tg-theme-button-text-color)' }
-export const Home: FC<HomeProps> = ({ user, keysData, isSkippedIntroduction, userLoading, isTg, rawAddress }) => {
+export const Home: FC<HomeProps> = ({
+    user,
+    keysData,
+    isSkippedIntroduction,
+    userLoading,
+    isTg,
+    rawAddress
+}) => {
     const approveOptions: Options = {
         loop: true,
         autoplay: true,
@@ -78,7 +85,9 @@ export const Home: FC<HomeProps> = ({ user, keysData, isSkippedIntroduction, use
     const [ selectedServer, setSelectedServer ] = useState<ServersType | undefined>(undefined)
 
     // Connect Server
-    const [ connectServerData, setConnectServerData ] = useState<GetActiveServerType | undefined>(undefined)
+    const [ connectServerData, setConnectServerData ] = useState<GetActiveServerType | undefined>(
+        undefined
+    )
 
     useEffect(() => {
         const fetchData = async () => {
@@ -101,7 +110,7 @@ export const Home: FC<HomeProps> = ({ user, keysData, isSkippedIntroduction, use
         if (!selectedServer) return
         if (!connectServerData) {
             try {
-                const keyData = await vpn.getKey(selectedServer?.id) as GetActiveServerType
+                const keyData = (await vpn.getKey(selectedServer?.id)) as GetActiveServerType
 
                 setConnectServerData(keyData)
             } catch (error) {
@@ -146,7 +155,7 @@ export const Home: FC<HomeProps> = ({ user, keysData, isSkippedIntroduction, use
     const handleButton = () => {
         if (
             // @ts-ignore
-            user?.user?.type_subscribe !== 3 || user !== undefined || user?.user?.end_sub !== 1
+            (user?.user?.type_subscribe === 3 && user?.user?.type_subscribe !== 0) || user?.user?.end_sub !== 1
         ) {
             handleConnectServer()
             return
@@ -182,7 +191,7 @@ export const Home: FC<HomeProps> = ({ user, keysData, isSkippedIntroduction, use
                 ) : (
                     <>
                         {/* @ts-ignore */}
-                        {user?.user?.type_subscribe !== 3 || user !== undefined || user?.user?.end_sub !== 1 ? (
+                        {(user?.user?.type_subscribe === 3 && user?.user?.type_subscribe !== 0) || user?.user?.end_sub !== 1 ? (
                             <>
                                 <Lottie
                                     options={approveOptions}
@@ -191,8 +200,20 @@ export const Home: FC<HomeProps> = ({ user, keysData, isSkippedIntroduction, use
                                     width={190}
                                 />
 
-                                <Title variant="h2" className={s.statusTitle} tgStyles={{ color: 'var(--tg-theme-button-color)' }}>{t('home.ready-to-connect')}</Title>
-                                <Text className={s.statusText}>{t('home.traffic-update-in')} {calculateDaysFromTimestamp(user?.user?.date_subscribe)} {calculateDaysFromTimestamp(user?.user?.date_subscribe) > 1 ? t('home.days') : t('home.day')}</Text>
+                                <Title
+                                    variant="h2"
+                                    className={s.statusTitle}
+                                    tgStyles={{ color: 'var(--tg-theme-button-color)' }}
+                                >
+                                    {t('home.ready-to-connect')}
+                                </Title>
+                                <Text className={s.statusText}>
+                                    {t('home.traffic-update-in')}{' '}
+                                    {calculateDaysFromTimestamp(user?.user?.date_subscribe)}{' '}
+                                    {calculateDaysFromTimestamp(user?.user?.date_subscribe) > 1
+                                        ? t('home.days')
+                                        : t('home.day')}
+                                </Text>
                             </>
                         ) : (
                             <>
@@ -203,7 +224,9 @@ export const Home: FC<HomeProps> = ({ user, keysData, isSkippedIntroduction, use
                                     width={190}
                                 />
 
-                                <Title variant="h2" className={s.statusTitle}>{t('common.not-active-plan')}</Title>
+                                <Title variant="h2" className={s.statusTitle}>
+                                    {t('common.not-active-plan')}
+                                </Title>
                                 <Text className={s.statusText}>{t('common.choose-plan')}</Text>
                             </>
                         )}
@@ -221,17 +244,27 @@ export const Home: FC<HomeProps> = ({ user, keysData, isSkippedIntroduction, use
             />
 
             <div className={s.connectInner}>
-                <Button
-                    className={s.connectButton}
-                    onClick={handleButton}
-                    disabled={userLoading}
-                >
-                    {userLoading ? t('common.loading') : (
-                        // @ts-ignore
-                        user?.user?.type_subscribe !== 3 || user !== undefined || user?.user?.end_sub !== 1 ? t('common.connect') : t('common.select-plan')
-                    )}
+                <Button className={s.connectButton} onClick={handleButton} disabled={userLoading}>
+                    {userLoading
+                        ? t('common.loading')
+                        : (
+                            // @ts-ignore
+                            (user?.user?.type_subscribe === 3 && user?.user?.type_subscribe !== 0) || user?.user?.end_sub !== 1
+                                ? t('common.connect')
+                                : t('common.select-plan')
+                        )
+                    }
                 </Button>
-                {user?.user?.type_subscribe !== 0 && user !== undefined && user?.user?.end_sub !== 1 && <Button className={s.downloadButton} onClick={() => setShowDownloadModal(true)}><SvgSelector id="download" /></Button>}
+                {user?.user?.type_subscribe !== 0
+                    && user !== undefined
+                    && user?.user?.end_sub !== 1 && (
+                    <Button
+                        className={s.downloadButton}
+                        onClick={() => setShowDownloadModal(true)}
+                    >
+                        <SvgSelector id="download" />
+                    </Button>
+                )}
             </div>
 
             <div className={s.traffic}>
@@ -239,7 +272,12 @@ export const Home: FC<HomeProps> = ({ user, keysData, isSkippedIntroduction, use
                     {t('home.traffic-title')}
                 </Title>
 
-                <Traffic limit={user?.infoUser.limit} used={user?.infoUser.used} isTg={isTg} userLoading={userLoading} />
+                <Traffic
+                    limit={user?.infoUser.limit}
+                    used={user?.infoUser.used}
+                    isTg={isTg}
+                    userLoading={userLoading}
+                />
 
                 {/* <button onClick={() => handleConnect('ss://y2hhy2hhmjatawv0zi1wb2x5mtmwntpwakn5bllyng5intm0tkjhwhhvchpp@178.62.200.20:51203/?outline=1')}>Open</button> */}
             </div>
