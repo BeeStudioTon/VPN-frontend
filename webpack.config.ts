@@ -1,6 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
 import { Configuration, SourceMapDevToolPlugin, ProvidePlugin } from 'webpack'
+import CopyWebpackPlugin from 'copy-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import path from 'path'
 import 'webpack-dev-server'
@@ -75,7 +76,12 @@ const config: Configuration = {
         new SourceMapDevToolPlugin({ filename: '[file].map' }),
         new ProvidePlugin({ Buffer: [ 'buffer', 'Buffer' ] }),
         new ProvidePlugin({ process: 'process/browser.js' }),
-        new IgnorePlugin({ resourceRegExp: /^node:/ })
+        new IgnorePlugin({ resourceRegExp: /^node:/ }),
+        new CopyWebpackPlugin({
+            patterns: [
+                { from: 'public/locales', to: 'locales' }
+            ]
+        }),
     ],
     resolve: {
         extensions: [ '.ts', '.tsx', '.js' ],
