@@ -70,6 +70,7 @@
     "not-active-plan": "Plan is not active",
     "choose-plan": "Choose plan",
     "skip": "I'll connect later",
-    "skip-plan": "Skip plan"
+    "skip-plan": "Skip plan",
+    "error-tg": "This application is only available in Telegram"
   }
 }

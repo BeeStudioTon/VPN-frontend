@@ -18,7 +18,7 @@ export class VPN {
         try {
             const res = await axios.get(`${this._url}${url}?${new URLSearchParams(data)}`)
 
-            return res.data
+            return res?.data
         } catch (error) {
             console.error(error)
             return undefined
@@ -29,7 +29,7 @@ export class VPN {
         try {
             const res = await axios.post(`${this._url}${url}`, data)
 
-            return res.data
+            return res?.data
         } catch (error) {
             console.error(error)
             return undefined
@@ -39,48 +39,48 @@ export class VPN {
     public async postAuth (): Promise<UserType | undefined> {
         const res = await this.post('auth', { tg_data: window.Telegram.WebApp.initData })
 
-        return res.data
+        return res?.data
     }
 
     public async getServers (): Promise<ServersType[] | []> {
         const res = await this.get('getServers', {})
 
-        return res.data as ServersType[]
+        return res?.data as ServersType[]
     }
 
     public async getRates (): Promise<any | undefined> {
         const res = await this.get('getRates', {})
 
-        return res.data as RatesType[]
+        return res?.data as RatesType[]
     }
 
     public async getKeys (): Promise<any[] | undefined> {
         const res = await this.post('getKeys', { tg_data: window.Telegram.WebApp.initData })
 
-        return res.data
+        return res?.data
     }
 
     public async activateFree (): Promise<any | undefined> {
         const data = await this.post('activateFree', { tg_data: window.Telegram.WebApp.initData })
-        return data.data
+        return data?.data
     }
 
     public async getKey (id_server: number): Promise<any | undefined> {
         const data = await this.post('getKey', { tg_data: window.Telegram.WebApp.initData, id_server })
 
-        return data.data
+        return data?.data
     }
 
     public async getActive (): Promise<any | undefined> {
         const data = await this.post('getActive', { tg_data: window.Telegram.WebApp.initData })
 
-        return data.data as ActiveServerType
+        return data?.data as ActiveServerType
     }
 
     public async getTransactions (): Promise<any | undefined> {
         const data = await this.post('getTransactions', { tg_data: window.Telegram.WebApp.initData })
 
-        return data.data as TransactionType
+        return data?.data as TransactionType
     }
 
     public async getIpInfo (ip: string): Promise<any | undefined> {
@@ -92,12 +92,12 @@ export class VPN {
     public async getInfo (): Promise<any | undefined> {
         const data = await this.post('getInfo', { tg_data: window.Telegram.WebApp.initData })
 
-        return data.data as InfoType
+        return data?.data as InfoType
     }
 
     public async getAutoKey (): Promise<any | undefined> {
         const data = await this.post('getAutoKey', { tg_data: window.Telegram.WebApp.initData })
 
-        return data.data
+        return data?.data
     }
 }

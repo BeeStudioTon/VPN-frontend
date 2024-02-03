@@ -84,6 +84,15 @@ export const App: FC = () => {
             const isTgCheck = window.Telegram.WebApp.initData !== ''
             const bodyStyle = document.body.style
 
+            if (window.location.pathname === ROUTES.SOMETHING_WENT_WRONG && !isError) {
+                TgObj.MainButton.hide()
+                navigate('/')
+            }
+
+            if (!isTgCheck && window.location.pathname === '/redirect') {
+                return
+            }
+
             if (isTgCheck) {
                 TgObj.ready()
                 TgObj.enableClosingConfirmation()
@@ -105,10 +114,6 @@ export const App: FC = () => {
                 TgObj.requestWriteAccess()
             }
         }
-
-        if (window.location.pathname === ROUTES.SOMETHING_WENT_WRONG && !isError) {
-            navigate('/')
-        }
         vpn.getAutoKey()
     }, [])
 
@@ -116,6 +121,10 @@ export const App: FC = () => {
     useEffect(() => {
         const isTgCheck = window.Telegram.WebApp.initData !== ''
         const hasPassedIntroduction = localStorage.getItem('hasPassedIntroduction')
+
+        if (!isTgCheck && window.location.pathname === '/redirect') {
+            return
+        }
 
         if (!isTgCheck) {
             navigate('/something_went_wrong')
@@ -232,6 +241,7 @@ export const App: FC = () => {
                             />}
                         />
                         <Route element={<SomethingWentWrong />} path={ROUTES.SOMETHING_WENT_WRONG} />
+                        <Route element={<Redirect />} path={ROUTES.REDIRECT} />
                         <Route path="*" element={<Navigate to="/" replace />} />
                     </Routes>
                 )}

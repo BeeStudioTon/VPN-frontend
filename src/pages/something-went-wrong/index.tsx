@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable import/no-extraneous-dependencies */
 import { FC, useEffect } from 'react'
 import Lottie, { Options } from 'react-lottie'
@@ -34,6 +35,8 @@ export const SomethingWentWrong: FC<SomethingWentWrongProps> = () => {
         return () => TgObj.MainButton.offClick(handleButton)
     }, [])
 
+    const isTgCheck = window.Telegram.WebApp.initData !== ''
+
     return (
         <div className={s.inner}>
             <div className={s.innerImg}>
@@ -44,7 +47,7 @@ export const SomethingWentWrong: FC<SomethingWentWrongProps> = () => {
                 />
             </div>
             <Title variant="h2" className={`${s.innerTitle} ${s.innerTitleRed}`}>{t('common.oops')}</Title>
-            <Title variant="h2" className={s.innerText}>{t('common.something-went-wrong')}</Title>
+            <Title variant="h2" className={s.innerText}>{!isTgCheck ? t('common.error-tg') : t('common.something-went-wrong')}</Title>
         </div>
     )
 }

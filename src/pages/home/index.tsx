@@ -120,12 +120,27 @@ export const Home: FC<HomeProps> = ({ user, keysData, isSkippedIntroduction, use
         }
     }, [ selectedServer ])
 
+    const isWindows: boolean = navigator.platform.toUpperCase().indexOf('WIN') >= 0
+
+    const handleConnect = (key: string) => {
+        if (isWindows) {
+            const encodedUrl = encodeURIComponent(key)
+            const searchParams = new URLSearchParams()
+            searchParams.append('key', encodedUrl)
+            const queryString = searchParams.toString()
+            window.open(`/redirect?${queryString}`, '_blank')
+            return
+        }
+
+        openTelegramLink(key)
+    }
+
     const handleConnectServer = async () => {
         if (!connectServerData) {
             console.error('connectServerData undefined')
             return
         }
-        openTelegramLink(connectServerData.key_data)
+        handleConnect(connectServerData.key_data)
     }
 
     const handleButton = () => {
@@ -142,21 +157,6 @@ export const Home: FC<HomeProps> = ({ user, keysData, isSkippedIntroduction, use
         localStorage.setItem('toPaymentPage', 'true')
         localStorage.setItem('currentIntroductionStep', '2')
         window.location.href = '/introduction'
-    }
-
-    const isWindows: boolean = navigator.platform.toUpperCase().indexOf('WIN') >= 0
-
-    const handleConnect = (key: string) => {
-        if (isWindows) {
-            const encodedUrl = encodeURIComponent(key)
-            const searchParams = new URLSearchParams()
-            searchParams.append('key', encodedUrl)
-            const queryString = searchParams.toString()
-            window.open(`/redirect?${queryString}`, '_blank')
-            return
-        }
-
-        openTelegramLink(key)
     }
 
     return (
