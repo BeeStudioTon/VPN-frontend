@@ -68,7 +68,7 @@ export const Subscribe: FC<SubscribeProps> = ({ isTg, activeRate, setActiveRate,
                 {
                     appName: 'dewallet',
                     name: 'DeWallet',
-                    imageUrl: 'https://wallet.tg/images/logo-288.png',
+                    imageUrl: 'https://avatars.githubusercontent.com/u/116884789?s=200&v=4',
                     aboutUrl: 'https://wallet.tg/',
                     universalLink: 'https://v2.delabwallet.com/tonconnect',
                     bridgeUrl: 'https://bridge.tonapi.io/bridge',

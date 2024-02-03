@@ -33,31 +33,11 @@ export const TonConnectProvider: FC<TonConnectProviderProps> = ({ children }) =>
                 {
                     appName: 'dewallet',
                     name: 'DeWallet',
-                    imageUrl: 'https://wallet.tg/images/logo-288.png',
+                    imageUrl: 'https://avatars.githubusercontent.com/u/116884789?s=200&v=4',
                     aboutUrl: 'https://wallet.tg/',
                     universalLink: 'https://v2.delabwallet.com/tonconnect',
                     bridgeUrl: 'https://bridge.tonapi.io/bridge',
                     platforms: [ 'ios', 'android', 'macos', 'windows', 'linux' ]
-                },
-                {
-                    appName: 'telegram-wallet',
-                    name: 'Wallet',
-                    imageUrl: 'https://wallet.tg/images/logo-288.png',
-                    aboutUrl: 'https://wallet.tg/',
-                    universalLink: 'https://t.me/wallet?attach=wallet',
-                    bridgeUrl: 'https://bridge.tonapi.io/bridge',
-                    platforms: [ 'ios', 'android', 'macos', 'windows', 'linux' ]
-                },
-                {
-                    appName: 'tonkeeper',
-                    name: 'Tonkeeper',
-                    imageUrl: 'https://tonkeeper.com/assets/tonconnect-icon.png',
-                    tondns: 'tonkeeper.ton',
-                    aboutUrl: 'https://tonkeeper.com',
-                    universalLink: 'https://app.tonkeeper.com/ton-connect',
-                    deepLink: 'tonkeeper-tc://',
-                    bridgeUrl: 'https://bridge.tonapi.io/bridge',
-                    platforms: [ 'ios', 'android', 'chrome', 'firefox', 'macos' ]
                 }
             ]
         } }
