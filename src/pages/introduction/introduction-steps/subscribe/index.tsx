@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable prefer-const */
 /* eslint-disable consistent-return */
@@ -59,7 +60,23 @@ export const Subscribe: FC<SubscribeProps> = ({ isTg, activeRate, setActiveRate,
     const [ isSuccessPay, setIsSuccessPay ] = useState<boolean>(true)
     const [ isPaymentLoading, setIsPaymentLoading ] = useState<boolean>(false)
 
-    const [ tonConnectUI ] = useTonConnectUI()
+    const [ tonConnectUI, setOptions ] = useTonConnectUI()
+
+    setOptions({
+        walletsListConfiguration: {
+            includeWallets: [
+                {
+                    appName: 'dewallet',
+                    name: 'DeWallet',
+                    imageUrl: 'https://wallet.tg/images/logo-288.png',
+                    aboutUrl: 'https://wallet.tg/',
+                    universalLink: 'https://v2.delabwallet.com/tonconnect',
+                    bridgeUrl: 'https://bridge.tonapi.io/bridge',
+                    platforms: [ 'ios', 'android', 'macos', 'windows', 'linux' ]
+                }
+            ]
+        }
+    })
 
     async function sendTrans (id_user: number, currency: 'TON' | Address, amount: number) {
         const addressVPN = 'UQBZdjhaGPnVGVm-pr6msATng-wdVp1kuYRvQN-GBrVuhE66'
