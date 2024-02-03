@@ -56,7 +56,7 @@ export const Info: FC<InfoProps> = ({ rawAddress }) => {
                             src={`https://t.me/i/userpic/320/${TgObj?.initDataUnsafe?.user?.username}.jpg`}
                             onLoad={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
                                 const target = e.currentTarget
-                                if (target.naturalWidth === 0 || target.naturalHeight === 0) {
+                                if (target.naturalWidth === 1 || target.naturalHeight === 1) {
                                     target.style.display = 'none'
                                     setFailedLoadAvatar(true)
                                 }
