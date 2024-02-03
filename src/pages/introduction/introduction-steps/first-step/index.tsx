@@ -33,7 +33,23 @@ export const FirstStep: FC<FirstStepProps> = ({ handleNextStep, currentStep, raw
 
     const auth = !!localStorage.getItem('ton-connect-ui_wallet-info')
 
-    const [ tonConnectUI ] = useTonConnectUI()
+    const [ tonConnectUI, setOptions ] = useTonConnectUI()
+
+    setOptions({
+        walletsListConfiguration: {
+            includeWallets: [
+                {
+                    appName: 'dewallet',
+                    name: 'DeWallet',
+                    imageUrl: 'https://wallet.tg/images/logo-288.png',
+                    aboutUrl: 'https://wallet.tg/',
+                    universalLink: 'https://v2.delabwallet.com/tonconnect',
+                    bridgeUrl: 'https://bridge.tonapi.io/bridge',
+                    platforms: [ 'ios', 'android', 'macos', 'windows', 'linux' ]
+                }
+            ]
+        }
+    })
 
     useEffect(() => {
         if (currentStep !== 1 || !auth) return
