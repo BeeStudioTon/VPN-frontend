@@ -20,7 +20,7 @@ interface TonConnectProviderProps {
 }
 
 export const TonConnectProvider: FC<TonConnectProviderProps> = ({ children }) => (
-    <TonConnectUIProvider manifestUrl="https://gist.github.com/anovic123/877ea21972da920589c460075d9e6ddf.txt"
+    <TonConnectUIProvider manifestUrl="https://72a879bd.manifests.pages.dev/devpn.txt"
         // actionsConfiguration={{
         //     modals: [ 'before', 'success', 'error' ],
         //     notifications: [ 'before', 'success', 'error' ],
