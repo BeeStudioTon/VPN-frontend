@@ -43,7 +43,7 @@ export const FirstStep: FC<FirstStepProps> = ({ handleNextStep, currentStep, raw
                     name: 'DeWallet',
                     imageUrl: 'https://avatars.githubusercontent.com/u/116884789?s=200&v=4',
                     aboutUrl: 'https://wallet.tg/',
-                    universalLink: 'https://t.me/delabtonbot/wallet?startapp=wallet',
+                    universalLink: 'https://v2.delabwallet.com/tonconnect',
                     bridgeUrl: 'https://bridge.tonapi.io/bridge',
                     platforms: [ 'ios', 'android', 'macos', 'windows', 'linux' ]
                 }
