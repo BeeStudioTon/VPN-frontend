@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TonConnectUIProvider } from '@tonconnect/ui-react'
@@ -35,7 +36,7 @@ export const TonConnectProvider: FC<TonConnectProviderProps> = ({ children }) =>
                     name: 'DeWallet',
                     imageUrl: 'https://avatars.githubusercontent.com/u/116884789?s=200&v=4',
                     aboutUrl: 'https://wallet.tg/',
-                    universalLink: 'https://t.me/delabtonbot/wallet', // 'https://v2.delabwallet.com/tonconnect',
+                    universalLink: 'https://t.me/delabtonbot/wallet?attach=wallet', // https://t.me/delabtonbot/wallet 'https://v2.delabwallet.com/tonconnect' https://t.me/wallet?attach=wallet,
                     bridgeUrl: 'https://bridge.tonapi.io/bridge',
                     platforms: [ 'ios', 'android', 'macos', 'windows', 'linux' ]
                 }
