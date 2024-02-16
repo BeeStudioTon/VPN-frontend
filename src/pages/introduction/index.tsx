@@ -3,7 +3,7 @@
 import { FC, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import WebAppSDK from '@twa-dev/sdk'
-import TonConnectUI from '@tonconnect/ui'
+import { TonConnectUI } from '@tonconnect/ui'
 import { RatesType } from '../../@types/rates'
 import { UserType } from '../../@types/user'
 import { GetActiveServerType } from '../../@types/get-active-server'
@@ -19,7 +19,7 @@ interface IntroductionProps {
     rawAddress: string
     user: UserType | undefined
     keysData: GetActiveServerType[] | undefined
-    tonConnectUI: TonConnectUI.TonConnectUI
+    tonConnectUI: TonConnectUI
 }
 
 export const Introduction: FC<IntroductionProps> = ({

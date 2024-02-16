@@ -8,7 +8,7 @@ import Lottie, { Options } from 'react-lottie'
 import { useTranslation } from 'react-i18next'
 import WebAppSDK from '@twa-dev/sdk'
 // import { useTonConnectUI } from '@tonconnect/ui-react'
-import TonConnectUI from '@tonconnect/ui'
+import { TonConnectUI } from '@tonconnect/ui'
 
 import { Button } from '../../../../components/ui/button'
 
@@ -21,7 +21,7 @@ interface FirstStepProps {
     handleIntroductionClose: () => void;
     currentStep: number;
     rawAddress: string | undefined;
-    tonConnectUI: TonConnectUI.TonConnectUI
+    tonConnectUI: TonConnectUI
 }
 
 export const FirstStep: FC<FirstStepProps> = ({ handleNextStep, currentStep, rawAddress, handleIntroductionClose, tonConnectUI }) => {

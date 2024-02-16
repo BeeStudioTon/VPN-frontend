@@ -8,7 +8,7 @@
 import { FC, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 // import { useTonConnectUI } from '@tonconnect/ui-react'
-import TonConnectUI from '@tonconnect/ui'
+import { TonConnectUI } from '@tonconnect/ui'
 
 import { Title } from '@delab-team/de-ui'
 import WebAppSDK from '@twa-dev/sdk'
@@ -47,7 +47,7 @@ interface SubscribeProps {
     user: UserType | undefined;
     setCurrentStep: React.Dispatch<React.SetStateAction<number>>
     handleIntroductionClose: () => void
-    tonConnectUI: TonConnectUI.TonConnectUI
+    tonConnectUI: TonConnectUI
 }
 
 export const Subscribe: FC<SubscribeProps> = ({ isTg, activeRate, setActiveRate, currentStep, setCurrentStep, rawAddress, user, handleIntroductionClose, tonConnectUI }) => {
