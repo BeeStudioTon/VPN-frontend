@@ -45,7 +45,7 @@
     "sass": "^1.68.0",
     "stream-browserify": "^3.0.0",
     "ton": "^13.5.0",
-    "ton-core": "^0.52.0",
+    "ton-core": "^0.53.0",
     "ton-crypto": "^3.2.0",
     "ton3": "^0.0.16",
     "tonweb": "^0.0.62",
