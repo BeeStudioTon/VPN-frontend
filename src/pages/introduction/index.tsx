@@ -3,7 +3,7 @@
 import { FC, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import WebAppSDK from '@twa-dev/sdk'
-
+import TonConnectUI from '@tonconnect/ui'
 import { RatesType } from '../../@types/rates'
 import { UserType } from '../../@types/user'
 import { GetActiveServerType } from '../../@types/get-active-server'
@@ -19,13 +19,15 @@ interface IntroductionProps {
     rawAddress: string
     user: UserType | undefined
     keysData: GetActiveServerType[] | undefined
+    tonConnectUI: TonConnectUI.TonConnectUI
 }
 
 export const Introduction: FC<IntroductionProps> = ({
     setShowIntroduction,
     isTg,
     user,
-    rawAddress
+    rawAddress,
+    tonConnectUI
 }) => {
     const TgObj = WebAppSDK
 
@@ -125,6 +127,7 @@ export const Introduction: FC<IntroductionProps> = ({
                     handleNextStep={handleNextStep}
                     rawAddress={rawAddress}
                     handleIntroductionClose={handleIntroductionClose}
+                    tonConnectUI={tonConnectUI}
                 />
             )
             }
@@ -138,6 +141,7 @@ export const Introduction: FC<IntroductionProps> = ({
                     rawAddress={rawAddress}
                     user={user}
                     handleIntroductionClose={handleIntroductionClose}
+                    tonConnectUI={tonConnectUI}
                 />
             )}
         </div>

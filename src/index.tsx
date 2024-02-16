@@ -18,8 +18,8 @@ document.body.appendChild(el)
 root.render(
 
     <BrowserRouter>
-        <TonConnectProvider>
-            <App />
-        </TonConnectProvider>
+        {/* <TonConnectProvider> */}
+        <App />
+        {/* </TonConnectProvider> */}
     </BrowserRouter>
 )
