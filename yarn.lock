@@ -1986,6 +1986,16 @@
     schema-utils "^3.0.0"
     source-map "^0.7.3"
 
+"@postiki/delab-tonconnect-ui@^0.0.1":
+  version "0.0.1"
+  resolved "https://npm.pkg.github.com/download/@postiki/delab-tonconnect-ui/0.0.1/0dcdb8871b71663f0d25632f99c5ddf8940b0084#0dcdb8871b71663f0d25632f99c5ddf8940b0084"
+  integrity sha512-0rtAjmf8L1D1jKfqX27IsF7ssTWlh2WTUGIoC+8N27DmrI4eXHpwqjgIGIpsuBZpw1KaL867Ox6JtyJ16nL0zQ==
+  dependencies:
+    "@tonconnect/sdk" "^3.0.0"
+    classnames "^2.3.2"
+    deepmerge "^4.2.2"
+    ua-parser-js "^1.0.35"
+
 "@protobufjs/aspromise@^1.1.1", "@protobufjs/aspromise@^1.1.2":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@protobufjs/aspromise/-/aspromise-1.1.2.tgz#9b8b0cc663d669a7d8f6f5d0893a14d348f30fbf"
