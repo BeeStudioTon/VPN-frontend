@@ -8,7 +8,7 @@
 import { FC, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 // import { useTonConnectUI } from '@tonconnect/ui-react'
-import { TonConnectUI } from '@tonconnect/ui'
+import { TonConnectUI } from 'delab-tonconnect-ui'
 
 import { Title } from '@delab-team/de-ui'
 import WebAppSDK from '@twa-dev/sdk'
@@ -102,26 +102,26 @@ export const Subscribe: FC<SubscribeProps> = ({ isTg, activeRate, setActiveRate,
             const tx = await tonConnectUI.sendTransaction(tr)
             return tx
         }
-        const test = new ProviderTonConnect(tonConnectUI, false)
+        // const test = new ProviderTonConnect(tonConnectUI, false)
         const JettonMinterContract = new JettonMinter(currency)
 
-        const jettonMinter = test.open(JettonMinterContract)
+        // const jettonMinter = test.open(JettonMinterContract)
 
         try {
-            const walletAddressUser = await jettonMinter.getWalletAddressOf(Address.parse(rawAddress))
+            // const walletAddressUser = await jettonMinter.getWalletAddressOf(Address.parse(rawAddress))
 
-            const JettonWalletContract = new JettonWallet(walletAddressUser)
+            // const JettonWalletContract = new JettonWallet(walletAddressUser)
 
-            const jettonWallet = test.open(JettonWalletContract)
+            // const jettonWallet = test.open(JettonWalletContract)
 
-            await jettonWallet.sendTransfer(
-                test.sender(),
-                toNano('0.1'),
-                toNano('0.08'),
-                Address.parse(addressVPN),
-                toNano(amount),
-                beginCell().storeUint(0, 32).storeStringRefTail(id_user + '').endCell()
-            )
+            // await jettonWallet.sendTransfer(
+            //     test.sender(),
+            //     toNano('0.1'),
+            //     toNano('0.08'),
+            //     Address.parse(addressVPN),
+            //     toNano(amount),
+            //     beginCell().storeUint(0, 32).storeStringRefTail(id_user + '').endCell()
+            // )
             return true
         } catch (e) {
             console.log(e)

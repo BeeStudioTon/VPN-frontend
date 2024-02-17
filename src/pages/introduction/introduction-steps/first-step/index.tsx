@@ -8,7 +8,7 @@ import Lottie, { Options } from 'react-lottie'
 import { useTranslation } from 'react-i18next'
 import WebAppSDK from '@twa-dev/sdk'
 // import { useTonConnectUI } from '@tonconnect/ui-react'
-import { TonConnectUI } from '@tonconnect/ui'
+import { TonConnectUI } from 'delab-tonconnect-ui'
 
 import { Button } from '../../../../components/ui/button'
 

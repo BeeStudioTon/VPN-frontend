@@ -2812,9 +2812,9 @@
     "@types/react" "*"
 
 "@types/react@*", "@types/react@^18.2.15", "@types/react@^18.2.21":
-  version "18.2.55"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.2.55.tgz#38141821b7084404b5013742bc4ae08e44da7a67"
-  integrity sha512-Y2Tz5P4yz23brwm2d7jNon39qoAtMMmalOQv6+fEFt1mT+FcM3D841wDpoUvFXhaYenuROCy3FZYqdTjM7qVyA==
+  version "18.2.56"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.2.56.tgz#2d3e9021a0b6eb5bfc227761cc61b1c6dc6e0cd8"
+  integrity sha512-NpwHDMkS/EFZF2dONFQHgkPRwhvgq/OAvIaGQzxGSBmaeR++kTg6njr15Vatz0/2VcCEwJQFi6Jf4Q0qBu0rLA==
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
@@ -4892,9 +4892,9 @@ css@2.X:
     urix "^0.1.0"
 
 cssdb@^7.1.0:
-  version "7.10.0"
-  resolved "https://registry.yarnpkg.com/cssdb/-/cssdb-7.10.0.tgz#08816db7b793f088263e8f61dfe8d7f11a3459f2"
-  integrity sha512-yGZ5tmA57gWh/uvdQBHs45wwFY0IBh3ypABk5sEubPBPSzXzkNgsWReqx7gdx6uhC+QoFBe+V8JwBB9/hQ6cIA==
+  version "7.11.0"
+  resolved "https://registry.yarnpkg.com/cssdb/-/cssdb-7.11.0.tgz#26570bbc92251b719cd74468df710d86c554117f"
+  integrity sha512-YUVAJhjDcTZzVD5XE49l3PQtGE29vvhzaL1bM3BtkvSmIRJeYENdfn1dn5jauBI7BBF+IyyiBS+oSVx3Hz/Gaw==
 
 cssesc@^3.0.0:
   version "3.0.0"
@@ -5124,6 +5124,16 @@ define-properties@^1.1.3, define-properties@^1.2.0, define-properties@^1.2.1:
     define-data-property "^1.0.1"
     has-property-descriptors "^1.0.0"
     object-keys "^1.1.1"
+
+delab-tonconnect-ui@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/delab-tonconnect-ui/-/delab-tonconnect-ui-0.0.3.tgz#0a6b8d36b0f65e8915da60181255554a7d1ddc81"
+  integrity sha512-AUk6Gfrp35zFLHuYJ9cArbVardP21Ufau93QzWTnj2R9iO2k4ULgdQT/+Pz/frEmk5pgWppHqGR2I4yJIR5oZg==
+  dependencies:
+    "@tonconnect/sdk" "^3.0.0"
+    classnames "^2.3.2"
+    deepmerge "^4.2.2"
+    ua-parser-js "^1.0.35"
 
 delayed-stream@~1.0.0:
   version "1.0.0"
@@ -6987,9 +6997,9 @@ i18next-http-backend@^2.4.2:
     cross-fetch "4.0.0"
 
 i18next@^23.7.16:
-  version "23.8.2"
-  resolved "https://registry.yarnpkg.com/i18next/-/i18next-23.8.2.tgz#f3ff6ea929e0927d9717f0ed195ae46d05919900"
-  integrity sha512-Z84zyEangrlERm0ZugVy4bIt485e/H8VecGUZkZWrH7BDePG6jT73QdL9EA1tRTTVVMpry/MgWIP1FjEn0DRXA==
+  version "23.8.3"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-23.8.3.tgz#7e03e6bbc45f819452a9d1aed20bdebde01a1db7"
+  integrity sha512-IQn6Tfn+XkIRHjC/z3uQSGLhsRC6Y14kgyrsgoPqnFD9MqbNt2B9MF3Ch4p114pEVPQ2qktE2nd0aYr7UxRLKA==
   dependencies:
     "@babel/runtime" "^7.23.2"
 

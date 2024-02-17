@@ -6,7 +6,7 @@
 import { FC, useEffect, useState } from 'react'
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { TonConnectUI } from '@tonconnect/ui'
+import { TonConnectUI } from 'delab-tonconnect-ui'
 
 // import { useTonAddress } from '@tonconnect/ui-react'
 import { AppInner } from '@delab-team/de-ui'
@@ -36,21 +36,21 @@ declare global {
 
 const tonConnectUI = new TonConnectUI({ manifestUrl: 'https://72a879bd.manifests.pages.dev/devpn.txt' })
 
-tonConnectUI.uiOptions = {
-    walletsListConfiguration: {
-        includeWallets: [
-            {
-                appName: 'dewallet',
-                name: 'DeWallet',
-                imageUrl: 'https://avatars.githubusercontent.com/u/116884789?s=200&v=4',
-                aboutUrl: 'https://wallet.tg/',
-                universalLink: 'https://t.me/delabtonbot/wallet?attach=wallet', // https://t.me/delabtonbot/wallet 'https://v2.delabwallet.com/tonconnect' https://t.me/wallet?attach=wallet,
-                bridgeUrl: 'https://bridge.tonapi.io/bridge',
-                platforms: [ 'ios', 'android', 'macos', 'windows', 'linux' ]
-            }
-        ]
-    }
-}
+// tonConnectUI.uiOptions = {
+//     walletsListConfiguration: {
+//         includeWallets: [
+//             {
+//                 appName: 'dewallet',
+//                 name: 'DeWallet',
+//                 imageUrl: 'https://avatars.githubusercontent.com/u/116884789?s=200&v=4',
+//                 aboutUrl: 'https://wallet.tg/',
+//                 universalLink: 'https://t.me/delabtonbot/wallet?attach=wallet', // https://t.me/delabtonbot/wallet 'https://v2.delabwallet.com/tonconnect' https://t.me/wallet?attach=wallet,
+//                 bridgeUrl: 'https://bridge.tonapi.io/bridge',
+//                 platforms: [ 'ios', 'android', 'macos', 'windows', 'linux' ]
+//             }
+//         ]
+//     }
+// }
 
 WebAppSDK.ready()
 export const App: FC = () => {
