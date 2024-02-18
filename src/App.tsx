@@ -36,21 +36,21 @@ declare global {
 
 const tonConnectUI = new TonConnectUI({ manifestUrl: 'https://72a879bd.manifests.pages.dev/devpn.txt' })
 
-// tonConnectUI.uiOptions = {
-//     walletsListConfiguration: {
-//         includeWallets: [
-//             {
-//                 appName: 'dewallet',
-//                 name: 'DeWallet',
-//                 imageUrl: 'https://avatars.githubusercontent.com/u/116884789?s=200&v=4',
-//                 aboutUrl: 'https://wallet.tg/',
-//                 universalLink: 'https://t.me/delabtonbot/wallet?attach=wallet', // https://t.me/delabtonbot/wallet 'https://v2.delabwallet.com/tonconnect' https://t.me/wallet?attach=wallet,
-//                 bridgeUrl: 'https://bridge.tonapi.io/bridge',
-//                 platforms: [ 'ios', 'android', 'macos', 'windows', 'linux' ]
-//             }
-//         ]
-//     }
-// }
+tonConnectUI.uiOptions = {
+    walletsListConfiguration: {
+        includeWallets: [
+            {
+                appName: 'dewallet',
+                name: 'DeWallet',
+                imageUrl: 'https://avatars.githubusercontent.com/u/116884789?s=200&v=4',
+                aboutUrl: 'https://wallet.tg/',
+                universalLink: 'https://t.me/delabtonbot/wallet?attach=wallet', // https://t.me/delabtonbot/wallet 'https://v2.delabwallet.com/tonconnect' https://t.me/wallet?attach=wallet,
+                bridgeUrl: 'https://bridge.tonapi.io/bridge',
+                platforms: [ 'ios', 'android', 'macos', 'windows', 'linux' ]
+            }
+        ]
+    }
+}
 
 WebAppSDK.ready()
 export const App: FC = () => {
@@ -123,7 +123,7 @@ export const App: FC = () => {
                 bodyStyle.backgroundColor = 'var(--tg-theme-secondary-bg-color)'
                 bodyStyle.setProperty('background-color', 'var(--tg-theme-secondary-bg-color)', 'important')
             } else {
-                // navigate('/something_went_wrong')
+                navigate('/something_went_wrong')
             }
 
             if (window.location.pathname !== '/introduction') {
