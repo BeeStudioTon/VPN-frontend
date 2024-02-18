@@ -123,7 +123,7 @@ export const App: FC = () => {
                 bodyStyle.backgroundColor = 'var(--tg-theme-secondary-bg-color)'
                 bodyStyle.setProperty('background-color', 'var(--tg-theme-secondary-bg-color)', 'important')
             } else {
-                navigate('/something_went_wrong')
+                // navigate('/something_went_wrong')
             }
 
             if (window.location.pathname !== '/introduction') {
