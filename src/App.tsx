@@ -37,28 +37,27 @@ declare global {
 
 const tonConnectUI = new TonConnectUI({ manifestUrl: 'https://72a879bd.manifests.pages.dev/devpn.txt' })
 
-//
-tonConnectUI.uiOptions = {
-    walletsListConfiguration: {
-        includeWallets: [
-            {
-                appName: 'dewallet',
-                name: 'DeWallet',
-                imageUrl: 'https://avatars.githubusercontent.com/u/116884789?s=200&v=4',
-                aboutUrl: 'https://wallet.tg/',
-                universalLink: 'https://t.me/delabtonbot/wallet?attach=wallet', // https://t.me/delabtonbot/wallet 'https://v2.delabwallet.com/tonconnect' https://t.me/wallet?attach=wallet,
-                bridgeUrl: 'https://bridge.tonapi.io/bridge',
-                platforms: [ 'ios', 'android', 'macos', 'windows', 'linux' ]
-            }
-        ]
-    }
-}
-
 WebAppSDK.ready()
 export const App: FC = () => {
     const [ firstRender, setFirstRender ] = useState<boolean>(false)
     const [ isTg, setIsTg ] = useState<boolean>(false)
     const TgObj = WebAppSDK
+
+    tonConnectUI.uiOptions = {
+        walletsListConfiguration: {
+            includeWallets: [
+                {
+                    appName: 'dewallet',
+                    name: 'DeWallet',
+                    imageUrl: 'https://avatars.githubusercontent.com/u/116884789?s=200&v=4',
+                    aboutUrl: 'https://wallet.tg/',
+                    universalLink: 'https://t.me/delabtonbot/wallet?attach=delabtonbot/wallet', // https://t.me/delabtonbot/wallet 'https://v2.delabwallet.com/tonconnect' https://t.me/wallet?attach=wallet,
+                    bridgeUrl: 'https://bridge.tonapi.io/bridge',
+                    platforms: [ 'ios', 'android', 'macos', 'windows', 'linux' ]
+                }
+            ]
+        }
+    }
 
     // user
     const [ user, setUser ] = useState<UserType | undefined>(undefined)
