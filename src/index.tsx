@@ -4,7 +4,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 // import { TonConnectUIProvider } from '@tonconnect/ui-react'
-import { TonConnectProvider } from './logic/tonConnectProvider'
+// import { TonConnectProvider } from './logic/tonConnectProvider'
 
 import { App } from './App'
 
@@ -18,8 +18,8 @@ document.body.appendChild(el)
 root.render(
 
     <BrowserRouter>
-        <TonConnectProvider>
-            <App />
-        </TonConnectProvider>
+        {/* <TonConnectProvider> */}
+        <App />
+        {/* </TonConnectProvider> */}
     </BrowserRouter>
 )

@@ -7,7 +7,8 @@
 /* eslint-disable max-len */
 import { FC, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useTonConnectUI } from '@tonconnect/ui-react'
+// import { useTonConnectUI } from '@tonconnect/ui-react'
+import { TonConnectUI } from 'delab-tonconnect-ui'
 
 import { Title } from '@delab-team/de-ui'
 import WebAppSDK from '@twa-dev/sdk'
@@ -46,9 +47,10 @@ interface SubscribeProps {
     user: UserType | undefined;
     setCurrentStep: React.Dispatch<React.SetStateAction<number>>
     handleIntroductionClose: () => void
+    tonConnectUI: TonConnectUI
 }
 
-export const Subscribe: FC<SubscribeProps> = ({ isTg, activeRate, setActiveRate, currentStep, setCurrentStep, rawAddress, user, handleIntroductionClose }) => {
+export const Subscribe: FC<SubscribeProps> = ({ isTg, activeRate, setActiveRate, currentStep, setCurrentStep, rawAddress, user, handleIntroductionClose, tonConnectUI }) => {
     const { t } = useTranslation()
 
     const TgObj = WebAppSDK
@@ -60,23 +62,23 @@ export const Subscribe: FC<SubscribeProps> = ({ isTg, activeRate, setActiveRate,
     const [ isSuccessPay, setIsSuccessPay ] = useState<boolean>(true)
     const [ isPaymentLoading, setIsPaymentLoading ] = useState<boolean>(false)
 
-    const [ tonConnectUI, setOptions ] = useTonConnectUI()
+    // const [ tonConnectUI, setOptions ] = useTonConnectUI()
 
-    setOptions({
-        walletsListConfiguration: {
-            includeWallets: [
-                {
-                    appName: 'dewallet',
-                    name: 'DeWallet',
-                    imageUrl: 'https://avatars.githubusercontent.com/u/116884789?s=200&v=4',
-                    aboutUrl: 'https://wallet.tg/',
-                    universalLink: 'https://t.me/delabtonbot/wallet?attach=wallet',
-                    bridgeUrl: 'https://bridge.tonapi.io/bridge',
-                    platforms: [ 'ios', 'android', 'macos', 'windows', 'linux' ]
-                }
-            ]
-        }
-    })
+    // setOptions({
+    //     walletsListConfiguration: {
+    //         includeWallets: [
+    //             {
+    //                 appName: 'dewallet',
+    //                 name: 'DeWallet',
+    //                 imageUrl: 'https://avatars.githubusercontent.com/u/116884789?s=200&v=4',
+    //                 aboutUrl: 'https://wallet.tg/',
+    //                 universalLink: 'https://t.me/delabtonbot/wallet?attach=wallet',
+    //                 bridgeUrl: 'https://bridge.tonapi.io/bridge',
+    //                 platforms: [ 'ios', 'android', 'macos', 'windows', 'linux' ]
+    //             }
+    //         ]
+    //     }
+    // })
 
     async function sendTrans (id_user: number, currency: 'TON' | Address, amount: number) {
         const addressVPN = 'UQBZdjhaGPnVGVm-pr6msATng-wdVp1kuYRvQN-GBrVuhE66'
@@ -100,26 +102,26 @@ export const Subscribe: FC<SubscribeProps> = ({ isTg, activeRate, setActiveRate,
             const tx = await tonConnectUI.sendTransaction(tr)
             return tx
         }
-        const test = new ProviderTonConnect(tonConnectUI, false)
+        // const test = new ProviderTonConnect(tonConnectUI, false)
         const JettonMinterContract = new JettonMinter(currency)
 
-        const jettonMinter = test.open(JettonMinterContract)
+        // const jettonMinter = test.open(JettonMinterContract)
 
         try {
-            const walletAddressUser = await jettonMinter.getWalletAddressOf(Address.parse(rawAddress))
+            // const walletAddressUser = await jettonMinter.getWalletAddressOf(Address.parse(rawAddress))
 
-            const JettonWalletContract = new JettonWallet(walletAddressUser)
+            // const JettonWalletContract = new JettonWallet(walletAddressUser)
 
-            const jettonWallet = test.open(JettonWalletContract)
+            // const jettonWallet = test.open(JettonWalletContract)
 
-            await jettonWallet.sendTransfer(
-                test.sender(),
-                toNano('0.1'),
-                toNano('0.08'),
-                Address.parse(addressVPN),
-                toNano(amount),
-                beginCell().storeUint(0, 32).storeStringRefTail(id_user + '').endCell()
-            )
+            // await jettonWallet.sendTransfer(
+            //     test.sender(),
+            //     toNano('0.1'),
+            //     toNano('0.08'),
+            //     Address.parse(addressVPN),
+            //     toNano(amount),
+            //     beginCell().storeUint(0, 32).storeStringRefTail(id_user + '').endCell()
+            // )
             return true
         } catch (e) {
             console.log(e)

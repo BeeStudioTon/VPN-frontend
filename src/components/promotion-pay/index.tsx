@@ -4,7 +4,7 @@ import { Button, Div, IconSelector, Li, Title, Text } from '@delab-team/de-ui'
 import { v1 } from 'uuid'
 import { useTranslation } from 'react-i18next'
 
-import { useTonAddress, useTonConnectUI } from '@tonconnect/ui-react'
+// import { useTonAddress, useTonConnectUI } from '@tonconnect/ui-react'
 
 import { SkeletonInfo } from '../skeleton-info'
 

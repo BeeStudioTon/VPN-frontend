@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-shadow */
@@ -5,8 +6,9 @@
 import { FC, useEffect, useState } from 'react'
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { TonConnectUI } from 'delab-tonconnect-ui'
 
-import { useTonAddress } from '@tonconnect/ui-react'
+// import { useTonAddress } from '@tonconnect/ui-react'
 import { AppInner } from '@delab-team/de-ui'
 import WebAppSDK from '@twa-dev/sdk'
 
@@ -32,8 +34,25 @@ declare global {
     }
 }
 
-WebAppSDK.ready()
+const tonConnectUI = new TonConnectUI({ manifestUrl: 'https://72a879bd.manifests.pages.dev/devpn.txt' })
 
+tonConnectUI.uiOptions = {
+    walletsListConfiguration: {
+        includeWallets: [
+            {
+                appName: 'dewallet',
+                name: 'DeWallet',
+                imageUrl: 'https://avatars.githubusercontent.com/u/116884789?s=200&v=4',
+                aboutUrl: 'https://wallet.tg/',
+                universalLink: 'https://t.me/delabtonbot/wallet?attach=wallet', // https://t.me/delabtonbot/wallet 'https://v2.delabwallet.com/tonconnect' https://t.me/wallet?attach=wallet,
+                bridgeUrl: 'https://bridge.tonapi.io/bridge',
+                platforms: [ 'ios', 'android', 'macos', 'windows', 'linux' ]
+            }
+        ]
+    }
+}
+
+WebAppSDK.ready()
 export const App: FC = () => {
     const [ firstRender, setFirstRender ] = useState<boolean>(false)
     const [ isTg, setIsTg ] = useState<boolean>(false)
@@ -53,7 +72,7 @@ export const App: FC = () => {
     // Skipped introduction
     const [ isSkippedIntroduction, setIsSkippedIntroduction ] = useState<boolean>(false)
 
-    const rawAddress = useTonAddress()
+    const rawAddress = tonConnectUI.account?.address ?? ''
 
     const navigate = useNavigate()
 
@@ -220,6 +239,7 @@ export const App: FC = () => {
                                 keysData={keysData}
                                 isTg={isTg}
                                 setShowIntroduction={setShowIntroduction}
+                                tonConnectUI={tonConnectUI}
                             />}
                         />
                         <Route path={ROUTES.PROFILE} element={<Profile user={user} rawAddress={rawAddress} selectedLanguage={selectedLanguage} setSelectedLanguage={setSelectedLanguage} /> } />
@@ -238,6 +258,7 @@ export const App: FC = () => {
                                 keysData={keysData}
                                 isTg={isTg}
                                 setShowIntroduction={setShowIntroduction}
+                                tonConnectUI={tonConnectUI}
                             />}
                         />
                         <Route element={<SomethingWentWrong />} path={ROUTES.SOMETHING_WENT_WRONG} />
