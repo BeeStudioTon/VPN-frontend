@@ -5125,10 +5125,10 @@ define-properties@^1.1.3, define-properties@^1.2.0, define-properties@^1.2.1:
     has-property-descriptors "^1.0.0"
     object-keys "^1.1.1"
 
-delab-tonconnect-ui@^0.0.4:
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/delab-tonconnect-ui/-/delab-tonconnect-ui-0.0.4.tgz#e6457fbada32a53f3d0a2ea1ebf4bb2d575aac8f"
-  integrity sha512-OQ2VBdqy1BBkuRW7f3gYuJ7a3q/3GuwX3caqZ8eVaoYBYaDL27A84HlNXpd8tbzu1nxK89oNoCcG335VZPAWKQ==
+delab-tonconnect-ui@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/delab-tonconnect-ui/-/delab-tonconnect-ui-0.0.5.tgz#f49a7c7d4aedf6365e20e78bada5f825fbd81a8a"
+  integrity sha512-hngMbn8DFbZZ0ic8TqYdzPp6CmZSlrn+TIcit0j8PSFvxJ9p0n6eX4SVWFfyuHDWnTUzEMkBDuEUWVxg/EcyxQ==
   dependencies:
     "@tonconnect/sdk" "^3.0.0"
     classnames "^2.3.2"
