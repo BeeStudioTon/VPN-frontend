@@ -12,6 +12,7 @@ import { TonConnectUI } from 'delab-tonconnect-ui'
 import { AppInner } from '@delab-team/de-ui'
 import WebAppSDK from '@twa-dev/sdk'
 
+import { Address } from 'ton-core'
 import { Home } from './pages/home'
 import { Introduction } from './pages/introduction'
 import { Profile } from './pages/profile'
@@ -72,7 +73,7 @@ export const App: FC = () => {
     // Skipped introduction
     const [ isSkippedIntroduction, setIsSkippedIntroduction ] = useState<boolean>(false)
 
-    const rawAddress = tonConnectUI.account?.address ?? ''
+    const rawAddress: string = tonConnectUI.account?.address ? Address.parse(tonConnectUI.account?.address).toString({ bounceable: false }) : ''
 
     const navigate = useNavigate()
 
