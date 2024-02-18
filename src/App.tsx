@@ -37,6 +37,7 @@ declare global {
 
 const tonConnectUI = new TonConnectUI({ manifestUrl: 'https://72a879bd.manifests.pages.dev/devpn.txt' })
 
+//
 tonConnectUI.uiOptions = {
     walletsListConfiguration: {
         includeWallets: [
