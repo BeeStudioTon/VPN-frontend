@@ -139,17 +139,17 @@ export const App: FC = () => {
 
     // introduction check
     useEffect(() => {
-        // const isTgCheck = window.Telegram.WebApp.initData !== ''
+        const isTgCheck = window.Telegram.WebApp.initData !== ''
         const hasPassedIntroduction = localStorage.getItem('hasPassedIntroduction')
 
         if (window.location.pathname === '/redirect') {
             return
         }
 
-        // if (!isTgCheck) {
-        //     navigate('/something_went_wrong')
-        //     return
-        // }
+        if (!isTgCheck) {
+            navigate('/something_went_wrong')
+            return
+        }
 
         if (hasPassedIntroduction) {
             setShowIntroduction(false)
