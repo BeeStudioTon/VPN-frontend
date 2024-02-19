@@ -8,7 +8,7 @@
 import { FC, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 // import { useTonConnectUI } from '@tonconnect/ui-react'
-import { TonConnectUI } from 'delab-tonconnect-ui'
+// import { TonConnectUI } from 'delab-tonconnect-ui'
 
 import { Title } from '@delab-team/de-ui'
 import WebAppSDK from '@twa-dev/sdk'
@@ -17,6 +17,7 @@ import TonWeb from 'tonweb'
 import { Address, Contract, beginCell, fromNano, toNano } from '@ton/core'
 import { ProviderTonConnect } from '@delab-team/ton-network-react'
 
+import { useTonConnectUI } from 'delab-tonconnect-ui-react'
 import { Plan } from './plan'
 import { Method } from './method'
 import { Status } from '../../../../components/status'
@@ -47,10 +48,9 @@ interface SubscribeProps {
     user: UserType | undefined;
     setCurrentStep: React.Dispatch<React.SetStateAction<number>>
     handleIntroductionClose: () => void
-    tonConnectUI: TonConnectUI
 }
 
-export const Subscribe: FC<SubscribeProps> = ({ isTg, activeRate, setActiveRate, currentStep, setCurrentStep, rawAddress, user, handleIntroductionClose, tonConnectUI }) => {
+export const Subscribe: FC<SubscribeProps> = ({ isTg, activeRate, setActiveRate, currentStep, setCurrentStep, rawAddress, user, handleIntroductionClose }) => {
     const { t } = useTranslation()
 
     const TgObj = WebAppSDK
@@ -62,23 +62,23 @@ export const Subscribe: FC<SubscribeProps> = ({ isTg, activeRate, setActiveRate,
     const [ isSuccessPay, setIsSuccessPay ] = useState<boolean>(true)
     const [ isPaymentLoading, setIsPaymentLoading ] = useState<boolean>(false)
 
-    // const [ tonConnectUI, setOptions ] = useTonConnectUI()
+    const [ tonConnectUI, setOptions ] = useTonConnectUI()
 
-    // setOptions({
-    //     walletsListConfiguration: {
-    //         includeWallets: [
-    //             {
-    //                 appName: 'dewallet',
-    //                 name: 'DeWallet',
-    //                 imageUrl: 'https://avatars.githubusercontent.com/u/116884789?s=200&v=4',
-    //                 aboutUrl: 'https://wallet.tg/',
-    //                 universalLink: 'https://t.me/delabtonbot/wallet?attach=wallet',
-    //                 bridgeUrl: 'https://bridge.tonapi.io/bridge',
-    //                 platforms: [ 'ios', 'android', 'macos', 'windows', 'linux' ]
-    //             }
-    //         ]
-    //     }
-    // })
+    setOptions({
+        walletsListConfiguration: {
+            includeWallets: [
+                {
+                    appName: 'dewallet',
+                    name: 'DeWallet',
+                    imageUrl: 'https://avatars.githubusercontent.com/u/116884789?s=200&v=4',
+                    aboutUrl: 'https://wallet.tg/',
+                    universalLink: 'https://t.me/delabtonbot/wallet?attach=wallet',
+                    bridgeUrl: 'https://bridge.tonapi.io/bridge',
+                    platforms: [ 'ios', 'android', 'macos', 'windows', 'linux' ]
+                }
+            ]
+        }
+    })
 
     async function sendTrans (id_user: number, currency: 'TON' | Address, amount: number) {
         const addressVPN = 'UQBZdjhaGPnVGVm-pr6msATng-wdVp1kuYRvQN-GBrVuhE66'
