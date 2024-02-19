@@ -23,9 +23,9 @@ interface TonConnectProviderProps {
 export const TonConnectProvider: FC<TonConnectProviderProps> = ({ children }) => (
     <TonConnectUIProvider manifestUrl="https://72a879bd.manifests.pages.dev/devpn.txt"
         // actionsConfiguration={{
-        //     modals: [ 'before', 'success', 'error' ],
-        //     notifications: [ 'before', 'success', 'error' ],
-        //     skipRedirectToWallet: 'never', // 'ios' (default), or 'never', or 'always',
+        //     // modals: [ 'before', 'success', 'error' ],
+        //     // notifications: [ 'before', 'success', 'error' ],
+        //     // skipRedirectToWallet: 'never', // 'ios' (default), or 'never', or 'always',
         //     returnStrategy: 'tg://'
         //     // twaReturnUrl: process.env.REACT_APP_RETURN_BOT_TWA_URL as `${string}://${string}`
         // }}
