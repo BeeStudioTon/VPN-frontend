@@ -12,13 +12,13 @@ import './index.scss'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
-const el = document.createElement('div')
-document.body.appendChild(el)
+// const el = document.createElement('div')
+// document.body.appendChild(el)
 
-eruda.init({
-    container: el,
-    tool: [ 'console', 'elements' ]
-})
+// eruda.init({
+//     container: el,
+//     tool: [ 'console', 'elements' ]
+// })
 
 root.render(
 
