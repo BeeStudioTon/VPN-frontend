@@ -7,8 +7,7 @@ import { Text, Title } from '@delab-team/de-ui'
 import Lottie, { Options } from 'react-lottie'
 import { useTranslation } from 'react-i18next'
 import WebAppSDK from '@twa-dev/sdk'
-// import { useTonConnectUI } from '@tonconnect/ui-react'
-import { TonConnectUI } from 'delab-tonconnect-ui'
+import { useTonConnectUI } from 'delab-tonconnect-ui-react'
 
 import { Button } from '../../../../components/ui/button'
 
@@ -21,10 +20,9 @@ interface FirstStepProps {
     handleIntroductionClose: () => void;
     currentStep: number;
     rawAddress: string | undefined;
-    tonConnectUI: TonConnectUI
 }
 
-export const FirstStep: FC<FirstStepProps> = ({ handleNextStep, currentStep, rawAddress, handleIntroductionClose, tonConnectUI }) => {
+export const FirstStep: FC<FirstStepProps> = ({ handleNextStep, currentStep, rawAddress, handleIntroductionClose }) => {
     const approveOptions: Options = {
         loop: true,
         autoplay: true,
@@ -37,7 +35,23 @@ export const FirstStep: FC<FirstStepProps> = ({ handleNextStep, currentStep, raw
 
     const auth = !!localStorage.getItem('ton-connect-ui_wallet-info')
 
-    // const [ tonConnectUI, setOptions ] = useTonConnectUI()
+    const [ tonConnectUI, setOptions ] = useTonConnectUI()
+
+    setOptions({
+        walletsListConfiguration: {
+            includeWallets: [
+                {
+                    appName: 'dewallet',
+                    name: 'DeWallet',
+                    imageUrl: 'https://avatars.githubusercontent.com/u/116884789?s=200&v=4',
+                    aboutUrl: 'https://wallet.tg/',
+                    universalLink: 'https://t.me/delabtonbot/wallet?attach=wallet',
+                    bridgeUrl: 'https://bridge.tonapi.io/bridge',
+                    platforms: [ 'ios', 'android', 'macos', 'windows', 'linux' ]
+                }
+            ]
+        }
+    })
 
     useEffect(() => {
         if (currentStep !== 1 || !auth) return

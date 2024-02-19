@@ -26,7 +26,7 @@ interface PromotionPayProps {
 }
 
 const textTgStyles = { color: 'var(--tg-theme-text-color)' }
-const iconsTgStyles = { stroke: 'var(--tg-theme-link-color)' }
+// const iconsTgStyles = { stroke: 'var(--tg-theme-link-color)' }
 
 const buttonTgStyles = {
     background: 'var(--tg-theme-button-color)',

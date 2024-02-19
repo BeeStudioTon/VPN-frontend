@@ -6,7 +6,8 @@
 import { FC, useEffect, useState } from 'react'
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { TonConnectUI } from 'delab-tonconnect-ui'
+// import { TonConnectUI } from 'delab-tonconnect-ui'
+import { useTonAddress, useTonConnectUI } from 'delab-tonconnect-ui-react'
 
 // import { useTonAddress } from '@tonconnect/ui-react'
 import { AppInner } from '@delab-team/de-ui'
@@ -35,23 +36,23 @@ declare global {
     }
 }
 
-const tonConnectUI = new TonConnectUI({ manifestUrl: 'https://72a879bd.manifests.pages.dev/devpn.txt' })
+// const tonConnectUI = new TonConnectUI({ manifestUrl: 'https://72a879bd.manifests.pages.dev/devpn.txt' })
 
-tonConnectUI.uiOptions = {
-    walletsListConfiguration: {
-        includeWallets: [
-            {
-                appName: 'dewallet',
-                name: 'DeWallet',
-                imageUrl: 'https://avatars.githubusercontent.com/u/116884789?s=200&v=4',
-                aboutUrl: 'https://wallet.tg/',
-                universalLink: 'https://t.me/delabtonbot/wallet?attach=wallet', // https://t.me/delabtonbot/wallet 'https://v2.delabwallet.com/tonconnect' https://t.me/wallet?attach=wallet,
-                bridgeUrl: 'https://bridge.tonapi.io/bridge',
-                platforms: [ 'ios', 'android', 'macos', 'windows', 'linux' ]
-            }
-        ]
-    }
-}
+// tonConnectUI.uiOptions = {
+//     walletsListConfiguration: {
+//         includeWallets: [
+//             {
+//                 appName: 'dewallet',
+//                 name: 'DeWallet',
+//                 imageUrl: 'https://avatars.githubusercontent.com/u/116884789?s=200&v=4',
+//                 aboutUrl: 'https://wallet.tg/',
+//                 universalLink: 'https://t.me/delabtonbot/wallet?attach=wallet', // https://t.me/delabtonbot/wallet 'https://v2.delabwallet.com/tonconnect' https://t.me/wallet?attach=wallet,
+//                 bridgeUrl: 'https://bridge.tonapi.io/bridge',
+//                 platforms: [ 'ios', 'android', 'macos', 'windows', 'linux' ]
+//             }
+//         ]
+//     }
+// }
 
 WebAppSDK.ready()
 export const App: FC = () => {
@@ -73,7 +74,8 @@ export const App: FC = () => {
     // Skipped introduction
     const [ isSkippedIntroduction, setIsSkippedIntroduction ] = useState<boolean>(false)
 
-    const rawAddress: string = tonConnectUI.account?.address ? Address.parse(tonConnectUI.account?.address).toString({ bounceable: false }) : ''
+    const rawAddress = useTonAddress()
+    // const rawAddress: string = tonConnectUI.account?.address ? Address.parse(tonConnectUI.account?.address).toString({ bounceable: false }) : ''
 
     const navigate = useNavigate()
 
@@ -240,7 +242,6 @@ export const App: FC = () => {
                                 keysData={keysData}
                                 isTg={isTg}
                                 setShowIntroduction={setShowIntroduction}
-                                tonConnectUI={tonConnectUI}
                             />}
                         />
                         <Route path={ROUTES.PROFILE} element={<Profile user={user} rawAddress={rawAddress} selectedLanguage={selectedLanguage} setSelectedLanguage={setSelectedLanguage} /> } />
@@ -259,7 +260,6 @@ export const App: FC = () => {
                                 keysData={keysData}
                                 isTg={isTg}
                                 setShowIntroduction={setShowIntroduction}
-                                tonConnectUI={tonConnectUI}
                             />}
                         />
                         <Route element={<SomethingWentWrong />} path={ROUTES.SOMETHING_WENT_WRONG} />

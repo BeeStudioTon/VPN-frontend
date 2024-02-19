@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { TonConnectUIProvider } from '@tonconnect/ui-react'
+import { TonConnectUIProvider } from 'delab-tonconnect-ui-react'
 import { WalletInfoBase, WalletInfoInjectable, WalletInfoRemote } from '@tonconnect/sdk'
 
 import { FC, ReactNode } from 'react'
