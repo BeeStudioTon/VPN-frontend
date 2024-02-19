@@ -1334,15 +1334,15 @@
     ton-core "^0.53.0"
     ton-crypto "^3.2.0"
 
-"@delab-team/ton-network-react@^0.0.11":
-  version "0.0.11"
-  resolved "https://registry.npmjs.org/@delab-team/ton-network-react/-/ton-network-react-0.0.11.tgz"
-  integrity sha512-HaVkBfejmWRA2GI7/Nlft2RLPkq4UNIw1RVgokqsjfRVphOPr+DUAqRa9kBpcLL5tSn+elk1o6x5g8Ph+XgL0g==
+"@delab-team/ton-network-react@^0.0.13":
+  version "0.0.13"
+  resolved "https://registry.yarnpkg.com/@delab-team/ton-network-react/-/ton-network-react-0.0.13.tgz#f9c0d09d47728d9f61d1a108a30535fae2aaeaa2"
+  integrity sha512-r7Imxqlxv09thN++ya4E0Q1R6Owou8lOlfRlTRA3cA6fNA8cSPr+hfeLOq+kC/wdVpFBcEzGAzixoBRsa7bTAA==
   dependencies:
     "@ton/core" "^0.53.0"
     "@ton/ton" "^13.9.0"
-    "@tonconnect/ui" "^2.0.0-beta.2"
     "@types/react" "^18.2.21"
+    delab-tonconnect-ui "^0.1.3"
     ton-crypto "^3.2.0"
 
 "@discoveryjs/json-ext@^0.5.0":
@@ -2497,7 +2497,7 @@
   dependencies:
     "@tonconnect/ui" "^2.0.0"
 
-"@tonconnect/ui@^2.0.0", "@tonconnect/ui@^2.0.0-beta.2":
+"@tonconnect/ui@^2.0.0":
   version "2.0.0"
   resolved "https://registry.npmjs.org/@tonconnect/ui/-/ui-2.0.0.tgz"
   integrity sha512-opwroucFYf45SbnuwLJJKrlObZTAGqcf29aZr9WuVEpwIPpREsRxK80QsUBD5s7HEqn5whAdvigN/NB4pRCaYw==
