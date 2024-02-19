@@ -10,7 +10,7 @@
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@delab-team/de-ui": "0.0.28",
     "@delab-team/ton-api-sdk": "^0.0.3",
-    "@delab-team/ton-network-react": "^0.0.13",
+    "@delab-team/ton-network-react": "^0.0.14",
     "@orbs-network/ton-access": "^2.3.3",
     "@ton/core": "^0.53.0",
     "@ton/crypto": "^3.2.0",
