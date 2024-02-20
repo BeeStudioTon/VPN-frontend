@@ -210,22 +210,6 @@ export const Profile: FC<ProfileProps> = ({ rawAddress, user, selectedLanguage, 
             </Title>
 
             <div className={`${s.action}`}>
-                {/* @ts-ignore */}
-                {rawAddress && (user?.user?.type_subscribe === 0 || user !== undefined || user?.user?.end_sub === 1) && (
-                    <motion.button
-                        className={`${s.actionButton}`}
-                        onClick={handleEditPlan}
-                        whileHover="hover"
-                        initial="nonHover"
-                    >
-                        <SvgSelector id="usd2" />
-                        <div className={s.actionButtonInner}>
-                            <div className={`${s.accountAction} ${s.editPlan}`}>
-                                {t('common.edit-plan')}
-                            </div>
-                        </div>
-                    </motion.button>
-                )}
                 <motion.button
                     className={`${s.actionButton}`}
                     onClick={handleExit}
