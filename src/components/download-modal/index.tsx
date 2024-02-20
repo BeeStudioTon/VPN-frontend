@@ -95,7 +95,7 @@ export const DownloadModal: FC<DownloadModalProps> = ({ showDownloadModal, setSh
                             key={item.name}
                             className={`${s.downloadItem} ${item === filteredData ? s.selected : ''}`}
                         >
-                            <Link to={item.link || ''}>
+                            <Link to={item.link || ''} target="_blank">
                                 <div className={s.downloadItemInfo}>
                                     {item.icon}
                                     <Text className={s.downloadItemName}>{item.name}</Text>

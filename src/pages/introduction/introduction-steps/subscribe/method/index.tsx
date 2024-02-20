@@ -112,35 +112,8 @@ export const Method: FC<MethodProps> = ({ rawAddress, activePayToken, setActiveP
                 return el
             })
 
-            const additionalTokens = (res?.balances
-                ?.filter(
-                    el => el?.jetton?.address
-                    && !tokenAddressesArr?.includes(el?.jetton.address as any ?? '')
-                    && !updatedTokens?.some(
-                        updatedToken => updatedToken?.tokenAddress[0] === el?.jetton?.address as any
-                    )
-                )
-                .map((el) => {
-                    // @ts-ignore
-                    const additionalTokenPrice = priceRes?.rates[el?.jetton?.address ?? '']?.prices?.USD as any ?? '0'
-
-                    return {
-                        token: el?.jetton?.name ?? '',
-                        tokenLogo: el?.jetton?.image ?? '',
-                        tokenPriceUSD: formatNumber(additionalTokenPrice),
-                        amount: fromNano(el!.balance),
-                        amountUSD: (
-                            (parseFloat(fromNano(el?.balance).toString())
-                        * parseFloat(additionalTokenPrice)) as number
-                        ).toFixed(2),
-                        tokenAddress: [ el?.jetton?.address ?? '' ]
-                    }
-                })) || []
-
-            const finalUpdatedTokens = [ ...updatedTokens, ...additionalTokens ] as AssetType[]
-
-            setAssetsData(finalUpdatedTokens)
-            setActivePayToken(finalUpdatedTokens[0])
+            setAssetsData(updatedTokens)
+            setActivePayToken(updatedTokens[0])
             setJettonsLoading(false)
         } catch (error) {
             console.error(error)
