@@ -285,8 +285,8 @@ export const Home: FC<HomeProps> = ({
                 </div>
 
                 <Traffic
-                    limit={user?.infoUser.limit}
-                    used={user?.infoUser.used}
+                    limit={isPaid ? user?.infoUser.limit : 0}
+                    used={isPaid ? user?.infoUser.used : 0}
                     isTg={isTg}
                     userLoading={userLoading}
                 />
