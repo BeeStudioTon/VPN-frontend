@@ -1,7 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { FC, useEffect, useState } from 'react'
 import { Alert, Div, Text, Title } from '@delab-team/de-ui'
-import { useNavigate } from 'react-router-dom'
+import { redirect, useNavigate } from 'react-router-dom'
 import WebApp from '@twa-dev/sdk'
 import copy from 'copy-to-clipboard'
 import { useTranslation } from 'react-i18next'
@@ -210,6 +210,20 @@ export const Profile: FC<ProfileProps> = ({ rawAddress, user, selectedLanguage, 
             </Title>
 
             <div className={`${s.action}`}>
+                <motion.button
+                    className={`${s.actionButton}`}
+                    whileHover="hover"
+                    initial="nonHover"
+                    onClick={() => { window.open('https://t.me/DeLabSupport_bot', '_blank') }}
+                >
+                    <SvgSelector id="link" />
+                    <div className={s.actionButtonInner}>
+                        <div className={`${s.accountAction} ${s.actionText}`}>
+                            DeLab support
+                        </div>
+                    </div>
+                </motion.button>
+
                 <motion.button
                     className={`${s.actionButton}`}
                     onClick={handleExit}

@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { FC } from 'react';
+import { FC } from 'react'
 
 interface SvgSelectorProps {
     id: string;
@@ -21,7 +21,7 @@ export const SvgSelector: FC<SvgSelectorProps> = ({ id }) => {
                         fill="white"
                     />
                 </svg>
-            );
+            )
         case 'checked':
             return (
                 <svg
@@ -40,7 +40,7 @@ export const SvgSelector: FC<SvgSelectorProps> = ({ id }) => {
                         strokeLinejoin="round"
                     />
                 </svg>
-            );
+            )
         case 'chevron-right':
             return (
                 <svg
@@ -59,7 +59,7 @@ export const SvgSelector: FC<SvgSelectorProps> = ({ id }) => {
                         strokeLinejoin="round"
                     />
                 </svg>
-            );
+            )
         case 'check3':
             return (
                 <svg
@@ -85,7 +85,7 @@ export const SvgSelector: FC<SvgSelectorProps> = ({ id }) => {
                         </clipPath>
                     </defs>
                 </svg>
-            );
+            )
         case 'exit':
             return (
                 <svg
@@ -103,7 +103,7 @@ export const SvgSelector: FC<SvgSelectorProps> = ({ id }) => {
                         strokeLinejoin="round"
                     />
                 </svg>
-            );
+            )
         case 'copy':
             return (
                 <svg
@@ -120,7 +120,7 @@ export const SvgSelector: FC<SvgSelectorProps> = ({ id }) => {
                         fill="#090E23"
                     />
                 </svg>
-            );
+            )
         case 'search':
             return (
                 <svg
@@ -139,7 +139,7 @@ export const SvgSelector: FC<SvgSelectorProps> = ({ id }) => {
                         strokeLinejoin="round"
                     />
                 </svg>
-            );
+            )
         case 'clear':
             return (
                 <svg
@@ -155,7 +155,7 @@ export const SvgSelector: FC<SvgSelectorProps> = ({ id }) => {
                         fill-opacity="0.6"
                     />
                 </svg>
-            );
+            )
         case 'download':
             return (
                 <svg
@@ -173,7 +173,7 @@ export const SvgSelector: FC<SvgSelectorProps> = ({ id }) => {
                         strokeLinejoin="round"
                     />
                 </svg>
-            );
+            )
         case 'download2':
             return (
                 <svg
@@ -191,7 +191,7 @@ export const SvgSelector: FC<SvgSelectorProps> = ({ id }) => {
                         strokeLinejoin="round"
                     />
                 </svg>
-            );
+            )
         case 'chevron-right-small':
             return (
                 <svg
@@ -207,7 +207,7 @@ export const SvgSelector: FC<SvgSelectorProps> = ({ id }) => {
                         fill-opacity="0.3"
                     />
                 </svg>
-            );
+            )
         case 'earth':
             return (
                 <svg
@@ -225,7 +225,7 @@ export const SvgSelector: FC<SvgSelectorProps> = ({ id }) => {
                         strokeLinecap="round"
                     />
                 </svg>
-            );
+            )
         case 'chevron-bottom':
             return (
                 <svg
@@ -242,7 +242,13 @@ export const SvgSelector: FC<SvgSelectorProps> = ({ id }) => {
                         fill="#8A97AA"
                     />
                 </svg>
-            );
+            )
+        case 'link':
+            return (
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M6 18L18 6M18 6H8.25M18 6V15.75" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            )
         case 'usd2':
             return (
                 <svg
@@ -260,8 +266,8 @@ export const SvgSelector: FC<SvgSelectorProps> = ({ id }) => {
                         strokeLinejoin="round"
                     />
                 </svg>
-            );
+            )
         default:
-            return null;
+            return null
     }
-};
+}

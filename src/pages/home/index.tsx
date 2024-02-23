@@ -118,12 +118,14 @@ export const Home: FC<HomeProps> = ({
 
     async function createKey () {
         if (!selectedServer) return
-        try {
-            const keyData = (await vpn.getKey(selectedServer?.id)) as GetActiveServerType
+        if (!connectServerData) {
+            try {
+                const keyData = (await vpn.getKey(selectedServer?.id)) as GetActiveServerType
 
-            setConnectServerData(keyData)
-        } catch (error) {
-            console.error('Error fetching key:', error)
+                setConnectServerData(keyData)
+            } catch (error) {
+                console.error('Error fetching key:', error)
+            }
         }
     }
 
@@ -283,8 +285,8 @@ export const Home: FC<HomeProps> = ({
                 </div>
 
                 <Traffic
-                    limit={isPaid ? user?.infoUser.limit : 0}
-                    used={isPaid ? user?.infoUser.used : 0}
+                    limit={user?.infoUser.limit}
+                    used={user?.infoUser.used}
                     isTg={isTg}
                     userLoading={userLoading}
                 />

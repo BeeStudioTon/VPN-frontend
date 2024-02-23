@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable import/no-extraneous-dependencies */
@@ -12,8 +11,6 @@ import { useTonConnectUI } from 'delab-tonconnect-ui-react'
 
 import { Button } from '../../../../components/ui/button'
 
-import { UserType } from '../../../../@types/user'
-
 import * as helloSticker from '../../../../assets/stickers/hello.json'
 
 import s from './first-step.module.scss'
@@ -23,10 +20,9 @@ interface FirstStepProps {
     handleIntroductionClose: () => void;
     currentStep: number;
     rawAddress: string | undefined;
-    user: UserType | undefined
 }
 
-export const FirstStep: FC<FirstStepProps> = ({ handleNextStep, currentStep, rawAddress, handleIntroductionClose, user }) => {
+export const FirstStep: FC<FirstStepProps> = ({ handleNextStep, currentStep, rawAddress, handleIntroductionClose }) => {
     const approveOptions: Options = {
         loop: true,
         autoplay: true,
@@ -40,16 +36,6 @@ export const FirstStep: FC<FirstStepProps> = ({ handleNextStep, currentStep, raw
     const auth = !!localStorage.getItem('ton-connect-ui_wallet-info')
 
     const [ tonConnectUI, setOptions ] = useTonConnectUI()
-
-    const isPaidUser = () => {
-        if ((user?.user?.type_subscribe === 1 || user?.user?.type_subscribe === 2 || user?.user?.type_subscribe === 4 || user?.user?.type_subscribe === 3) && user?.user?.end_sub !== 1) {
-            return true
-        } if (user?.user?.type_subscribe === 0 || user?.user?.end_sub === 1) {
-            return false
-        }
-    }
-
-    const isPaid = isPaidUser()
 
     setOptions({
         walletsListConfiguration: {
@@ -70,11 +56,7 @@ export const FirstStep: FC<FirstStepProps> = ({ handleNextStep, currentStep, raw
     useEffect(() => {
         if (currentStep !== 1 || !auth) return
 
-        if (isPaid) {
-            handleIntroductionClose()
-        } else {
-            handleNextStep()
-        }
+        handleNextStep()
     }, [ rawAddress ])
 
     return (

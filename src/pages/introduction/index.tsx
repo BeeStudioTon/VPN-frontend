@@ -120,7 +120,6 @@ export const Introduction: FC<IntroductionProps> = ({
         <div className={s.wrapper}>
             {currentStep === 1 && (
                 <FirstStep
-                    user={user}
                     currentStep={currentStep}
                     handleNextStep={handleNextStep}
                     rawAddress={rawAddress}
