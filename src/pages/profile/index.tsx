@@ -214,7 +214,7 @@ export const Profile: FC<ProfileProps> = ({ rawAddress, user, selectedLanguage, 
                     className={`${s.actionButton}`}
                     whileHover="hover"
                     initial="nonHover"
-                    onClick={() => { window.open('https://t.me/DeLabSupport_bot', '_blank') }}
+                    onClick={() => { window.open('https://t.me/delabsupportbot', '_blank') }}
                 >
                     <SvgSelector id="link" />
                     <div className={s.actionButtonInner}>
