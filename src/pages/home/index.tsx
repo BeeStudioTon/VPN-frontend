@@ -119,14 +119,12 @@ export const Home: FC<HomeProps> = ({
 
     async function createKey () {
         if (!selectedServer) return
-        if (!connectServerData) {
-            try {
-                const keyData = (await vpn.getKey(selectedServer?.id)) as GetActiveServerType
+        try {
+            const keyData = (await vpn.getKey(selectedServer?.id)) as GetActiveServerType
 
-                setConnectServerData(keyData)
-            } catch (error) {
-                console.error('Error fetching key:', error)
-            }
+            setConnectServerData(keyData)
+        } catch (error) {
+            console.error('Error fetching key:', error)
         }
     }
 
