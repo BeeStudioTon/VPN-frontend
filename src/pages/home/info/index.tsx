@@ -20,7 +20,6 @@ interface InfoProps {
 }
 
 export const Info: FC<InfoProps> = ({ rawAddress }) => {
-    const [ failedLoadAvatar, setFailedLoadAvatar ] = useState<boolean>(false)
     const [ isCopiedAddress, setIsCopiedAddress ] = useState<boolean>(false)
 
     const navigate = useNavigate()
@@ -58,12 +57,11 @@ export const Info: FC<InfoProps> = ({ rawAddress }) => {
                                 const target = e.currentTarget
                                 if (target.naturalWidth === 1 || target.naturalHeight === 1) {
                                     target.style.display = 'none'
-                                    setFailedLoadAvatar(true)
                                 }
                             }}
                             alt="avatar"
                         />
-                        {failedLoadAvatar && <div className={s.userAvatarCustom}>{TgObj?.initDataUnsafe?.user?.username?.slice(0, 2)}</div>}
+                        {<div className={s.userAvatarCustom}>{TgObj?.initDataUnsafe?.user?.username?.slice(0, 2)}</div>}
                     </div>
                     <div className={s.userInfo}>
                         <div className={s.userName}>

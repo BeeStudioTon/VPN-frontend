@@ -31,8 +31,6 @@ export const Profile: FC<ProfileProps> = ({ rawAddress, user, selectedLanguage, 
     const [ isCopiedAddress, setIsCopiedAddress ] = useState<boolean>(false)
     const [ isCopiedUsername, setIsCopiedUsername ] = useState<boolean>(false)
 
-    const [ failedLoadAvatar, setFailedLoadAvatar ] = useState<boolean>(false)
-
     const handlePrev = () => {
         TgObj.BackButton.hide()
         navigate('/')
@@ -99,18 +97,19 @@ export const Profile: FC<ProfileProps> = ({ rawAddress, user, selectedLanguage, 
                 </Alert>
             )}
             <div className={s.userTg}>
-                <img
-                    src={`https://t.me/i/userpic/320/${TgObj?.initDataUnsafe?.user?.username}.jpg`}
-                    onLoad={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-                        const target = e.currentTarget
-                        if (target.naturalWidth === 0 || target.naturalHeight === 0) {
-                            target.style.display = 'none'
-                            setFailedLoadAvatar(true)
-                        }
-                    }}
-                    alt="avatar"
-                />
-                {failedLoadAvatar && <div className={s.avatar}>{TgObj?.initDataUnsafe?.user?.username?.slice(0, 2)}</div>}
+                <div className={s.userTgInner}>
+                    <img
+                        src={`https://t.me/i/userpic/320/${TgObj?.initDataUnsafe?.user?.username}.jpg`}
+                        onLoad={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+                            const target = e.currentTarget
+                            if (target.naturalWidth === 0 || target.naturalHeight === 0) {
+                                target.style.display = 'none'
+                            }
+                        }}
+                        alt="avatar"
+                    />
+                    {<div className={s.avatar}>{TgObj?.initDataUnsafe?.user?.username?.slice(0, 2)}</div>}
+                </div>
                 <div>
                     <div className={s.name}>
                         <Div tgStyles={{ color: 'var(--tg-theme-text-color)' }}>
@@ -120,9 +119,11 @@ export const Profile: FC<ProfileProps> = ({ rawAddress, user, selectedLanguage, 
                             {TgObj?.initDataUnsafe?.user?.last_name}
                         </Div>
                     </div>
-                    <div className={s.username} onClick={() => setIsCopiedUsername(true)}>
-                      @{TgObj?.initDataUnsafe?.user?.username}
-                    </div>
+                    {TgObj?.initDataUnsafe?.user?.username && TgObj?.initDataUnsafe?.user?.username?.length >= 1 && (
+                        <div className={s.username} onClick={() => setIsCopiedUsername(true)}>
+                            @{TgObj?.initDataUnsafe?.user?.username}
+                        </div>
+                    )}
                 </div>
             </div>
 
@@ -219,7 +220,7 @@ export const Profile: FC<ProfileProps> = ({ rawAddress, user, selectedLanguage, 
                     <SvgSelector id="link" />
                     <div className={s.actionButtonInner}>
                         <div className={`${s.accountAction} ${s.actionText}`}>
-                            DeLab support
+                            {t('common.support')}
                         </div>
                     </div>
                 </motion.button>

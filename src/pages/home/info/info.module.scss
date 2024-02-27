@@ -14,15 +14,17 @@
     gap: 10px;
     cursor: pointer;
     transition: all 0.3s ease 0s;
+    position: relative;
     &Avatar {
       img {
         width: 46px;
         height: 46px;
         border-radius: 50%;
+        position: absolute;
       }
       &Custom {
-        width: 60px;
-        height: 60px;
+        width: 46px;
+        height: 46px;
         border-radius: 50%;
         display: flex;
         align-items: center;

@@ -73,6 +73,7 @@
     "skip-plan": "Skip plan",
     "error-tg": "This application is only available in Telegram",
     "download-app": "Download App",
-    "download-text": "Download the app before connecting"
+    "download-text": "Download the app before connecting",
+    "support": "DeLab Support"
   }
 }
