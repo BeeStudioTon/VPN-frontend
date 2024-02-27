@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable max-len */
 /* eslint-disable import/no-extraneous-dependencies */
@@ -172,6 +173,9 @@ export const Home: FC<HomeProps> = ({
         window.location.href = '/introduction'
     }
 
+    const limit = isPaid ? user?.infoUser.limit : 0
+    const used = isPaid ? user?.infoUser.used : 0
+
     return (
         <>
             {showDownloadModal && (
@@ -283,8 +287,8 @@ export const Home: FC<HomeProps> = ({
                 </div>
 
                 <Traffic
-                    limit={isPaid ? user?.infoUser.limit : 0}
-                    used={isPaid ? user?.infoUser.used : 0}
+                    limit={limit}
+                    used={used}
                     isTg={isTg}
                     userLoading={userLoading}
                 />
