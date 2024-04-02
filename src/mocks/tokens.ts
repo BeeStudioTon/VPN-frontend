@@ -11,12 +11,12 @@ export const tokensData = [
         token: 'DFC',
         amount: '0',
         amountUSD: '0.00',
-        tokenLogo: 'https://cache.tonapi.io/imgproxy/G8iWJLhU0kgZtKbA8j11QWRJYyCbq6E-Loq4TkMMMpA/rs:fill:200:200:1/g:no/aHR0cHM6Ly90YW4tdG91Z2gtc2x1Zy0zNTEubXlwaW5hdGEuY2xvdWQvaXBmcy9RbVhRb2pKVVB2a0dDQ2VSOVF1OFd3bWNaRjFnTERZMjhlcExMaFBZdkR5OFRr.webp',
+        tokenLogo: 'https://i.tonscan.org/resize/zLizDLindVxRBw4DMg6-fBHQqi3EgyRe2Rs-oUGmOGU/f:jpg/rs:fit:72:72:0/aXBmczovL1FtWFFvakpVUHZrR0NDZVI5UXU4V3dtY1pGMWdMRFkyOGVwTExoUFl2RHk4VGs.jpg',
         tokenAddress: [ '0:f6eb371de82aa9cfb5b22ca547f31fdc0fa0fbb41ae89ba84a73272ff0bf2157', '0:c288b9102a934e1a93435f6a194470da340559a95e9c9816c682ccff2215149d' ]
     },
     {
         token: 'ARBUZ',
-        tokenLogo: 'https://cache.tonapi.io/imgproxy/DPjV-M30WgZW_b9-jr3XKe47Fo_9YA8A7NyP55Irj-8/rs:fill:200:200:1/g:no/aHR0cHM6Ly9pLnBvc3RpbWcuY2MvWEpnVmY3cGIvYXJiLnBuZw.webp',
+        tokenLogo: 'https://s2.coinmarketcap.com/static/img/coins/200x200/29320.png',
         amount: '0',
         amountUSD: '0.00',
         tokenAddress: [ '0:0cd8a583a7d94dd18bf1bdf49b234af28c15f033bd2b6a4a4d2076ee1136ad45', '0:0cd8a583a7d94dd18bf1bdf49b234af28c15f033bd2b6a4a4d2076ee1136ad45' ]
