@@ -271,4 +271,3 @@ export const App: FC = () => {
         </AppInner>
     )
 }
-
