@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable import/extensions */
@@ -13,11 +12,11 @@ import { InfoType } from '../@types/info'
 import { TransactionType } from '../@types/transaction'
 
 export class VPN {
-    private _url: string = 'http://localhost:4000/'
+    private _url: string = 'https://lobster-app-7recs.ondigitalocean.app/'
 
     public async get (url: string, data: any): Promise<any | undefined> {
         try {
-            const res = await axios.get(`${this._url}${url}?${new URLSearchParams(data)}`, { headers: { 'telegram-data': window.Telegram.WebApp.initData } })
+            const res = await axios.get(`${this._url}${url}?${new URLSearchParams(data)}`)
 
             return res?.data
         } catch (error) {
@@ -28,7 +27,7 @@ export class VPN {
 
     public async post (url: string, data: any): Promise<any | undefined> {
         try {
-            const res = await axios.post(`${this._url}${url}`, data, { headers: { 'telegram-data': window.Telegram.WebApp.initData } })
+            const res = await axios.post(`${this._url}${url}`, data)
 
             return res?.data
         } catch (error) {
@@ -38,13 +37,7 @@ export class VPN {
     }
 
     public async postAuth (): Promise<UserType | undefined> {
-        const res = await axios.get('http://localhost:4000/api/v2/user/getUser', { headers: { 'telegram-data': window.Telegram.WebApp.initData } })
-
-        return res?.data
-    }
-
-    public async checkPayment (): Promise<boolean | undefined> {
-        const res = await axios.post('http://localhost:4000/api/v2/tariffs/checkPayment', { headers: { 'telegram-data': window.Telegram.WebApp.initData } })
+        const res = await this.post('auth', { tg_data: window.Telegram.WebApp.initData })
 
         return res?.data
     }
@@ -56,13 +49,13 @@ export class VPN {
     }
 
     public async getRates (): Promise<any | undefined> {
-        const res = await axios.get('http://localhost:4000/api/v2/tariff/getTariffs', { headers: { 'telegram-data': window.Telegram.WebApp.initData } })
+        const res = await this.get('getRates', {})
 
         return res?.data as RatesType[]
     }
 
     public async getKeys (): Promise<any[] | undefined> {
-        const res = await this.post('getKeys', {})
+        const res = await this.post('getKeys', { tg_data: window.Telegram.WebApp.initData })
 
         return res?.data
     }
@@ -73,7 +66,7 @@ export class VPN {
     }
 
     public async getKey (id_server: number): Promise<any | undefined> {
-        const data = await this.post('getKey', { id_server })
+        const data = await this.post('getKey', { tg_data: window.Telegram.WebApp.initData, id_server })
 
         return data?.data
     }
@@ -106,11 +99,5 @@ export class VPN {
         const data = await this.post('getAutoKey', { tg_data: window.Telegram.WebApp.initData })
 
         return data?.data
-    }
-
-    public async getInvoice (tariffId: string, tokenAddress: string): Promise<any | undefined> {
-        const res = await axios.get(`http://localhost:4000/api/v2/tariff/createTransaction?tariffId=${tariffId}&tokenAddress=${tokenAddress}`, { headers: { 'telegram-data': window.Telegram.WebApp.initData } })
-
-        return res?.data
     }
 }
