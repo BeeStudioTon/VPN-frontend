@@ -132,6 +132,7 @@ export const Subscribe: FC<SubscribeProps> = ({ isTg, activeRate, setActiveRate,
     // Pay function1
     async function handlePay () {
         if (!payToken || !activeRate) return
+        const invoice = await vpn.getInvoice(String(activeRate?.id), payToken.tokenAddress[0])
         TgObj.MainButton.hide()
         const reverseRate = 1 / Number(payToken.tokenPriceUSD)
         let amountInUsd
@@ -139,7 +140,7 @@ export const Subscribe: FC<SubscribeProps> = ({ isTg, activeRate, setActiveRate,
         amountInUsd = increasedAmount.toFixed(2)
 
         const tr = await sendTrans(
-            Number(user?.user.id),
+            Number(invoice.id),
             payToken?.token === 'TON' ? 'TON' : Address.parse(payToken!.tokenAddress[0]),
             Number(amountInUsd)
         )
@@ -152,8 +153,9 @@ export const Subscribe: FC<SubscribeProps> = ({ isTg, activeRate, setActiveRate,
             const isPaymentPage = localStorage.getItem('toPaymentPage') === 'true'
 
             interval = setInterval(async () => {
-                const userData = await vpn.postAuth()
+                const userData = await vpn.checkPayment()
 
+                // @ts-ignore
                 if (userData?.user?.type_subscribe !== 0 && userData?.user?.type_subscribe !== 3) {
                     clearInterval(interval)
                     setIsPaymentLoading(false)
@@ -220,15 +222,16 @@ export const Subscribe: FC<SubscribeProps> = ({ isTg, activeRate, setActiveRate,
                 TgObj.MainButton.text = t('common.insufficient-balance')
                 TgObj.MainButton.color = '#78B5F9'
                 TgObj.MainButton.disable()
-            } else if (!user || !rawAddress) {
-                TgObj.MainButton.text = t('common.loading')
-                TgObj.MainButton.color = '#78B5F9'
-                TgObj.MainButton.disable()
-            } else {
-                TgObj.MainButton.text = t('common.pay-btn')
-                TgObj.MainButton.color = '#40a7e3'
-                TgObj.MainButton.enable()
-            }
+            } else
+                if (!user || !rawAddress) {
+                    TgObj.MainButton.text = t('common.loading')
+                    TgObj.MainButton.color = '#78B5F9'
+                    TgObj.MainButton.disable()
+                } else {
+                    TgObj.MainButton.text = t('common.pay-btn')
+                    TgObj.MainButton.color = '#40a7e3'
+                    TgObj.MainButton.enable()
+                }
         } else if (currentStep === 4) {
             if (isSuccessPay) {
                 TgObj.MainButton.text = t('common.return-to-main')

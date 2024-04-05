@@ -7,7 +7,6 @@ export const Redirect: FC<RedirectProps> = () => {
     const location = useLocation()
 
     const urlSearch = useMemo(() => new URLSearchParams(location.search), [ location.search ])
-    console.log('🚀 ~ urlSearch:', urlSearch)
 
     useEffect(() => {
         const decodedUrl = urlSearch.get('key')
