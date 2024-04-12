@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable import/extensions */
@@ -15,7 +14,7 @@ import { TransactionType } from '../@types/transaction'
 import { KeysType } from '../@types/get-keys'
 
 export class VPN {
-    private _url: string = 'http://localhost:4000/'
+    private _url: string = 'https://lobster-app-7recs.ondigitalocean.app/'
 
     public async get (url: string, data: any): Promise<any | undefined> {
         try {
@@ -112,4 +111,6 @@ export class VPN {
         const res = await axios.get(`${this._url}api/v2/tariff/createTransaction?tariffId=${tariffId}&tokenAddress=${tokenAddress}&userAddress=${userAddress}`, { headers: { 'telegram-data': window.Telegram.WebApp.initData } })
         return res?.data
     }
+}
+
 }

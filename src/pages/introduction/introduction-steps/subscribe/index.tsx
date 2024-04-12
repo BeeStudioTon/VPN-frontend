@@ -184,7 +184,7 @@ export const Subscribe: FC<SubscribeProps> = ({
             const isPaymentPage = localStorage.getItem('toPaymentPage') === 'true'
 
             interval = setInterval(async () => {
-                const userData = await vpn.checkPayment()
+                const userData = await vpn.postAuth()
 
                 if (
                     // @ts-ignore
