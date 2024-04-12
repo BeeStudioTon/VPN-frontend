@@ -6,9 +6,6 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable max-len */
 import { FC, useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-// import { useTonConnectUI } from '@tonconnect/ui-react'
-// import { TonConnectUI } from 'delab-tonconnect-ui'
 
 import { Title } from '@delab-team/de-ui'
 import WebAppSDK from '@twa-dev/sdk'
@@ -34,23 +31,33 @@ import { JettonWallet } from '../../../../utils/JettonWallet'
 import { JettonMinter } from '../../../../utils/JettonMinter'
 
 import s from './subscribe.module.scss'
+import { calculateDaysFromTimestamp } from '../../../../utils/formatDateFromTimestamp'
 
 const NEXT_STEP_COLOR = '#40a7e3'
 const DISABLED_BUTTON_COLOR = '#78B5F9'
 const ERROR_TEXT_COLOR = '#FF0026'
 
 interface SubscribeProps {
-    activeRate: RatesType | undefined
-    setActiveRate: React.Dispatch<React.SetStateAction<RatesType | undefined>>
-    currentStep: number
-    isTg: boolean
-    rawAddress: string
+    activeRate: RatesType | undefined;
+    setActiveRate: React.Dispatch<React.SetStateAction<RatesType | undefined>>;
+    currentStep: number;
+    isTg: boolean;
+    rawAddress: string;
     user: UserType | undefined;
-    setCurrentStep: React.Dispatch<React.SetStateAction<number>>
-    handleIntroductionClose: () => void
+    setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
+    handleIntroductionClose: () => void;
 }
 
-export const Subscribe: FC<SubscribeProps> = ({ isTg, activeRate, setActiveRate, currentStep, setCurrentStep, rawAddress, user, handleIntroductionClose }) => {
+export const Subscribe: FC<SubscribeProps> = ({
+    isTg,
+    activeRate,
+    setActiveRate,
+    currentStep,
+    setCurrentStep,
+    rawAddress,
+    user,
+    handleIntroductionClose
+}) => {
     const { t } = useTranslation()
 
     const TgObj = WebAppSDK
@@ -59,8 +66,12 @@ export const Subscribe: FC<SubscribeProps> = ({ isTg, activeRate, setActiveRate,
 
     const [ payToken, setPayToken ] = useState<AssetType | undefined>(undefined)
 
+    const [ assetsData, setAssetsData ] = useState<AssetType[] | undefined>(undefined)
+
     const [ isSuccessPay, setIsSuccessPay ] = useState<boolean>(true)
     const [ isPaymentLoading, setIsPaymentLoading ] = useState<boolean>(false)
+
+    const [ invoiceCreating, setInvoiceCreating ] = useState<boolean>(false)
 
     const [ tonConnectUI, setOptions ] = useTonConnectUI()
 
@@ -88,7 +99,7 @@ export const Subscribe: FC<SubscribeProps> = ({ isTg, activeRate, setActiveRate,
             a.bits.writeString(id_user + '')
             const payload = TonWeb.utils.bytesToBase64(await a.toBoc())
 
-            const tr =  {
+            const tr = {
                 validUntil: Math.floor(Date.now() / 1000) + 60, // 60 sec
                 messages: [
                     {
@@ -108,7 +119,9 @@ export const Subscribe: FC<SubscribeProps> = ({ isTg, activeRate, setActiveRate,
         const jettonMinter = test.open(JettonMinterContract)
 
         try {
-            const walletAddressUser = await jettonMinter.getWalletAddressOf(Address.parse(rawAddress))
+            const walletAddressUser = await jettonMinter.getWalletAddressOf(
+                Address.parse(rawAddress)
+            )
 
             const JettonWalletContract = new JettonWallet(walletAddressUser)
 
@@ -120,7 +133,10 @@ export const Subscribe: FC<SubscribeProps> = ({ isTg, activeRate, setActiveRate,
                 toNano('0.08'),
                 Address.parse(addressVPN),
                 toNano(amount),
-                beginCell().storeUint(0, 32).storeStringRefTail(id_user + '').endCell()
+                beginCell()
+                    .storeUint(0, 32)
+                    .storeStringRefTail(id_user + '')
+                    .endCell()
             )
             return true
         } catch (e) {
@@ -129,20 +145,35 @@ export const Subscribe: FC<SubscribeProps> = ({ isTg, activeRate, setActiveRate,
         }
     }
 
+    const isPaidUser = () => {
+        const activeTariff = user?.user?.activeTariff
+
+        if (activeTariff === null || activeTariff?.id === null) {
+            return false
+        }
+
+        if (calculateDaysFromTimestamp(Date.parse(user?.user?.activeTo ?? '0') / 1000) >= 1) {
+            return true
+        }
+
+        return false
+    }
+
+    const isPaid = isPaidUser()
+
     // Pay function1
     async function handlePay () {
         if (!payToken || !activeRate) return
-        const invoice = await vpn.getInvoice(String(activeRate?.id), payToken.tokenAddress[0])
+        TgObj.MainButton.text = t('common.loading')
+        TgObj.MainButton.color = '#78B5F9'
+        TgObj.MainButton.disable()
+        const invoice = await vpn.getInvoice(String(activeRate?.id), payToken.tokenAddress[0], rawAddress)
         TgObj.MainButton.hide()
-        const reverseRate = 1 / Number(payToken.tokenPriceUSD)
-        let amountInUsd
-        const increasedAmount = Number(activeRate.price) * reverseRate * 1.05
-        amountInUsd = increasedAmount.toFixed(2)
 
         const tr = await sendTrans(
-            Number(invoice.id),
+            Number(WebAppSDK.initDataUnsafe.user?.id),
             payToken?.token === 'TON' ? 'TON' : Address.parse(payToken!.tokenAddress[0]),
-            Number(amountInUsd)
+            invoice.tokenAmount
         )
 
         if (tr) {
@@ -155,8 +186,10 @@ export const Subscribe: FC<SubscribeProps> = ({ isTg, activeRate, setActiveRate,
             interval = setInterval(async () => {
                 const userData = await vpn.checkPayment()
 
-                // @ts-ignore
-                if (userData?.user?.type_subscribe !== 0 && userData?.user?.type_subscribe !== 3) {
+                if (
+                    // @ts-ignore
+                    calculateDaysFromTimestamp(Date.parse(userData?.activeTo ?? '0') / 1000) >= 1
+                ) {
                     clearInterval(interval)
                     setIsPaymentLoading(false)
                     setIsSuccessPay(true)
@@ -176,13 +209,15 @@ export const Subscribe: FC<SubscribeProps> = ({ isTg, activeRate, setActiveRate,
                 }
             }, 5000)
 
-            setTimeout(() => {
+            setTimeout(async () => {
+                const user = await vpn.postAuth()
                 clearInterval(interval)
                 setIsPaymentLoading(false)
                 TgObj.MainButton.color = '#40a7e3'
+                localStorage.setItem('currentIntroductionStep', '4')
                 TgObj.MainButton.enable()
                 setIsSuccessPay(false)
-                if (user?.user?.type_subscribe === 0) {
+                if (user?.user?.activeTariff?.id === 0 || user?.user?.activeTariff === null) {
                     TgObj.showAlert('Error, please try again')
                     TgObj.MainButton.show()
                 }
@@ -195,6 +230,8 @@ export const Subscribe: FC<SubscribeProps> = ({ isTg, activeRate, setActiveRate,
             TgObj.MainButton.enable()
         }
     }
+
+    const ton = assetsData?.find(el => el.token === 'TON')
 
     const enableBtn = () => {
         TgObj.MainButton.show()
@@ -218,20 +255,24 @@ export const Subscribe: FC<SubscribeProps> = ({ isTg, activeRate, setActiveRate,
             }
         } else if (currentStep === 3) {
             if (!activeRate?.price) return
+
             if (activeRate?.price > Number(payToken?.amountUSD)) {
                 TgObj.MainButton.text = t('common.insufficient-balance')
                 TgObj.MainButton.color = '#78B5F9'
                 TgObj.MainButton.disable()
-            } else
-                if (!user || !rawAddress) {
-                    TgObj.MainButton.text = t('common.loading')
-                    TgObj.MainButton.color = '#78B5F9'
-                    TgObj.MainButton.disable()
-                } else {
-                    TgObj.MainButton.text = t('common.pay-btn')
-                    TgObj.MainButton.color = '#40a7e3'
-                    TgObj.MainButton.enable()
-                }
+            } else if (Number(ton?.amount) < 0.2) {
+                TgObj.MainButton.text = t('common.insufficient-balance2')
+                TgObj.MainButton.color = '#78B5F9'
+                TgObj.MainButton.disable()
+            } else if (!user || !rawAddress) {
+                TgObj.MainButton.text = t('common.loading')
+                TgObj.MainButton.color = '#78B5F9'
+                TgObj.MainButton.disable()
+            } else {
+                TgObj.MainButton.text = t('common.pay-btn')
+                TgObj.MainButton.color = '#40a7e3'
+                TgObj.MainButton.enable()
+            }
         } else if (currentStep === 4) {
             if (isSuccessPay) {
                 TgObj.MainButton.text = t('common.return-to-main')
@@ -294,7 +335,13 @@ export const Subscribe: FC<SubscribeProps> = ({ isTg, activeRate, setActiveRate,
         return () => TgObj.MainButton.offClick(handleBtn)
     }, [ currentStep, activeRate, payToken, user, rawAddress ])
 
-    const step: string = currentStep === 2 ? t('subscribe.steps.plan') : currentStep === 3 ? t('subscribe.steps.method') : currentStep === 4 ? t('subscribe.steps.confirm') : t('subscribe.unknown')
+    const step: string =        currentStep === 2
+        ? t('subscribe.steps.plan')
+        : currentStep === 3
+            ? t('subscribe.steps.method')
+            : currentStep === 4
+                ? t('subscribe.steps.confirm')
+                : t('subscribe.unknown')
 
     return (
         <>
@@ -330,31 +377,39 @@ export const Subscribe: FC<SubscribeProps> = ({ isTg, activeRate, setActiveRate,
                             style={{ background: currentStep >= 4 ? NEXT_STEP_COLOR : '' }}
                         />
                         <div
-                            className={`${s.step} ${currentStep >= 4 ? s.stepActive : ''} ${!isSuccessPay ? s.stepError : ''}`}
+                            className={`${s.step} ${currentStep >= 4 ? s.stepActive : ''} ${
+                                !isSuccessPay ? s.stepError : ''
+                            }`}
                             style={{ color: !isSuccessPay ? ERROR_TEXT_COLOR : '' }}
                         ></div>
                     </div>
                 </div>
             </div>
 
-            {currentStep === 2 && <Plan
-                activeRate={activeRate}
-                setActiveRate={setActiveRate}
-                isTg={isTg}
-                handleIntroductionClose={handleIntroductionClose}
-            />}
+            {currentStep === 2 && (
+                <Plan
+                    activeRate={activeRate}
+                    setActiveRate={setActiveRate}
+                    isTg={isTg}
+                    handleIntroductionClose={handleIntroductionClose}
+                />
+            )}
 
-            {currentStep === 3 && <Method
-                amount={activeRate?.price}
-                activePayToken={payToken}
-                setActivePayToken={setPayToken}
-                currentStep={currentStep}
-                rawAddress={rawAddress}
-                user={user}
-                // payment loading
-                isPaymentLoading={isPaymentLoading}
-                isTg={isTg}
-            />}
+            {currentStep === 3 && (
+                <Method
+                    amount={activeRate?.price}
+                    activePayToken={payToken}
+                    setActivePayToken={setPayToken}
+                    currentStep={currentStep}
+                    rawAddress={rawAddress}
+                    user={user}
+                    // payment loading
+                    isPaymentLoading={isPaymentLoading}
+                    isTg={isTg}
+                    assetsData={assetsData}
+                    setAssetsData={setAssetsData}
+                />
+            )}
 
             {currentStep === 4 && <Status isSuccess={isSuccessPay} />}
         </>

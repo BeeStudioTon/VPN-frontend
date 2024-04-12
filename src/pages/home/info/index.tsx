@@ -59,7 +59,7 @@ export const Info: FC<InfoProps> = ({ rawAddress }) => {
                                     target.style.display = 'none'
                                 }
                             }}
-                            alt="avatar"
+                            alt=""
                         />
                         {<div className={s.userAvatarCustom}>{TgObj?.initDataUnsafe?.user?.username?.slice(0, 2)}</div>}
                     </div>

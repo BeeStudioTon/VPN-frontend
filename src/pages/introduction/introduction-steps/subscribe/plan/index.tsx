@@ -28,7 +28,6 @@ export const Plan: FC<PlanProps> = ({
 }) => {
     // Rates Data
     const [ ratesData, setRatesData ] = useState<RatesType[]>([])
-    console.log('🚀 ~ ratesData:', ratesData)
     // Loading Rates Data
     const [ ratesLoading, setRatesLoading ] = useState<boolean>(false)
 

@@ -22,15 +22,23 @@ export interface InfoUser {
 }
 
 export interface User {
-    active_server: number
-    ban: number
-    date_subscribe: number
-    free_activated: number
+    activeAt: number
+    activeTariff: IActiveTariff | null
+    activeTo: string
+    balance: number
+    idServer: number
     id: number
-    id_telegram: string
+    ban: boolean
+    tgId: string
     lang: string
-    end_sub: number
-    reg_date: number
-    type_subscribe: number
-    username: string
+    userName: string
+}
+
+export interface IActiveTariff {
+    description: string
+    id: number
+    name: string
+    period: number
+    price: number
+    priceOld: number
 }

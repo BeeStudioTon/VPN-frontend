@@ -62,6 +62,7 @@
     "select-plan": "Select Plan",
     "close": "Close",
     "insufficient-balance": "Insufficient balance",
+    "insufficient-balance2": "Minimum 0.20 TON",
     "pay-btn": "Confirm and pay",
     "not-found": "Not found.",
     "edit-plan": "Edit plan",

@@ -36,24 +36,6 @@ declare global {
     }
 }
 
-// const tonConnectUI = new TonConnectUI({ manifestUrl: 'https://72a879bd.manifests.pages.dev/devpn.txt' })
-
-// tonConnectUI.uiOptions = {
-//     walletsListConfiguration: {
-//         includeWallets: [
-//             {
-//                 appName: 'dewallet',
-//                 name: 'DeWallet',
-//                 imageUrl: 'https://avatars.githubusercontent.com/u/116884789?s=200&v=4',
-//                 aboutUrl: 'https://wallet.tg/',
-//                 universalLink: 'https://t.me/delabtonbot/wallet?attach=wallet', // https://t.me/delabtonbot/wallet 'https://v2.delabwallet.com/tonconnect' https://t.me/wallet?attach=wallet,
-//                 bridgeUrl: 'https://bridge.tonapi.io/bridge',
-//                 platforms: [ 'ios', 'android', 'macos', 'windows', 'linux' ]
-//             }
-//         ]
-//     }
-// }
-
 WebAppSDK.ready()
 export const App: FC = () => {
     const [ firstRender, setFirstRender ] = useState<boolean>(false)
@@ -75,7 +57,6 @@ export const App: FC = () => {
     const [ isSkippedIntroduction, setIsSkippedIntroduction ] = useState<boolean>(false)
 
     const rawAddress = useTonAddress()
-    // const rawAddress: string = tonConnectUI.account?.address ? Address.parse(tonConnectUI.account?.address).toString({ bounceable: false }) : ''
 
     const navigate = useNavigate()
 
@@ -85,7 +66,7 @@ export const App: FC = () => {
     async function fetchData () {
         setUserLoading(true)
         const userData = await vpn.postAuth().finally(() => setUserLoading(false))
-        setUser(userData as UserType)
+        setUser(userData)
 
         if (!userData) {
             setIsError(true)
@@ -95,7 +76,8 @@ export const App: FC = () => {
         }
 
         const keysData = await vpn.getKeys()
-        setKeysData(keysData as GetActiveServerType[])
+        // @ts-ignore
+        setKeysData(keysData?.keys)
     }
 
     // init twa
@@ -110,7 +92,6 @@ export const App: FC = () => {
                 TgObj.MainButton.hide()
                 navigate('/')
             }
-
             if (!isTgCheck && window.location.pathname === '/redirect') {
                 return
             }
@@ -216,7 +197,6 @@ export const App: FC = () => {
     }, [ selectedLanguage, i18n ])
 
     //= ========================================================================================================================================================
-    console.log(window.location.pathname)
 
     return (
         <AppInner isTg={isTg}>

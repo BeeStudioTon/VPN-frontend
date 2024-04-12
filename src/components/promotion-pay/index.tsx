@@ -104,14 +104,14 @@ export const PromotionPay: FC<PromotionPayProps> = ({
                                 <div className={s.promotionLiLeft}>
                                     <div className={s.promotionLiInfo}>
                                         <Text className={s.promotionLiTitle}>{el?.name_rate}</Text>
-                                        {el.price_old !== 0 && (
+                                        {(el.price_old !== 0 && el.price !== 0) && (
                                             <div className={s.promotionLiBadge}>-{Math.round(((el.price_old - el.price) / el.price_old) * 100)}%</div>
                                         )}
                                     </div>
                                     <Text className={s.promotionLiDescription} tgStyles={textTgStyles}>{el?.price_old !== 0 && <span className={s.promotionLiOldPrice}>${el?.price_old}</span>} {' '} ${el?.price} / {el?.name_rate}</Text>
                                 </div>
                                 <div className={s.promotionLiRight}>
-                                    <Text className={s.promotionLiPrice}>{el.count_days === 7 ? 'Free / 7 days' : <>${el?.price_m} / month</> }</Text>
+                                    <Text className={s.promotionLiPrice}>{el.count_days === 7 ? 'Free / 7 days' : <>${el?.price_m.toFixed(2)} / month</> }</Text>
                                 </div>
                             </div>
                         </div>

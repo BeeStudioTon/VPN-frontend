@@ -106,7 +106,7 @@ export const Profile: FC<ProfileProps> = ({ rawAddress, user, selectedLanguage, 
                                 target.style.display = 'none'
                             }
                         }}
-                        alt="avatar"
+                        alt=""
                     />
                     {<div className={s.avatar}>{TgObj?.initDataUnsafe?.user?.username?.slice(0, 2)}</div>}
                 </div>
