@@ -134,12 +134,13 @@ export const Home: FC<HomeProps> = ({
     }
 
     useEffect(() => {
-        const connectServer = keysData?.find(el => el.id_server === selectedServer?.id)
+        const connectServer = keysData?.find(el => el.id === selectedServer?.id)
 
         if (!connectServer) {
             createKey()
         } else {
-            setConnectServerData(connectServer)
+            // @ts-ignore
+            setConnectServerData(connectServer?.key)
         }
     }, [ selectedServer ])
 

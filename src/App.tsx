@@ -37,221 +37,217 @@ declare global {
 }
 
 WebAppSDK.ready()
-// eslint-disable-next-line arrow-body-style
 export const App: FC = () => {
-    // const [ firstRender, setFirstRender ] = useState<boolean>(false)
-    // const [ isTg, setIsTg ] = useState<boolean>(false)
-    // const TgObj = WebAppSDK
+    const [ firstRender, setFirstRender ] = useState<boolean>(false)
+    const [ isTg, setIsTg ] = useState<boolean>(false)
+    const TgObj = WebAppSDK
 
-    // // user
-    // const [ user, setUser ] = useState<UserType | undefined>(undefined)
-    // const [ userLoading, setUserLoading ] = useState<boolean>(false)
-    // const [ isError, setIsError ] = useState<boolean>(false)
-    // // user end
+    // user
+    const [ user, setUser ] = useState<UserType | undefined>(undefined)
+    const [ userLoading, setUserLoading ] = useState<boolean>(false)
+    const [ isError, setIsError ] = useState<boolean>(false)
+    // user end
 
-    // const [ keysData, setKeysData ] = useState<GetActiveServerType[] | undefined>(undefined)
+    const [ keysData, setKeysData ] = useState<GetActiveServerType[] | undefined>(undefined)
 
-    // // Introduction
-    // const [ showIntroduction, setShowIntroduction ] = useState<boolean>(true)
+    // Introduction
+    const [ showIntroduction, setShowIntroduction ] = useState<boolean>(true)
 
-    // // Skipped introduction
-    // const [ isSkippedIntroduction, setIsSkippedIntroduction ] = useState<boolean>(false)
+    // Skipped introduction
+    const [ isSkippedIntroduction, setIsSkippedIntroduction ] = useState<boolean>(false)
 
-    // const rawAddress = useTonAddress()
+    const rawAddress = useTonAddress()
 
-    // const navigate = useNavigate()
+    const navigate = useNavigate()
 
-    // const vpn = new VPN()
+    const vpn = new VPN()
 
-    // // fetch keys data
-    // async function fetchData () {
-    //     setUserLoading(true)
-    //     const userData = await vpn.postAuth().finally(() => setUserLoading(false))
-    //     setUser(userData)
+    // fetch keys data
+    async function fetchData () {
+        setUserLoading(true)
+        const userData = await vpn.postAuth().finally(() => setUserLoading(false))
+        setUser(userData)
 
-    //     if (!userData) {
-    //         setIsError(true)
-    //         navigate(ROUTES.SOMETHING_WENT_WRONG)
-    //     } else {
-    //         setIsError(false)
-    //     }
+        if (!userData) {
+            setIsError(true)
+            navigate(ROUTES.SOMETHING_WENT_WRONG)
+        } else {
+            setIsError(false)
+        }
 
-    //     const keysData = await vpn.getKeys()
-    //     // @ts-ignore
-    //     setKeysData(keysData?.keys)
-    // }
+        const keysData = await vpn.getKeys()
+        // @ts-ignore
+        setKeysData(keysData?.keys)
+    }
 
-    // // init twa
-    // useEffect(() => {
-    //     if (!firstRender && TgObj) {
-    //         setFirstRender(true)
+    // init twa
+    useEffect(() => {
+        if (!firstRender && TgObj) {
+            setFirstRender(true)
 
-    //         const isTgCheck = window.Telegram.WebApp.initData !== ''
-    //         const bodyStyle = document.body.style
+            const isTgCheck = window.Telegram.WebApp.initData !== ''
+            const bodyStyle = document.body.style
 
-    //         if (window.location.pathname === ROUTES.SOMETHING_WENT_WRONG && !isError) {
-    //             TgObj.MainButton.hide()
-    //             navigate('/')
-    //         }
-    //         if (!isTgCheck && window.location.pathname === '/redirect') {
-    //             return
-    //         }
+            if (window.location.pathname === ROUTES.SOMETHING_WENT_WRONG && !isError) {
+                TgObj.MainButton.hide()
+                navigate('/')
+            }
+            if (!isTgCheck && window.location.pathname === '/redirect') {
+                return
+            }
 
-    //         if (isTgCheck) {
-    //             TgObj.ready()
-    //             TgObj.enableClosingConfirmation()
-    //             TgObj.expand()
-    //             setIsTg(true)
+            if (isTgCheck) {
+                TgObj.ready()
+                TgObj.enableClosingConfirmation()
+                TgObj.expand()
+                setIsTg(true)
 
-    //             fetchData()
+                fetchData()
 
-    //             bodyStyle.backgroundColor = 'var(--tg-theme-secondary-bg-color)'
-    //             bodyStyle.setProperty('background-color', 'var(--tg-theme-secondary-bg-color)', 'important')
-    //         } else {
-    //             navigate('/something_went_wrong')
-    //         }
+                bodyStyle.backgroundColor = 'var(--tg-theme-secondary-bg-color)'
+                bodyStyle.setProperty('background-color', 'var(--tg-theme-secondary-bg-color)', 'important')
+            } else {
+                navigate('/something_went_wrong')
+            }
 
-    //         if (window.location.pathname !== '/introduction') {
-    //             if (!isTg) {
-    //                 return
-    //             }
-    //             TgObj.requestWriteAccess()
-    //         }
-    //     }
-    //     // vpn.getAutoKey()
-    // }, [])
+            if (window.location.pathname !== '/introduction') {
+                if (!isTg) {
+                    return
+                }
+                TgObj.requestWriteAccess()
+            }
+        }
+        // vpn.getAutoKey()
+    }, [])
 
-    // // introduction check
-    // useEffect(() => {
-    //     const isTgCheck = window.Telegram.WebApp.initData !== ''
-    //     const hasPassedIntroduction = localStorage.getItem('hasPassedIntroduction')
+    // introduction check
+    useEffect(() => {
+        const isTgCheck = window.Telegram.WebApp.initData !== ''
+        const hasPassedIntroduction = localStorage.getItem('hasPassedIntroduction')
 
-    //     if (window.location.pathname === '/redirect') {
-    //         return
-    //     }
+        if (window.location.pathname === '/redirect') {
+            return
+        }
 
-    //     if (!isTgCheck) {
-    //         navigate('/something_went_wrong')
-    //         return
-    //     }
+        if (!isTgCheck) {
+            navigate('/something_went_wrong')
+            return
+        }
 
-    //     if (hasPassedIntroduction) {
-    //         setShowIntroduction(false)
-    //     } else {
-    //         navigate(ROUTES.INTRODUCTION)
-    //     }
-    // }, [])
+        if (hasPassedIntroduction) {
+            setShowIntroduction(false)
+        } else {
+            navigate(ROUTES.INTRODUCTION)
+        }
+    }, [])
 
-    // // introduction skip check
-    // useEffect(() => {
-    //     const hasSkippedIntroduction = localStorage.getItem('skippedIntroduction')
+    // introduction skip check
+    useEffect(() => {
+        const hasSkippedIntroduction = localStorage.getItem('skippedIntroduction')
 
-    //     if (hasSkippedIntroduction) {
-    //         setIsSkippedIntroduction(true)
-    //     }
-    // }, [])
+        if (hasSkippedIntroduction) {
+            setIsSkippedIntroduction(true)
+        }
+    }, [])
 
-    // useEffect(() => {
-    //     if (window.location.pathname === '/') {
-    //         TgObj.BackButton.hide()
-    //     }
-    // }, [ window.location.pathname ])
+    useEffect(() => {
+        if (window.location.pathname === '/') {
+            TgObj.BackButton.hide()
+        }
+    }, [ window.location.pathname ])
 
-    // //= =======================================================================================================================================================
-    // const savedLanguage = localStorage.getItem('i18nextLng')
-    // const [ selectedLanguage, setSelectedLanguage ] = useState<string>(savedLanguage || 'en')
+    //= =======================================================================================================================================================
+    const savedLanguage = localStorage.getItem('i18nextLng')
+    const [ selectedLanguage, setSelectedLanguage ] = useState<string>(savedLanguage || 'en')
 
-    // const { i18n, t } = useTranslation()
+    const { i18n, t } = useTranslation()
 
-    // useEffect(() => {
-    //     const initializeLanguage = async () => {
-    //         const TgLanguage = TgObj?.initDataUnsafe?.user?.language_code
-    //         let language
+    useEffect(() => {
+        const initializeLanguage = async () => {
+            const TgLanguage = TgObj?.initDataUnsafe?.user?.language_code
+            let language
 
-    //         const userDefinedLanguage = localStorage.getItem('i18nextLngOwn')
+            const userDefinedLanguage = localStorage.getItem('i18nextLngOwn')
 
-    //         if (userDefinedLanguage) {
-    //             language = userDefinedLanguage
-    //         } else if (TgLanguage) {
-    //             const lowerCaseTgLanguage = TgLanguage.toLowerCase()
+            if (userDefinedLanguage) {
+                language = userDefinedLanguage
+            } else if (TgLanguage) {
+                const lowerCaseTgLanguage = TgLanguage.toLowerCase()
 
-    //             if (lowerCaseTgLanguage === 'ru' || lowerCaseTgLanguage === 'en') {
-    //                 language = lowerCaseTgLanguage
-    //             } else {
-    //                 language = 'en'
-    //             }
-    //         } else {
-    //             language = 'en'
-    //         }
+                if (lowerCaseTgLanguage === 'ru' || lowerCaseTgLanguage === 'en') {
+                    language = lowerCaseTgLanguage
+                } else {
+                    language = 'en'
+                }
+            } else {
+                language = 'en'
+            }
 
-    //         setSelectedLanguage(language)
-    //     }
+            setSelectedLanguage(language)
+        }
 
-    //     if (isTg && !savedLanguage) {
-    //         initializeLanguage()
-    //     }
-    // }, [ isTg ])
+        if (isTg && !savedLanguage) {
+            initializeLanguage()
+        }
+    }, [ isTg ])
 
-    // useEffect(() => {
-    //     i18n.changeLanguage(selectedLanguage)
-    //     localStorage.setItem('i18nextLng', selectedLanguage)
-    // }, [ selectedLanguage, i18n ])
+    useEffect(() => {
+        i18n.changeLanguage(selectedLanguage)
+        localStorage.setItem('i18nextLng', selectedLanguage)
+    }, [ selectedLanguage, i18n ])
 
     //= ========================================================================================================================================================
 
     return (
-        <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '40px', fontWeight: 700 }}>
-            Technical Works
-        </div>
-        // <AppInner isTg={isTg}>
-        //     <div className="wrapper">
-        //         {!showIntroduction && (
-        //             <Routes>
-        //                 <Route
-        //                     path={ROUTES.HOME}
-        //                     element={
-        //                         <Home
-        //                             rawAddress={rawAddress}
-        //                             isSkippedIntroduction={isSkippedIntroduction}
-        //                             isTg={isTg}
-        //                             keysData={keysData}
-        //                             user={user}
-        //                             userLoading={userLoading}
-        //                         />}
-        //                 />
-        //                 <Route path={ROUTES.INTRODUCTION} element={
-        //                     <Introduction
-        //                         rawAddress={rawAddress}
-        //                         user={user}
-        //                         keysData={keysData}
-        //                         isTg={isTg}
-        //                         setShowIntroduction={setShowIntroduction}
-        //                     />}
-        //                 />
-        //                 <Route path={ROUTES.PROFILE} element={<Profile user={user} rawAddress={rawAddress} selectedLanguage={selectedLanguage} setSelectedLanguage={setSelectedLanguage} /> } />
-        //                 <Route element={<SomethingWentWrong />} path={ROUTES.SOMETHING_WENT_WRONG} />
-        //                 <Route element={<Redirect />} path={ROUTES.REDIRECT} />
-        //                 {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
-        //             </Routes>
-        //         )}
+        <AppInner isTg={isTg}>
+            <div className="wrapper">
+                {!showIntroduction && (
+                    <Routes>
+                        <Route
+                            path={ROUTES.HOME}
+                            element={
+                                <Home
+                                    rawAddress={rawAddress}
+                                    isSkippedIntroduction={isSkippedIntroduction}
+                                    isTg={isTg}
+                                    keysData={keysData}
+                                    user={user}
+                                    userLoading={userLoading}
+                                />}
+                        />
+                        <Route path={ROUTES.INTRODUCTION} element={
+                            <Introduction
+                                rawAddress={rawAddress}
+                                user={user}
+                                keysData={keysData}
+                                isTg={isTg}
+                                setShowIntroduction={setShowIntroduction}
+                            />}
+                        />
+                        <Route path={ROUTES.PROFILE} element={<Profile user={user} rawAddress={rawAddress} selectedLanguage={selectedLanguage} setSelectedLanguage={setSelectedLanguage} /> } />
+                        <Route element={<SomethingWentWrong />} path={ROUTES.SOMETHING_WENT_WRONG} />
+                        <Route element={<Redirect />} path={ROUTES.REDIRECT} />
+                        {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
+                    </Routes>
+                )}
 
-    //         {showIntroduction && (
-    //             <Routes>
-    //                 <Route path={ROUTES.INTRODUCTION} element={
-    //                     <Introduction
-    //                         rawAddress={rawAddress}
-    //                         user={user}
-    //                         keysData={keysData}
-    //                         isTg={isTg}
-    //                         setShowIntroduction={setShowIntroduction}
-    //                     />}
-    //                 />
-    //                 <Route element={<SomethingWentWrong />} path={ROUTES.SOMETHING_WENT_WRONG} />
-    //                 <Route element={<Redirect />} path={ROUTES.REDIRECT} />
-    //                 <Route path="*" element={<Navigate to="/" replace />} />
-    //             </Routes>
-    //         )}
-    //     </div>
-    // </AppInner>
+                {showIntroduction && (
+                    <Routes>
+                        <Route path={ROUTES.INTRODUCTION} element={
+                            <Introduction
+                                rawAddress={rawAddress}
+                                user={user}
+                                keysData={keysData}
+                                isTg={isTg}
+                                setShowIntroduction={setShowIntroduction}
+                            />}
+                        />
+                        <Route element={<SomethingWentWrong />} path={ROUTES.SOMETHING_WENT_WRONG} />
+                        <Route element={<Redirect />} path={ROUTES.REDIRECT} />
+                        <Route path="*" element={<Navigate to="/" replace />} />
+                    </Routes>
+                )}
+            </div>
+        </AppInner>
     )
 }

@@ -65,7 +65,7 @@ export class VPN {
 
     public async activateFree (): Promise<any | undefined> {
         const data = await this.post('activateFree', { tg_data: window.Telegram.WebApp.initData })
-        return data?.data
+        return data
     }
 
     public async getKey (id_server: number): Promise<any | undefined> {

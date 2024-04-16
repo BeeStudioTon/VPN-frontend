@@ -302,12 +302,11 @@ export const Subscribe: FC<SubscribeProps> = ({
                         TgObj.showAlert(t('common.congratulations'))
                         localStorage.removeItem('skippedIntroduction')
                         localStorage.setItem('currentIntroductionStep', '4')
-                        setIsSuccessPay(true)
-                        setCurrentStep(4)
-                    } else {
-                        TgObj.showAlert(t('common.used-subscription'))
+                        TgObj.MainButton.show()
+                        window.location.href = '/introduction'
                     }
                 } catch (error) {
+                    TgObj.showAlert(t('common.used-subscription'))
                     console.error(error)
                 }
             } else {
