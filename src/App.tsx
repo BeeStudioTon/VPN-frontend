@@ -117,7 +117,7 @@ export const App: FC = () => {
                 TgObj.requestWriteAccess()
             }
         }
-        vpn.getAutoKey()
+        // vpn.getAutoKey()
     }, [])
 
     // introduction check

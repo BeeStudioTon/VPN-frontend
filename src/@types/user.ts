@@ -1,19 +1,6 @@
 export interface UserType {
-    info: Info
     infoUser: InfoUser
     user: User
-}
-
-export interface Info {
-    area: number;
-    city: string;
-    country: string;
-    eu: string;
-    ll: number[]
-    metro: number
-    range: number[]
-    region: string
-    timezone: string
 }
 
 export interface InfoUser {
@@ -27,6 +14,7 @@ export interface User {
     activeTo: string
     balance: number
     idServer: number
+    usedTrial: boolean
     id: number
     ban: boolean
     tgId: string

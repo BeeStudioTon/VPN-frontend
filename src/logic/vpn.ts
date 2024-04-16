@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable import/extensions */
@@ -8,13 +9,14 @@ import querystring from 'querystring'
 import { ServersType } from '../@types/servers'
 import { UserType } from '../@types/user'
 import { RatesType } from '../@types/rates'
-import { ActiveServerType } from '../@types/active-server'
-import { InfoType } from '../@types/info'
-import { TransactionType } from '../@types/transaction'
+// import { ActiveServerType } from '../@types/active-server'
+// import { InfoType } from '../@types/info'
+// import { TransactionType } from '../@types/transaction'
 import { KeysType } from '../@types/get-keys'
 
 export class VPN {
     private _url: string = 'https://lobster-app-7recs.ondigitalocean.app/'
+    // private _url: string = 'http://localhost:4000/'
 
     public async get (url: string, data: any): Promise<any | undefined> {
         try {
@@ -38,7 +40,7 @@ export class VPN {
 
     public async postAuth (): Promise<UserType | undefined> {
         const res = await axios.get(`${this._url}api/v2/user/getUser`, { headers: { 'telegram-data': window.Telegram.WebApp.initData } })
-        return res?.data?.data
+        return res?.data
     }
 
     public async checkPayment (): Promise<boolean | undefined> {
@@ -75,36 +77,11 @@ export class VPN {
                     'telegram-data': window.Telegram.WebApp.initData
                 }
             })
-            return res?.data?.data
+            return res?.data
         } catch (error) {
             console.error(error)
             return undefined
         }
-    }
-
-    public async getActive (): Promise<any | undefined> {
-        const data = await this.post('getActive', { tg_data: window.Telegram.WebApp.initData })
-        return data?.data as ActiveServerType
-    }
-
-    public async getTransactions (): Promise<any | undefined> {
-        const data = await this.post('getTransactions', { tg_data: window.Telegram.WebApp.initData })
-        return data?.data as TransactionType
-    }
-
-    public async getIpInfo (ip: string): Promise<any | undefined> {
-        const data = await this.get('ipInfo', { ip })
-        return data
-    }
-
-    public async getInfo (): Promise<any | undefined> {
-        const data = await this.post('getInfo', { tg_data: window.Telegram.WebApp.initData })
-        return data?.data as InfoType
-    }
-
-    public async getAutoKey (): Promise<any | undefined> {
-        const data = await this.post('getAutoKey', { tg_data: window.Telegram.WebApp.initData })
-        return data?.data
     }
 
     public async getInvoice (tariffId: string, tokenAddress: string, userAddress: string): Promise<any | undefined> {

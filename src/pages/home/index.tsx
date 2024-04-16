@@ -72,8 +72,6 @@ export const Home: FC<HomeProps> = ({
 
     const { t } = useTranslation()
 
-    const navigate = useNavigate()
-
     const vpn = new VPN()
 
     const [ showDownloadModal, setShowDownloadModal ] = useState<boolean>(false)
@@ -128,7 +126,8 @@ export const Home: FC<HomeProps> = ({
         try {
             const keyData = (await vpn.getKey(selectedServer?.id)) as GetActiveServerType
 
-            setConnectServerData(keyData)
+            // @ts-ignore
+            setConnectServerData(keyData?.key?.key)
         } catch (error) {
             console.error('Error fetching key:', error)
         }
@@ -164,7 +163,9 @@ export const Home: FC<HomeProps> = ({
             console.error('connectServerData undefined')
             return
         }
-        handleConnect(connectServerData.key_data)
+
+        // @ts-ignore
+        handleConnect(connectServerData)
     }
 
     const handleButton = () => {
