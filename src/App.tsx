@@ -62,20 +62,31 @@ export const App: FC = () => {
 
     // fetch keys data
     async function fetchData () {
-        setUserLoading(true)
-        const userData = await vpn.postAuth().finally(() => setUserLoading(false))
-        setUser(userData)
+        try {
+            setUserLoading(true)
 
-        if (!userData) {
+            const userData = await vpn.postAuth()
+            if (!userData) {
+                throw new Error('User data is not available')
+            }
+
+            const keysPromise = vpn.getKeys()
+            const paymentPromise = vpn.checkPayment()
+
+            await Promise.all([ keysPromise, paymentPromise ])
+
+            setUser(userData)
+            setIsError(false)
+
+            const keysData = await keysPromise
+            // @ts-ignore
+            setKeysData(keysData?.keys)
+        } catch (error) {
             setIsError(true)
             navigate(ROUTES.SOMETHING_WENT_WRONG)
-        } else {
-            setIsError(false)
+        } finally {
+            setUserLoading(false)
         }
-
-        const keysData = await vpn.getKeys()
-        // @ts-ignore
-        setKeysData(keysData?.keys)
     }
 
     // init twa
@@ -229,23 +240,23 @@ export const App: FC = () => {
                     </Routes>
                 )}
 
-            {showIntroduction && (
-                <Routes>
-                    <Route path={ROUTES.INTRODUCTION} element={
-                        <Introduction
-                            rawAddress={rawAddress}
-                            user={user}
-                            keysData={keysData}
-                            isTg={isTg}
-                            setShowIntroduction={setShowIntroduction}
-                        />}
-                    />
-                    <Route element={<SomethingWentWrong />} path={ROUTES.SOMETHING_WENT_WRONG} />
-                    <Route element={<Redirect />} path={ROUTES.REDIRECT} />
-                    <Route path="*" element={<Navigate to="/" replace />} />
-                </Routes>
-            )}
-        </div>
-    </AppInner>
+                {showIntroduction && (
+                    <Routes>
+                        <Route path={ROUTES.INTRODUCTION} element={
+                            <Introduction
+                                rawAddress={rawAddress}
+                                user={user}
+                                keysData={keysData}
+                                isTg={isTg}
+                                setShowIntroduction={setShowIntroduction}
+                            />}
+                        />
+                        <Route element={<SomethingWentWrong />} path={ROUTES.SOMETHING_WENT_WRONG} />
+                        <Route element={<Redirect />} path={ROUTES.REDIRECT} />
+                        <Route path="*" element={<Navigate to="/" replace />} />
+                    </Routes>
+                )}
+            </div>
+        </AppInner>
     )
 }
