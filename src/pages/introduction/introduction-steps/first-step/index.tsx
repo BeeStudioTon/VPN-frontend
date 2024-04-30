@@ -14,6 +14,8 @@ import { Button } from '../../../../components/ui/button'
 
 import { UserType } from '../../../../@types/user'
 
+import { calculateDaysFromTimestamp } from '../../../../utils/formatDateFromTimestamp'
+
 import * as helloSticker from '../../../../assets/stickers/hello.json'
 
 import s from './first-step.module.scss'
@@ -23,10 +25,16 @@ interface FirstStepProps {
     handleIntroductionClose: () => void;
     currentStep: number;
     rawAddress: string | undefined;
-    user: UserType | undefined
+    user: UserType | undefined;
 }
 
-export const FirstStep: FC<FirstStepProps> = ({ handleNextStep, currentStep, rawAddress, handleIntroductionClose, user }) => {
+export const FirstStep: FC<FirstStepProps> = ({
+    handleNextStep,
+    currentStep,
+    rawAddress,
+    handleIntroductionClose,
+    user
+}) => {
     const approveOptions: Options = {
         loop: true,
         autoplay: true,
@@ -42,11 +50,17 @@ export const FirstStep: FC<FirstStepProps> = ({ handleNextStep, currentStep, raw
     const [ tonConnectUI, setOptions ] = useTonConnectUI()
 
     const isPaidUser = () => {
-        if ((user?.user?.type_subscribe === 1 || user?.user?.type_subscribe === 2 || user?.user?.type_subscribe === 4 || user?.user?.type_subscribe === 3 || user?.user?.type_subscribe === 5) && user?.user?.end_sub !== 1) {
-            return true
-        } if (user?.user?.type_subscribe === 0 || user?.user?.end_sub === 1) {
+        const activeTariff = user?.user?.activeTariff
+
+        if (activeTariff === null || activeTariff?.id === null) {
             return false
         }
+
+        if (calculateDaysFromTimestamp(Date.parse(user?.user?.activeTo ?? '0') / 1000) >= 1) {
+            return true
+        }
+
+        return false
     }
 
     const isPaid = isPaidUser()
@@ -87,14 +101,20 @@ export const FirstStep: FC<FirstStepProps> = ({ handleNextStep, currentStep, raw
                     width={140}
                 />
 
-                <Title variant="h1" className={s.firstTitle}>{t('introduction.welcome-title')} <span>DeVPN</span></Title>
+                <Title variant="h1" className={s.firstTitle}>
+                    {t('introduction.welcome-title')} <span>DeVPN</span>
+                </Title>
 
                 <Text className={s.firstText}>{t('introduction.welcome-description1')}</Text>
                 <Text className={s.firstText}>{t('introduction.welcome-description2')}</Text>
 
-                <Button className={s.firstButton} onClick={() => tonConnectUI.connectWallet()}>{t('common.connect-btn')}</Button>
+                <Button className={s.firstButton} onClick={() => tonConnectUI.connectWallet()}>
+                    {t('common.connect-btn')}
+                </Button>
 
-                <Button className={s.skipButton} onClick={() => handleIntroductionClose()}>{t('common.skip')}</Button>
+                <Button className={s.skipButton} onClick={() => handleIntroductionClose()}>
+                    {t('common.skip')}
+                </Button>
             </div>
         </div>
     )

@@ -37,6 +37,7 @@
     "i18next-http-backend": "^2.4.2",
     "module": "^1.2.5",
     "path-browserify": "^1.0.1",
+    "querystring": "^0.2.1",
     "react": "^18.2.0",
     "react-content-loader": "^6.2.1",
     "react-country-flag": "^3.1.0",

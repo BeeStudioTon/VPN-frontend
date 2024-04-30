@@ -79,8 +79,8 @@ export const Introduction: FC<IntroductionProps> = ({
         setShowIntroduction(false)
         setCurrentStep(1)
         TgObj.MainButton.hide()
-        navigate('/')
-        // window.location.pathname = '/'
+        // navigate('/')
+        window.location.pathname = '/'
     }
 
     const handleNextStep = () => {

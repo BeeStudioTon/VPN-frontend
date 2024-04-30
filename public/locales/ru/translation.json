@@ -62,6 +62,7 @@
     "select-plan": "Выберите план",
     "close": "Закрыть",
     "insufficient-balance": "Недостаточный баланс",
+    "insufficient-balance2": "Минимум 0.20 TON",
     "pay-btn": "Подтвердить и оплатить",
     "not-found": "Не найдено.",
     "edit-plan": "Изменить план",

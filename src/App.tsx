@@ -6,14 +6,11 @@
 import { FC, useEffect, useState } from 'react'
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-// import { TonConnectUI } from 'delab-tonconnect-ui'
-import { useTonAddress, useTonConnectUI } from 'delab-tonconnect-ui-react'
+import { useTonAddress } from 'delab-tonconnect-ui-react'
 
-// import { useTonAddress } from '@tonconnect/ui-react'
 import { AppInner } from '@delab-team/de-ui'
 import WebAppSDK from '@twa-dev/sdk'
 
-import { Address } from 'ton-core'
 import { Home } from './pages/home'
 import { Introduction } from './pages/introduction'
 import { Profile } from './pages/profile'
@@ -36,25 +33,8 @@ declare global {
     }
 }
 
-// const tonConnectUI = new TonConnectUI({ manifestUrl: 'https://72a879bd.manifests.pages.dev/devpn.txt' })
-
-// tonConnectUI.uiOptions = {
-//     walletsListConfiguration: {
-//         includeWallets: [
-//             {
-//                 appName: 'dewallet',
-//                 name: 'DeWallet',
-//                 imageUrl: 'https://avatars.githubusercontent.com/u/116884789?s=200&v=4',
-//                 aboutUrl: 'https://wallet.tg/',
-//                 universalLink: 'https://t.me/delabtonbot/wallet?attach=wallet', // https://t.me/delabtonbot/wallet 'https://v2.delabwallet.com/tonconnect' https://t.me/wallet?attach=wallet,
-//                 bridgeUrl: 'https://bridge.tonapi.io/bridge',
-//                 platforms: [ 'ios', 'android', 'macos', 'windows', 'linux' ]
-//             }
-//         ]
-//     }
-// }
-
 WebAppSDK.ready()
+// eslint-disable-next-line arrow-body-style
 export const App: FC = () => {
     const [ firstRender, setFirstRender ] = useState<boolean>(false)
     const [ isTg, setIsTg ] = useState<boolean>(false)
@@ -75,7 +55,6 @@ export const App: FC = () => {
     const [ isSkippedIntroduction, setIsSkippedIntroduction ] = useState<boolean>(false)
 
     const rawAddress = useTonAddress()
-    // const rawAddress: string = tonConnectUI.account?.address ? Address.parse(tonConnectUI.account?.address).toString({ bounceable: false }) : ''
 
     const navigate = useNavigate()
 
@@ -83,19 +62,31 @@ export const App: FC = () => {
 
     // fetch keys data
     async function fetchData () {
-        setUserLoading(true)
-        const userData = await vpn.postAuth().finally(() => setUserLoading(false))
-        setUser(userData as UserType)
+        try {
+            setUserLoading(true)
 
-        if (!userData) {
+            const userData = await vpn.postAuth()
+            if (!userData) {
+                throw new Error('User data is not available')
+            }
+
+            const keysPromise = vpn.getKeys()
+            const paymentPromise = vpn.checkPayment()
+
+            await Promise.all([ keysPromise, paymentPromise ])
+
+            setUser(userData)
+            setIsError(false)
+
+            const keysData = await keysPromise
+            // @ts-ignore
+            setKeysData(keysData?.keys)
+        } catch (error) {
             setIsError(true)
             navigate(ROUTES.SOMETHING_WENT_WRONG)
-        } else {
-            setIsError(false)
+        } finally {
+            setUserLoading(false)
         }
-
-        const keysData = await vpn.getKeys()
-        setKeysData(keysData as GetActiveServerType[])
     }
 
     // init twa
@@ -110,7 +101,6 @@ export const App: FC = () => {
                 TgObj.MainButton.hide()
                 navigate('/')
             }
-
             if (!isTgCheck && window.location.pathname === '/redirect') {
                 return
             }
@@ -136,7 +126,7 @@ export const App: FC = () => {
                 TgObj.requestWriteAccess()
             }
         }
-        vpn.getAutoKey()
+        // vpn.getAutoKey()
     }, [])
 
     // introduction check
@@ -175,7 +165,7 @@ export const App: FC = () => {
         }
     }, [ window.location.pathname ])
 
-    //= =======================================================================================================================================================
+    // ========================================================================================================================================================
     const savedLanguage = localStorage.getItem('i18nextLng')
     const [ selectedLanguage, setSelectedLanguage ] = useState<string>(savedLanguage || 'en')
 
@@ -216,7 +206,6 @@ export const App: FC = () => {
     }, [ selectedLanguage, i18n ])
 
     //= ========================================================================================================================================================
-    console.log(window.location.pathname)
 
     return (
         <AppInner isTg={isTg}>

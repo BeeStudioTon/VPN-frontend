@@ -3,7 +3,7 @@
 /* eslint-disable max-len */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable @typescript-eslint/no-shadow */
-import { FC, useEffect, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { v1 } from 'uuid'
 import { useTranslation } from 'react-i18next'
 import { TonApi } from '@delab-team/ton-api-sdk'
@@ -34,9 +34,14 @@ interface MethodProps {
     user: UserType | undefined
     isPaymentLoading: boolean
     isTg: boolean
+    assetsData: AssetType[] | undefined
+    setAssetsData: React.Dispatch<React.SetStateAction<AssetType[] | undefined>>
 }
 
-export const Method: FC<MethodProps> = ({ rawAddress, activePayToken, setActivePayToken, amount, isPaymentLoading, isTg }) => {
+export const Method: FC<MethodProps> = ({
+    rawAddress, activePayToken, setActivePayToken, amount, assetsData,
+    setAssetsData, isPaymentLoading, isTg
+}) => {
     const approveOptions: Options = {
         loop: true,
         autoplay: true,
@@ -47,8 +52,6 @@ export const Method: FC<MethodProps> = ({ rawAddress, activePayToken, setActiveP
     const TgObj = window.Telegram.WebApp
 
     const { t } = useTranslation()
-
-    const [ assetsData, setAssetsData ] = useState<AssetType[] | undefined>(undefined)
 
     const [ isPaymentPage, setIsPaymentPage ] = useState<boolean>(false)
 

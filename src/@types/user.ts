@@ -1,19 +1,6 @@
 export interface UserType {
-    info: Info
     infoUser: InfoUser
     user: User
-}
-
-export interface Info {
-    area: number;
-    city: string;
-    country: string;
-    eu: string;
-    ll: number[]
-    metro: number
-    range: number[]
-    region: string
-    timezone: string
 }
 
 export interface InfoUser {
@@ -22,15 +9,24 @@ export interface InfoUser {
 }
 
 export interface User {
-    active_server: number
-    ban: number
-    date_subscribe: number
-    free_activated: number
+    activeAt: number
+    activeTariff: IActiveTariff | null
+    activeTo: string
+    balance: number
+    idServer: number
+    usedTrial: boolean
     id: number
-    id_telegram: string
+    ban: boolean
+    tgId: string
     lang: string
-    end_sub: number
-    reg_date: number
-    type_subscribe: number
-    username: string
+    userName: string
+}
+
+export interface IActiveTariff {
+    description: string
+    id: number
+    name: string
+    period: number
+    price: number
+    priceOld: number
 }

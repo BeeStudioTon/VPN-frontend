@@ -72,8 +72,6 @@ export const Home: FC<HomeProps> = ({
 
     const { t } = useTranslation()
 
-    const navigate = useNavigate()
-
     const vpn = new VPN()
 
     const [ showDownloadModal, setShowDownloadModal ] = useState<boolean>(false)
@@ -91,11 +89,17 @@ export const Home: FC<HomeProps> = ({
     )
 
     const isPaidUser = () => {
-        if ((user?.user?.type_subscribe === 1 || user?.user?.type_subscribe === 2 || user?.user?.type_subscribe === 4 || user?.user?.type_subscribe === 3 || user?.user?.type_subscribe === 5) && user?.user?.end_sub !== 1) {
-            return true
-        } if (user?.user?.type_subscribe === 0 || user?.user?.end_sub === 1) {
+        const activeTariff = user?.user?.activeTariff
+
+        if (activeTariff === null || activeTariff?.id === null) {
             return false
         }
+
+        if (calculateDaysFromTimestamp(Date.parse(user?.user?.activeTo ?? '0') / 1000) >= 1) {
+            return true
+        }
+
+        return false
     }
 
     const isPaid = isPaidUser()
@@ -122,19 +126,21 @@ export const Home: FC<HomeProps> = ({
         try {
             const keyData = (await vpn.getKey(selectedServer?.id)) as GetActiveServerType
 
-            setConnectServerData(keyData)
+            // @ts-ignore
+            setConnectServerData(keyData?.key?.key)
         } catch (error) {
             console.error('Error fetching key:', error)
         }
     }
 
     useEffect(() => {
-        const connectServer = keysData?.find(el => el.id_server === selectedServer?.id)
+        const connectServer = keysData?.find(el => el.id === selectedServer?.id)
 
         if (!connectServer) {
             createKey()
         } else {
-            setConnectServerData(connectServer)
+            // @ts-ignore
+            setConnectServerData(connectServer?.key)
         }
     }, [ selectedServer ])
 
@@ -158,7 +164,9 @@ export const Home: FC<HomeProps> = ({
             console.error('connectServerData undefined')
             return
         }
-        handleConnect(connectServerData.key_data)
+
+        // @ts-ignore
+        handleConnect(connectServerData)
     }
 
     const handleButton = () => {
@@ -215,9 +223,7 @@ export const Home: FC<HomeProps> = ({
                                 >
                                     {t('home.ready-to-connect')}
                                 </Title>
-                                <Text className={s.statusText}>
-                                    {t('common.download-text')}
-                                </Text>
+                                <Text className={s.statusText}>{t('common.download-text')}</Text>
                             </>
                         ) : (
                             <>
@@ -251,22 +257,18 @@ export const Home: FC<HomeProps> = ({
                 <Button className={s.connectButton} onClick={handleButton} disabled={userLoading}>
                     {userLoading
                         ? t('common.loading')
-                        : (
-                            isPaid
-                                ? t('common.connect')
-                                : t('common.select-plan')
-                        )
-                    }
+                        : isPaid
+                            ? t('common.connect')
+                            : t('common.select-plan')}
                 </Button>
                 {isPaid ? (
-                    <Button
-                        className={s.downloadButton}
-                        onClick={() => setShowDownloadModal(true)}
-                    >
+                    <Button className={s.downloadButton} onClick={() => setShowDownloadModal(true)}>
                         <SvgSelector id="download" />
                         {t('common.download-app')}
                     </Button>
-                ) : <></>}
+                ) : (
+                    <></>
+                )}
             </div>
 
             <div className={s.traffic}>
@@ -277,21 +279,17 @@ export const Home: FC<HomeProps> = ({
                     {isPaid ? (
                         <Title variant="h3" className={s.trafficTitle}>
                             {t('home.traffic-update-in')}{' '}
-                            {calculateDaysFromTimestamp(user?.user?.date_subscribe)}{' '}
-                            {calculateDaysFromTimestamp(user?.user?.date_subscribe) > 1
+                            {calculateDaysFromTimestamp(Date.parse(user?.user?.activeTo ?? '0') / 1000)}{' '}
+                            {calculateDaysFromTimestamp(Date.parse(user?.user?.activeTo ?? '0') / 1000) > 1
                                 ? t('home.days')
                                 : t('home.day')}
-                        </Title>) : (
+                        </Title>
+                    ) : (
                         <></>
                     )}
                 </div>
 
-                <Traffic
-                    limit={limit}
-                    used={used}
-                    isTg={isTg}
-                    userLoading={userLoading}
-                />
+                <Traffic limit={limit} used={used} isTg={isTg} userLoading={userLoading} />
             </div>
         </>
     )
