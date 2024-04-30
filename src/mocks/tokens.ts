@@ -27,5 +27,12 @@ export const tokensData = [
         amount: '0',
         amountUSD: '0.00',
         tokenAddress: [ '0:beb5d4638e860ccf7317296e298fde5b35982f4725b0676dc98b1de987b82ebc', '0:d6170e963839321ab3c77e50bdc4c99101a9a9e17ad84544229e65a344685850' ]
+    },
+    {
+        token: 'JetTon',
+        tokenLogo: 'https://delab-team.ams3.cdn.digitaloceanspaces.com/tokens-images/EQAQXlWJvGbbFfE8F3oS8s87lIgdovS455IsWFaRdmJetTon.png',
+        amount: '0',
+        amountUSD: '0.00',
+        tokenAddress: [ '0:105e5589bc66db15f13c177a12f2cf3b94881da2f4b8e7922c58569176625eb5' ]
     }
 ]
