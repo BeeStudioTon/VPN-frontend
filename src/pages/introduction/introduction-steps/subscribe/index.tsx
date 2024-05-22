@@ -92,7 +92,7 @@ export const Subscribe: FC<SubscribeProps> = ({
     });
 
     async function sendTrans(id_user: number, currency: 'TON' | Address, amount: number) {
-        const addressVPN = 'EQDILBLIPwj7cFA0SjEzOXdqZ7m-VpfsbAjilWJs_wWku1UJ';
+        const addressVPN = 'UQDILBLIPwj7cFA0SjEzOXdqZ7m-VpfsbAjilWJs_wWkuwjM';
         if (currency === 'TON') {
             const a = new TonWeb.boc.Cell();
             a.bits.writeUint(0, 32);
