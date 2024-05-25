@@ -4,7 +4,7 @@ import ReactCountryFlag from 'react-country-flag'
 import { Text } from '@delab-team/de-ui'
 import { motion, AnimatePresence } from 'framer-motion'
 
-import { ServersType } from '../../@types/servers'
+import { ServerData } from '../../@types/servers'
 
 import { SvgSelector } from '../../assets/svg-selector'
 
@@ -13,12 +13,12 @@ import { SkeletonInfo } from '../skeleton-info'
 import s from './servers-selector.module.scss'
 
 interface ServersSelectorProps {
-    serversData: ServersType[];
-    selectedServer: ServersType | undefined
+    serversData: ServerData[];
+    selectedServer: ServerData | null
     isLoading: boolean
     isTg: boolean
     userLoading: boolean
-    setSelectedServer: (el: ServersType | undefined) => void;
+    setSelectedServer: (el: ServerData | null) => void;
 }
 
 export const ServersSelector: FC<ServersSelectorProps> = ({ serversData, selectedServer, setSelectedServer, isLoading, isTg, userLoading }) => {
@@ -28,7 +28,7 @@ export const ServersSelector: FC<ServersSelectorProps> = ({ serversData, selecte
     const dropdownRef = useRef<HTMLDivElement>(null)
     const buttonRef = useRef<HTMLDivElement>(null)
 
-    const handleServerSelection = (server: ServersType) => {
+    const handleServerSelection = (server: ServerData) => {
         setSelectedServer(server)
         setIsDropdownOpen(false)
     }

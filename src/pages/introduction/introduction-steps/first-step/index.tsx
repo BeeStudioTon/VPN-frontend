@@ -25,7 +25,7 @@ interface FirstStepProps {
     handleIntroductionClose: () => void;
     currentStep: number;
     rawAddress: string | undefined;
-    user: UserType | undefined;
+    user: UserType | null;
 }
 
 export const FirstStep: FC<FirstStepProps> = ({

@@ -1,9 +1,8 @@
 import { FC, useEffect } from 'react'
-import WebAppSDK from '@twa-dev/sdk'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
-import { Button, IconSelector, Li, Modal, Text, Title } from '@delab-team/de-ui'
+import { Button, Li, Modal, Text, Title } from '@delab-team/de-ui'
 
 import { DownloadData } from '../../mocks/download-data'
 
@@ -30,7 +29,6 @@ interface FilteredDataType {
 }
 
 const modalTgStyles = { backgroundColor: 'var(--tg-theme-bg-color)' }
-const iconsTgStyles = { stroke: 'var(--tg-theme-link-color)' } as React.CSSProperties
 
 export const DownloadModal: FC<DownloadModalProps> = ({ showDownloadModal, setShowDownloadModal }) => {
     const { t } = useTranslation()

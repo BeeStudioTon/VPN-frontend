@@ -1,32 +1,30 @@
 export interface UserType {
-    infoUser: InfoUser
-    user: User
+    user: UserTypeUser
+    infoUser: InfoUserType
 }
 
-export interface InfoUser {
-    limit: number;
-    used: number;
-}
-
-export interface User {
-    activeAt: number
-    activeTariff: IActiveTariff | null
-    activeTo: string
-    balance: number
-    idServer: number
-    usedTrial: boolean
-    id: number
-    ban: boolean
-    tgId: string
+export interface UserTypeUser {
+    id: string
+    tdId: string
     lang: string
     userName: string
+    usedTrial: boolean
+    ban: boolean
+    activeAt: string
+    activeTo: string
+    activeTariff: ActiveTariffType
 }
 
-export interface IActiveTariff {
-    description: string
-    id: number
+export interface ActiveTariffType {
+    id: string
     name: string
-    period: number
+    description: string
     price: number
+    period: number
     priceOld: number
+}
+
+export interface InfoUserType {
+    used: number
+    limit: number
 }

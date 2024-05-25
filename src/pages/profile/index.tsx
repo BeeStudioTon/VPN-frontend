@@ -1,27 +1,24 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { FC, useEffect, useState } from 'react'
 import { Alert, Div, Text, Title } from '@delab-team/de-ui'
-import { redirect, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import WebApp from '@twa-dev/sdk'
 import copy from 'copy-to-clipboard'
 import { useTranslation } from 'react-i18next'
 import ReactCountryFlag from 'react-country-flag'
 import { motion } from 'framer-motion'
 
-import { UserType } from '../../@types/user'
-
 import { SvgSelector } from '../../assets/svg-selector'
 
 import s from './profile.module.scss'
 
 interface ProfileProps {
-    user: UserType | undefined
     rawAddress: string
     selectedLanguage: string
     setSelectedLanguage: (el: string) => void
 }
 
-export const Profile: FC<ProfileProps> = ({ rawAddress, user, selectedLanguage, setSelectedLanguage }) => {
+export const Profile: FC<ProfileProps> = ({ rawAddress, selectedLanguage, setSelectedLanguage }) => {
     const { t } = useTranslation()
 
     const TgObj = WebApp
@@ -53,17 +50,6 @@ export const Profile: FC<ProfileProps> = ({ rawAddress, user, selectedLanguage, 
         TgObj.showConfirm(t('common.you-sure'), (isConfirmed) => {
             if (isConfirmed) {
                 handleNavigate()
-            }
-        })
-    }
-
-    const handleEditPlan = () => {
-        TgObj.showConfirm(t('common.you-sure'), (isConfirmed) => {
-            if (isConfirmed) {
-                localStorage.removeItem('hasPassedIntroduction')
-                localStorage.setItem('toPaymentPage', 'true')
-                localStorage.setItem('currentIntroductionStep', '2')
-                window.location.href = '/introduction'
             }
         })
     }

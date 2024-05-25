@@ -31,7 +31,7 @@ interface MethodProps {
     setActivePayToken: (el: AssetType | undefined) => void;
     currentStep: number
     rawAddress: string
-    user: UserType | undefined
+    user: UserType | null
     isPaymentLoading: boolean
     isTg: boolean
     assetsData: AssetType[] | undefined
@@ -48,8 +48,6 @@ export const Method: FC<MethodProps> = ({
         animationData: FindStickers,
         rendererSettings: { preserveAspectRatio: 'xMidYMid slice' }
     }
-
-    const TgObj = window.Telegram.WebApp
 
     const { t } = useTranslation()
 

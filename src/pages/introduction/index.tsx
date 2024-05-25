@@ -1,11 +1,12 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-restricted-globals */
 import { FC, useEffect, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import WebAppSDK from '@twa-dev/sdk'
+
 import { RatesType } from '../../@types/rates'
 import { UserType } from '../../@types/user'
-import { GetActiveServerType } from '../../@types/get-active-server'
+import { KeyType } from '../../@types/get-keys'
 
 import { FirstStep } from './introduction-steps/first-step'
 import { Subscribe } from './introduction-steps/subscribe'
@@ -16,8 +17,8 @@ interface IntroductionProps {
     setShowIntroduction: React.Dispatch<React.SetStateAction<boolean>>
     isTg: boolean
     rawAddress: string
-    user: UserType | undefined
-    keysData: GetActiveServerType[] | undefined
+    user: UserType | null
+    keysData: KeyType[] | undefined
 }
 
 export const Introduction: FC<IntroductionProps> = ({
@@ -29,10 +30,6 @@ export const Introduction: FC<IntroductionProps> = ({
     const TgObj = WebAppSDK
 
     const [ currentStep, setCurrentStep ] = useState<number>(0)
-
-    const navigate = useNavigate()
-
-    // const [ payToken, setPayToken ] = useState<PayTokenType | undefined>(undefined)
 
     // Active Rate
     const [ activeRate, setActiveRate ] = useState<RatesType | undefined>(undefined)
@@ -79,7 +76,6 @@ export const Introduction: FC<IntroductionProps> = ({
         setShowIntroduction(false)
         setCurrentStep(1)
         TgObj.MainButton.hide()
-        // navigate('/')
         window.location.pathname = '/'
     }
 
