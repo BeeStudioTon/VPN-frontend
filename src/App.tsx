@@ -4,7 +4,7 @@
 import { FC, useEffect, useState, useCallback } from 'react'
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { useTonAddress } from 'delab-tonconnect-ui-react'
+import { useTonAddress } from '@tonconnect/ui-react'
 
 import { AppInner } from '@delab-team/de-ui'
 import WebAppSDK from '@twa-dev/sdk'
@@ -107,7 +107,11 @@ export const App: FC = () => {
                 fetchData()
 
                 bodyStyle.backgroundColor = 'var(--tg-theme-secondary-bg-color)'
-                bodyStyle.setProperty('background-color', 'var(--tg-theme-secondary-bg-color)', 'important')
+                bodyStyle.setProperty(
+                    'background-color',
+                    'var(--tg-theme-secondary-bg-color)',
+                    'important'
+                )
             } else {
                 navigate(ROUTES.SOMETHING_WENT_WRONG)
             }
@@ -239,7 +243,10 @@ export const App: FC = () => {
                                 />
                             }
                         />
-                        <Route path={ROUTES.SOMETHING_WENT_WRONG} element={<SomethingWentWrong />} />
+                        <Route
+                            path={ROUTES.SOMETHING_WENT_WRONG}
+                            element={<SomethingWentWrong />}
+                        />
                         <Route path={ROUTES.REDIRECT} element={<Redirect />} />
                         <Route path="*" element={<Navigate to={ROUTES.HOME} replace />} />
                     </Routes>
@@ -257,7 +264,10 @@ export const App: FC = () => {
                                 />
                             }
                         />
-                        <Route path={ROUTES.SOMETHING_WENT_WRONG} element={<SomethingWentWrong />} />
+                        <Route
+                            path={ROUTES.SOMETHING_WENT_WRONG}
+                            element={<SomethingWentWrong />}
+                        />
                         <Route path={ROUTES.REDIRECT} element={<Redirect />} />
                         <Route path="*" element={<Navigate to={ROUTES.HOME} replace />} />
                     </Routes>

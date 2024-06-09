@@ -3,22 +3,22 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable consistent-return */
-import { FC, useEffect } from 'react';
-import { Text, Title } from '@delab-team/de-ui';
-import Lottie, { Options } from 'react-lottie';
-import { useTranslation } from 'react-i18next';
-import WebAppSDK from '@twa-dev/sdk';
-import { useTonConnectUI } from 'delab-tonconnect-ui-react';
+import { FC, useEffect } from 'react'
+import { Text, Title } from '@delab-team/de-ui'
+import Lottie, { Options } from 'react-lottie'
+import { useTranslation } from 'react-i18next'
+import WebAppSDK from '@twa-dev/sdk'
+import { useTonConnectUI } from '@tonconnect/ui-react'
 
-import { Button } from '../../../../components/ui/button';
+import { Button } from '../../../../components/ui/button'
 
-import { UserType } from '../../../../@types/user';
+import { UserType } from '../../../../@types/user'
 
-import { calculateDaysFromTimestamp } from '../../../../utils/formatDateFromTimestamp';
+import { calculateDaysFromTimestamp } from '../../../../utils/formatDateFromTimestamp'
 
-import * as helloSticker from '../../../../assets/stickers/hello.json';
+import * as helloSticker from '../../../../assets/stickers/hello.json'
 
-import s from './first-step.module.scss';
+import s from './first-step.module.scss'
 
 interface FirstStepProps {
     handleNextStep: () => void;
@@ -33,63 +33,47 @@ export const FirstStep: FC<FirstStepProps> = ({
     currentStep,
     rawAddress,
     handleIntroductionClose,
-    user,
+    user
 }) => {
     const approveOptions: Options = {
         loop: true,
         autoplay: true,
         animationData: helloSticker,
-        rendererSettings: { preserveAspectRatio: 'xMidYMid slice' },
-    };
+        rendererSettings: { preserveAspectRatio: 'xMidYMid slice' }
+    }
 
-    const TgObj = WebAppSDK;
-    const { t } = useTranslation();
+    const TgObj = WebAppSDK
+    const { t } = useTranslation()
 
-    const auth = !!localStorage.getItem('ton-connect-ui_wallet-info');
+    const auth = !!localStorage.getItem('ton-connect-ui_wallet-info')
 
-    const [tonConnectUI, setOptions] = useTonConnectUI();
+    const [ tonConnectUI, setOptions ] = useTonConnectUI()
 
     const isPaidUser = () => {
-        const activeTariff = user?.user?.activeTariff;
+        const activeTariff = user?.user?.activeTariff
 
         if (activeTariff === null || activeTariff?.id === null) {
-            return false;
+            return false
         }
 
         if (calculateDaysFromTimestamp(Date.parse(user?.user?.activeTo ?? '0') / 1000) >= 1) {
-            return true;
+            return true
         }
 
-        return false;
-    };
+        return false
+    }
 
-    const isPaid = isPaidUser();
-
-    setOptions({
-        walletsListConfiguration: {
-            includeWallets: [
-                {
-                    appName: 'dewallet',
-                    name: 'DeWallet',
-                    imageUrl: 'https://de-cdn.delab.team/icons/DeLabLogo.png',
-                    aboutUrl: 'https://wallet.tg/',
-                    universalLink: 'https://t.me/delabtonbot/wallet?attach=wallet',
-                    bridgeUrl: 'https://sse-bridge.delab.team/bridge',
-                    platforms: ['ios', 'android', 'macos', 'windows', 'linux'],
-                },
-            ],
-        },
-    });
+    const isPaid = isPaidUser()
 
     useEffect(() => {
-        if (currentStep !== 1 || !auth) return;
+        if (currentStep !== 1 || !auth) return
 
         if (isPaid) {
-            handleIntroductionClose();
+            handleIntroductionClose()
         } else {
-            handleNextStep();
+            handleNextStep()
         }
-    }, [rawAddress]);
+    }, [ rawAddress ])
 
     return (
         <div className={s.firstStep}>
@@ -117,5 +101,5 @@ export const FirstStep: FC<FirstStepProps> = ({
                 </Button>
             </div>
         </div>
-    );
-};
+    )
+}
