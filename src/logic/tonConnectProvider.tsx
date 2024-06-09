@@ -31,7 +31,7 @@ export const TonConnectProvider: FC<TonConnectProviderProps> = ({ children }) =>
                     imageUrl: 'https://de-cdn.delab.team/icons/DeLabLogo.png',
                     aboutUrl: 'https://wallet.tg/',
                     universalLink: 'https://t.me/delabtonbot/wallet?attach=wallet', // https://t.me/delabtonbot/wallet 'https://v2.delabwallet.com/tonconnect' https://t.me/wallet?attach=wallet,
-                    bridgeUrl: 'https://bridge.tonapi.io/bridge',
+                    bridgeUrl: 'https://sse-bridge.delab.team/bridge',
                     platforms: ['ios', 'android', 'macos', 'windows', 'linux'],
                 },
             ],
