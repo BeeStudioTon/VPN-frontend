@@ -74,7 +74,7 @@ export const FirstStep: FC<FirstStepProps> = ({
                     imageUrl: 'https://de-cdn.delab.team/icons/DeLabLogo.png',
                     aboutUrl: 'https://wallet.tg/',
                     universalLink: 'https://t.me/delabtonbot/wallet?attach=wallet',
-                    bridgeUrl: 'https://sse-bridge.delab.team/bridge',
+                    bridgeUrl: 'https://bridge.tonapi.io/bridge',
                     platforms: ['ios', 'android', 'macos', 'windows', 'linux'],
                 },
             ],
