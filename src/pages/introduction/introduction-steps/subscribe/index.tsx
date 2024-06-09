@@ -27,12 +27,10 @@ import { RatesType } from '../../../../@types/rates'
 import { UserType } from '../../../../@types/user'
 import { AssetType } from '../../../../@types/asset-type'
 
-import { JettonWallet } from '../../../../utils/JettonWallet'
-import { JettonMinter } from '../../../../utils/JettonMinter'
-
-import s from './subscribe.module.scss'
 import { calculateDaysFromTimestamp } from '../../../../utils/formatDateFromTimestamp'
 import { resolveJettonAddressFor, sendJettonToBoc } from '../../../../utils/sendJetton'
+
+import s from './subscribe.module.scss'
 
 const NEXT_STEP_COLOR = '#40a7e3'
 const ERROR_TEXT_COLOR = '#FF0026'
@@ -72,60 +70,6 @@ export const Subscribe: FC<SubscribeProps> = ({
     const [ isPaymentLoading, setIsPaymentLoading ] = useState<boolean>(false)
 
     const [ tonConnectUI, setOptions ] = useTonConnectUI()
-
-    // async function sendTrans (id_user: number, currency: 'TON' | Address, amount: number) {
-    //     const addressVPN = 'UQDILBLIPwj7cFA0SjEzOXdqZ7m-VpfsbAjilWJs_wWkuwjM'
-    //     if (currency === 'TON') {
-    //         const a = new TonWeb.boc.Cell()
-    //         a.bits.writeUint(0, 32)
-    //         a.bits.writeString(id_user + '')
-    //         const payload = TonWeb.utils.bytesToBase64(await a.toBoc())
-
-    //         const tr = {
-    //             validUntil: Math.floor(Date.now() / 1000) + 60, // 60 sec
-    //             messages: [
-    //                 {
-    //                     address: addressVPN,
-    //                     amount: toNano(amount).toString(),
-    //                     payload
-    //                 }
-    //             ]
-    //         }
-
-    //         const tx = await tonConnectUI.sendTransaction(tr)
-    //         return tx
-    //     }
-    //     const test = new ProviderTonConnect(tonConnectUI, false)
-    //     const JettonMinterContract = new JettonMinter(currency)
-
-    //     const jettonMinter = test.open(JettonMinterContract)
-
-    //     try {
-    //         const walletAddressUser = await jettonMinter.getWalletAddressOf(
-    //             Address.parse(rawAddress)
-    //         )
-
-    //         const JettonWalletContract = new JettonWallet(walletAddressUser)
-
-    //         const jettonWallet = test.open(JettonWalletContract)
-
-    //         await jettonWallet.sendTransfer(
-    //             test.sender(),
-    //             toNano('0.1'),
-    //             toNano('0.08'),
-    //             Address.parse(addressVPN),
-    //             toNano(amount),
-    //             beginCell()
-    //                 .storeUint(0, 32)
-    //                 .storeStringRefTail(id_user + '')
-    //                 .endCell()
-    //         )
-    //         return true
-    //     } catch (e) {
-    //         console.log(e)
-    //         return false
-    //     }
-    // }
 
     const sendTrans = async (id_user: number, currency: string, amount: number): Promise<boolean> => {
         const addressVPN = 'UQDILBLIPwj7cFA0SjEzOXdqZ7m-VpfsbAjilWJs_wWkuwjM'
