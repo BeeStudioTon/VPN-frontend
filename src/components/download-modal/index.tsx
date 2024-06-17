@@ -9,6 +9,7 @@ import { DownloadData } from '../../mocks/download-data'
 import { SvgSelector } from '../../assets/svg-selector'
 
 import s from './download-modal.module.scss'
+import { useHapticFeedback } from '../../hooks/useHapticFeedback'
 
 interface DownloadModalProps {
     showDownloadModal: boolean
@@ -45,6 +46,7 @@ export const DownloadModal: FC<DownloadModalProps> = ({ showDownloadModal, setSh
 
     const handleCloseModal = () => {
         setShowDownloadModal(false)
+        useHapticFeedback()
         window.document.body.style.overflow = 'auto'
     }
 
