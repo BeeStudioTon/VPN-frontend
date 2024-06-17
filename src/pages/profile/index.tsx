@@ -11,6 +11,7 @@ import { motion } from 'framer-motion'
 import { SvgSelector } from '../../assets/svg-selector'
 
 import s from './profile.module.scss'
+import { useHapticFeedback } from '../../hooks/useHapticFeedback'
 
 interface ProfileProps {
     rawAddress: string
@@ -31,6 +32,7 @@ export const Profile: FC<ProfileProps> = ({ rawAddress, selectedLanguage, setSel
     const handlePrev = () => {
         TgObj.BackButton.hide()
         navigate('/')
+        useHapticFeedback()
     }
 
     useEffect(() => {
@@ -44,6 +46,7 @@ export const Profile: FC<ProfileProps> = ({ rawAddress, selectedLanguage, setSel
     const handleNavigate = () => {
         window.localStorage.clear()
         window.location.pathname = '/'
+        useHapticFeedback()
     }
 
     const handleExit = () => {
@@ -106,7 +109,10 @@ export const Profile: FC<ProfileProps> = ({ rawAddress, selectedLanguage, setSel
                         </Div>
                     </div>
                     {TgObj?.initDataUnsafe?.user?.username && TgObj?.initDataUnsafe?.user?.username?.length >= 1 && (
-                        <div className={s.username} onClick={() => setIsCopiedUsername(true)}>
+                        <div className={s.username} onClick={() => {
+                            setIsCopiedUsername(true)
+                            useHapticFeedback()
+                        }}>
                             @{TgObj?.initDataUnsafe?.user?.username}
                         </div>
                     )}
@@ -122,6 +128,7 @@ export const Profile: FC<ProfileProps> = ({ rawAddress, selectedLanguage, setSel
                         <div className={`${s.accountAction} ${s.accountAddress}`}  onClick={() => {
                             copy(rawAddress)
                             setIsCopiedAddress(true)
+                            useHapticFeedback()
                         }}>
                             <div className={s.address}>{rawAddress} <SvgSelector id="copy" /></div>
                         </div>
@@ -139,6 +146,7 @@ export const Profile: FC<ProfileProps> = ({ rawAddress, selectedLanguage, setSel
                     onClick={() => {
                         setSelectedLanguage('ru')
                         localStorage.setItem('i18nextLngOwn', 'ru')
+                        useHapticFeedback()
                     }}
                     whileHover="hover"
                     initial="nonHover"
@@ -167,6 +175,7 @@ export const Profile: FC<ProfileProps> = ({ rawAddress, selectedLanguage, setSel
                     onClick={() => {
                         setSelectedLanguage('en')
                         localStorage.setItem('i18nextLngOwn', 'en')
+                        useHapticFeedback()
                     }}
                     whileHover="hover"
                     initial="nonHover"
@@ -201,7 +210,10 @@ export const Profile: FC<ProfileProps> = ({ rawAddress, selectedLanguage, setSel
                     className={`${s.actionButton}`}
                     whileHover="hover"
                     initial="nonHover"
-                    onClick={() => { window.open('https://t.me/delabsupportbot', '_blank') }}
+                    onClick={() => {
+                        window.open('https://t.me/delabsupportbot', '_blank')
+                        useHapticFeedback()
+                    }}
                 >
                     <SvgSelector id="link" />
                     <div className={s.actionButtonInner}>

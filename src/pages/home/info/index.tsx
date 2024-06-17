@@ -13,6 +13,8 @@ import { ROUTES } from '../../../utils/router'
 
 import { SvgSelector } from '../../../assets/svg-selector'
 
+import { useHapticFeedback } from '../../../hooks/useHapticFeedback'
+
 import s from './info.module.scss'
 
 interface InfoProps {
@@ -47,6 +49,7 @@ export const Info: FC<InfoProps> = ({ rawAddress }) => {
                 className={s.user}
                 onClick={() => {
                     navigate(ROUTES.PROFILE)
+                    useHapticFeedback()
                 }}
             >
                 <div className={s.userInner}>
@@ -77,6 +80,7 @@ export const Info: FC<InfoProps> = ({ rawAddress }) => {
                             onClick={() => {
                                 copy(rawAddress)
                                 setIsCopiedAddress(true)
+                                useHapticFeedback()
                             }}
                         >
                             {smlAddr(rawAddress)}

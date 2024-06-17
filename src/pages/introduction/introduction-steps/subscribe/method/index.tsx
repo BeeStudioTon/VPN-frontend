@@ -22,8 +22,11 @@ import { formatNumber } from '../../../../../utils/formatNumber'
 
 import * as FindStickers from '../../../../../assets/stickers/find.json'
 
-import s from './method.module.scss'
+import { useHapticFeedback } from '../../../../../hooks/useHapticFeedback'
+
 import { MethodSkeleton } from './method-skeleton'
+
+import s from './method.module.scss'
 
 interface MethodProps {
     amount: number | undefined;
@@ -165,7 +168,10 @@ export const Method: FC<MethodProps> = ({
                                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchValue(e.target.value)}
                             />
                             {searchValue.length >= 1 && (
-                                <button className={s.methodInputClear} onClick={() => setSearchValue('')}>
+                                <button className={s.methodInputClear} onClick={() => {
+                                    setSearchValue('')
+                                    useHapticFeedback()
+                                }}>
                                     <SvgSelector id="clear" />
                                 </button>
                             )}
@@ -180,7 +186,10 @@ export const Method: FC<MethodProps> = ({
                                             <li
                                                 className={s.methodAsset}
                                                 key={v1()}
-                                                onClick={() => setActivePayToken(el)}
+                                                onClick={() => {
+                                                    setActivePayToken(el)
+                                                    useHapticFeedback()
+                                                }}
                                             >
                                                 <div className={s.methodAssetLeft}>
                                                     <div className={`${s.methodAssetSelect} ${el.token === activePayToken?.token ? s.methodAssetSelected : ''}`}>

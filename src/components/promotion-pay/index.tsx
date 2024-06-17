@@ -10,6 +10,7 @@ import { RatesType } from '../../@types/rates'
 import { SvgSelector } from '../../assets/svg-selector'
 
 import s from './promotion-pay.module.scss'
+import { useHapticFeedback } from '../../hooks/useHapticFeedback'
 
 interface PromotionPayProps {
     isTg: boolean;
@@ -109,6 +110,7 @@ export const PromotionPay: FC<PromotionPayProps> = ({
                                 setActiveRate(el)
                                 localStorage.setItem('activeRate', JSON.stringify(el))
                                 setIsSelected(!isSelected)
+                                useHapticFeedback()
                             }}
                         >
                             <div className={s.promotionLiAction}>
@@ -120,6 +122,7 @@ export const PromotionPay: FC<PromotionPayProps> = ({
                                         setActiveRate(el)
                                         localStorage.setItem('activeRate', JSON.stringify(el))
                                         setIsSelected(!isSelected)
+                                        useHapticFeedback()
                                     }}
                                 >
                                     {activeRate?.id === el?.id ? (

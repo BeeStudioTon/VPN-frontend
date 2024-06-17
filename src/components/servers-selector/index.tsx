@@ -11,6 +11,7 @@ import { SvgSelector } from '../../assets/svg-selector'
 import { SkeletonInfo } from '../skeleton-info'
 
 import s from './servers-selector.module.scss'
+import { useHapticFeedback } from '../../hooks/useHapticFeedback'
 
 interface ServersSelectorProps {
     serversData: ServerData[];
@@ -31,11 +32,13 @@ export const ServersSelector: FC<ServersSelectorProps> = ({ serversData, selecte
     const handleServerSelection = (server: ServerData) => {
         setSelectedServer(server)
         setIsDropdownOpen(false)
+        useHapticFeedback()
     }
 
     const handleClickOutside = (event: MouseEvent) => {
         if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node) && buttonRef.current && !buttonRef.current.contains(event.target as Node)) {
             setIsDropdownOpen(false)
+            useHapticFeedback()
         }
     }
 

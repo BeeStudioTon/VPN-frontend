@@ -31,6 +31,7 @@ import { calculateDaysFromTimestamp } from '../../../../utils/formatDateFromTime
 import { resolveJettonAddressFor, sendJettonToBoc } from '../../../../utils/sendJetton'
 
 import s from './subscribe.module.scss'
+import { useHapticFeedback } from '../../../../hooks/useHapticFeedback'
 
 const NEXT_STEP_COLOR = '#40a7e3'
 const ERROR_TEXT_COLOR = '#FF0026'
@@ -143,6 +144,7 @@ export const Subscribe: FC<SubscribeProps> = ({
         TgObj.MainButton.text = t('common.loading')
         TgObj.MainButton.color = '#78B5F9'
         TgObj.MainButton.disable()
+        useHapticFeedback()
         const invoice = await vpn.getInvoice(
             String(activeRate?.id),
             payToken.tokenAddress[0],
@@ -267,6 +269,7 @@ export const Subscribe: FC<SubscribeProps> = ({
         if (currentStep === 2) {
             if (!rawAddress) {
                 tonConnectUI.connectWallet()
+                useHapticFeedback()
                 return
             }
             const price = activeRate?.price
@@ -281,6 +284,7 @@ export const Subscribe: FC<SubscribeProps> = ({
                         localStorage.setItem('currentIntroductionStep', '4')
                         TgObj.MainButton.show()
                         window.location.href = '/introduction'
+                        useHapticFeedback()
                     }
                 } catch (error) {
                     TgObj.showAlert(t('common.used-subscription'))
@@ -289,16 +293,20 @@ export const Subscribe: FC<SubscribeProps> = ({
             } else {
                 localStorage.setItem('currentIntroductionStep', '3')
                 localStorage.removeItem('skippedIntroduction')
+                useHapticFeedback()
                 setCurrentStep(3)
             }
         } else if (currentStep === 3) {
             await handlePay()
+            useHapticFeedback()
         } else if (currentStep === 4) {
             if (isSuccessPay) {
                 handleIntroductionClose()
+                useHapticFeedback()
             } else {
                 localStorage.setItem('currentIntroductionStep', '3')
                 window.location.pathname = '/'
+                useHapticFeedback()
             }
         }
     }

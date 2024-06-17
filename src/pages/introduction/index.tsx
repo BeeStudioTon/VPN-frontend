@@ -12,6 +12,7 @@ import { FirstStep } from './introduction-steps/first-step'
 import { Subscribe } from './introduction-steps/subscribe'
 
 import s from './introduction.module.scss'
+import { useHapticFeedback } from '../../hooks/useHapticFeedback'
 
 interface IntroductionProps {
     setShowIntroduction: React.Dispatch<React.SetStateAction<boolean>>
@@ -77,14 +78,17 @@ export const Introduction: FC<IntroductionProps> = ({
         setCurrentStep(1)
         TgObj.MainButton.hide()
         window.location.pathname = '/'
+        useHapticFeedback()
     }
 
     const handleNextStep = () => {
         setCurrentStep(currentStep + 1)
+        useHapticFeedback()
     }
 
     const handlePrevStep = () => {
         const isPaymentPage = localStorage.getItem('toPaymentPage') === 'true'
+        useHapticFeedback()
         if (isPaymentPage && currentStep <= 2) {
             localStorage.setItem('hasPassedIntroduction', 'true')
             TgObj.BackButton.hide()

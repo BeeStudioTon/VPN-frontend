@@ -9,6 +9,8 @@ import { Title } from '@delab-team/de-ui'
 
 import * as oopsSticker from '../../assets/stickers/oops.json'
 
+import { useHapticFeedback } from '../../hooks/useHapticFeedback'
+
 import s from './styles.module.scss'
 
 interface SomethingWentWrongProps {}
@@ -25,7 +27,10 @@ export const SomethingWentWrong: FC<SomethingWentWrongProps> = () => {
 
     const TgObj = WebAppSDK
 
-    const handleButton = () => window.open('https://t.me/delabvpnbot')
+    const handleButton = () => {
+        window.open('https://t.me/delabvpnbot')
+        useHapticFeedback()
+    }
 
     useEffect(() => {
         TgObj.MainButton.show()

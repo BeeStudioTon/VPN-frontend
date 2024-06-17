@@ -14,6 +14,8 @@ import { Button } from '../../../../components/ui/button'
 
 import { UserType } from '../../../../@types/user'
 
+import { useHapticFeedback } from '../../../../hooks/useHapticFeedback'
+
 import { calculateDaysFromTimestamp } from '../../../../utils/formatDateFromTimestamp'
 
 import * as helloSticker from '../../../../assets/stickers/hello.json'
@@ -92,7 +94,10 @@ export const FirstStep: FC<FirstStepProps> = ({
                 <Text className={s.firstText}>{t('introduction.welcome-description1')}</Text>
                 <Text className={s.firstText}>{t('introduction.welcome-description2')}</Text>
 
-                <Button className={s.firstButton} onClick={() => tonConnectUI.connectWallet()}>
+                <Button className={s.firstButton} onClick={() => {
+                    tonConnectUI.connectWallet()
+                    useHapticFeedback()
+                }}>
                     {t('common.connect-btn')}
                 </Button>
 

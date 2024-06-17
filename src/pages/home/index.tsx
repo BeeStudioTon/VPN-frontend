@@ -30,6 +30,7 @@ import * as sleepSticker from '../../assets/stickers/sleep.json'
 import * as loadingSticker from '../../assets/stickers/loading.json'
 
 import s from './home.module.scss'
+import { useHapticFeedback } from '../../hooks/useHapticFeedback'
 
 interface HomeProps {
     user: UserType | null;
@@ -137,6 +138,7 @@ export const Home: FC<HomeProps> = ({ user, keysData, userLoading, isTg, rawAddr
     }
 
     const handleButton = () => {
+        useHapticFeedback()
         if (isPaid) {
             handleConnectServer()
         } else {
@@ -227,7 +229,10 @@ export const Home: FC<HomeProps> = ({ user, keysData, userLoading, isTg, rawAddr
                             : t('common.select-plan')}
                 </Button>
                 {isPaid ? (
-                    <Button className={s.downloadButton} onClick={() => setShowDownloadModal(true)}>
+                    <Button className={s.downloadButton} onClick={() => {
+                        setShowDownloadModal(true)
+                        useHapticFeedback()
+                    }}>
                         <SvgSelector id="download" />
                         {t('common.download-app')}
                     </Button>
