@@ -1,7 +1,6 @@
 /* eslint-disable class-methods-use-this */
 
 import axios, { AxiosResponse } from 'axios'
-import querystring from 'querystring'
 
 import { UserType, UserTypeUser } from '../@types/user'
 import { RatesType } from '../@types/rates'
@@ -68,8 +67,8 @@ export class VPN {
     }
 
     public async getKey (id_server: number): Promise<KeyType> {
-        const data = querystring.stringify({ id_server })
-        const res = await axios.post<KeyType>(`${this._url}${ApiEndpoints.GET_KEY}`, data, {
+        // const data = querystring.stringify({ id_server })
+        const res = await axios.post<KeyType>(`${this._url}${ApiEndpoints.GET_KEY}`, {id_server: id_server}, {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 ...this.getHeaders()
