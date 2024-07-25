@@ -8,6 +8,7 @@ import { RatesType } from '../@types/rates'
 import { KeyType } from '../@types/get-keys'
 import { ServerData } from '../@types/servers'
 
+
 enum ApiEndpoints {
     GET_USER = 'api/v2/user/getUser',
     CHECK_PAYMENT = 'api/v2/tariff/checkPayment',
