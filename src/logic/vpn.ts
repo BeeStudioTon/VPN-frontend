@@ -25,7 +25,7 @@ enum ApiEndpoints {
 }
 
 export class VPN {
-    private _url: string = 'https://sea-lion-app-eo2pw.ondigitalocean.app/'
+    private _url: string = 'https://api.beevpn.pro/'
     // private _url: string = 'https://localhost:3001/'
 
     private getHeaders (key?: string | undefined) {
