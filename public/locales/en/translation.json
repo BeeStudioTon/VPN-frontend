@@ -1,8 +1,8 @@
 {
   "introduction": {
     "welcome-title": "Welcome to ",
-    "welcome-description1": "Get protected and fast connection using your TON wallet right inside Telegram",
-    "welcome-description2": "To get started, please connect your wallet"
+    "welcome-description1": "Get protected and fast connection inside Telegram",
+    "welcome-description2": "To get started"
   },
   "subscribe": {
     "title": "Subscribe",
@@ -72,7 +72,7 @@
     "loading": "Loading...",
     "not-active-plan": "Plan is not active",
     "choose-plan": "Choose plan",
-    "skip": "I'll connect later",
+    "skip": "Start",
     "skip-plan": "Skip plan",
     "error-tg": "This application is only available in Telegram",
     "download-app": "Download App",
