@@ -2,7 +2,7 @@
   "name": "de-vpn2.0",
   "version": "0.1.0",
   "scripts": {
-    "start": "webpack-dev-server --mode development",
+    "start": "HTTPS=true webpack-dev-server --mode development",
     "build": "webpack --mode production",
     "eject": "react-scripts eject"
   },

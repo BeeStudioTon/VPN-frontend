@@ -12,12 +12,18 @@ interface ServerInfo {
 
 export interface ServerData {
     id: number;
-    name_server: string;
+
+    nameServer: string;
+
     geo: string;
-    ip: string;
-    load_server: string;
-    conf_data: string;
-    max_users: number;
-    active: number;
-    info: ServerInfo;
+
+    ipServer: string;
+
+    maxUsers: number;
+
+    userCountOnline: number;
+
+    active: boolean;
+
+    createdAt: string;
 }

@@ -1,74 +1,88 @@
 /* eslint-disable max-len */
-import React, { FC, useState, useRef, useEffect } from 'react'
-import ReactCountryFlag from 'react-country-flag'
-import { Text } from '@delab-team/de-ui'
-import { motion, AnimatePresence } from 'framer-motion'
+import React, { FC, useState, useRef, useEffect } from "react";
+import ReactCountryFlag from "react-country-flag";
+import { Text } from "@delab-team/de-ui";
+import { motion, AnimatePresence } from "framer-motion";
 
-import { ServerData } from '../../@types/servers'
+import { ServerData } from "../../@types/servers";
 
-import { SvgSelector } from '../../assets/svg-selector'
+import { SvgSelector } from "../../assets/svg-selector";
 
-import { SkeletonInfo } from '../skeleton-info'
+import { SkeletonInfo } from "../skeleton-info";
 
-import s from './servers-selector.module.scss'
-import { useHapticFeedback } from '../../hooks/useHapticFeedback'
+import s from "./servers-selector.module.scss";
+import { useHapticFeedback } from "../../hooks/useHapticFeedback";
 
 interface ServersSelectorProps {
     serversData: ServerData[];
-    selectedServer: ServerData | null
-    isLoading: boolean
-    isTg: boolean
-    userLoading: boolean
+    selectedServer: ServerData | null;
+    isLoading: boolean;
+    isTg: boolean;
+    userLoading: boolean;
     setSelectedServer: (el: ServerData | null) => void;
 }
 
-export const ServersSelector: FC<ServersSelectorProps> = ({ serversData, selectedServer, setSelectedServer, isLoading, isTg, userLoading }) => {
-    if (!selectedServer) return <></>
+export const ServersSelector: FC<ServersSelectorProps> = ({
+    serversData,
+    selectedServer,
+    setSelectedServer,
+    isLoading,
+    isTg,
+    userLoading,
+}) => {
+    if (!selectedServer) return <></>;
 
-    const [ isDropdownOpen, setIsDropdownOpen ] = useState(false)
-    const dropdownRef = useRef<HTMLDivElement>(null)
-    const buttonRef = useRef<HTMLDivElement>(null)
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const dropdownRef = useRef<HTMLDivElement>(null);
+    const buttonRef = useRef<HTMLDivElement>(null);
 
     const handleServerSelection = (server: ServerData) => {
-        setSelectedServer(server)
-        setIsDropdownOpen(false)
-        useHapticFeedback()
-    }
+        setSelectedServer(server);
+        setIsDropdownOpen(false);
+        useHapticFeedback();
+    };
 
     const handleClickOutside = (event: MouseEvent) => {
-        if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node) && buttonRef.current && !buttonRef.current.contains(event.target as Node)) {
-            setIsDropdownOpen(false)
-            useHapticFeedback()
+        if (
+            dropdownRef.current &&
+            !dropdownRef.current.contains(event.target as Node) &&
+            buttonRef.current &&
+            !buttonRef.current.contains(event.target as Node)
+        ) {
+            setIsDropdownOpen(false);
+            useHapticFeedback();
         }
-    }
+    };
 
     useEffect(() => {
-        document.addEventListener('mousedown', handleClickOutside)
+        document.addEventListener("mousedown", handleClickOutside);
 
         return () => {
-            document.removeEventListener('mousedown', handleClickOutside)
-        }
-    }, [])
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
 
-    const filteredServersData = serversData.filter(el => el.ip !== selectedServer.ip)
+    const filteredServersData = serversData.filter(
+        (el) => el.ipServer !== selectedServer.ipServer
+    );
 
     return (
         <div className={s.serversSelector}>
             <div
                 className={`${s.selectedServer} ${s.serverItem}`}
-                onClick={() => !userLoading && setIsDropdownOpen(!isDropdownOpen)}
+                onClick={() =>
+                    !userLoading && setIsDropdownOpen(!isDropdownOpen)
+                }
                 ref={buttonRef}
             >
                 {isLoading ? (
                     <>
                         <div className={s.serverItemLeft}>
-                            <div className={s.serverItemFlag}>
-
-                            </div>
-                            <SkeletonInfo height='23' isTg={isTg} widthHalf />
+                            <div className={s.serverItemFlag}></div>
+                            <SkeletonInfo height="23" isTg={isTg} widthHalf />
                         </div>
                         <div className={s.serverItemRight}>
-                            <SkeletonInfo height='23' isTg={isTg} />
+                            <SkeletonInfo height="23" isTg={isTg} />
                             <motion.div
                                 initial={false}
                                 animate={{ rotate: isDropdownOpen ? 180 : 0 }}
@@ -85,19 +99,29 @@ export const ServersSelector: FC<ServersSelectorProps> = ({ serversData, selecte
                                 countryCode={selectedServer?.geo}
                                 svg
                                 style={{
-                                    width: '2em',
-                                    height: '2em'
+                                    width: "2em",
+                                    height: "2em",
                                 }}
                                 title="US"
                             />
                             <Text className={s.serverItemServer}>
-                                {selectedServer.name_server}
+                                {selectedServer.nameServer}
+                            </Text>
+                            <Text className={s.serverItemIp}>
+                                {selectedServer.ipServer}
                             </Text>
                         </div>
                         <div className={s.serverItemRight}>
                             <div className={s.serverItemPing}>
-                                <div className={`${s.serverItemPing} ${Number(selectedServer.load_server) > 90 ? s.serverItemPingRed : ''}`}>
-                                    {selectedServer.load_server} ms
+                                <div
+                                    className={`${s.serverItemPing} ${
+                                        Number(selectedServer.userCountOnline) >
+                                        90
+                                            ? s.serverItemPingRed
+                                            : ""
+                                    }`}
+                                >
+                                    {20} ms
                                 </div>
                             </div>
                             <motion.div
@@ -117,11 +141,11 @@ export const ServersSelector: FC<ServersSelectorProps> = ({ serversData, selecte
                         ref={dropdownRef}
                         className={s.serverDropdown}
                         initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
+                        animate={{ opacity: 1, height: "auto" }}
                         exit={{ opacity: 0, height: 0 }}
                         transition={{ duration: 0.2 }}
                     >
-                        {filteredServersData.map(server => (
+                        {filteredServersData.map((server) => (
                             <div
                                 key={server.id}
                                 className={s.serverItem}
@@ -132,18 +156,27 @@ export const ServersSelector: FC<ServersSelectorProps> = ({ serversData, selecte
                                         countryCode={server?.geo}
                                         svg
                                         style={{
-                                            width: '2em',
-                                            height: '2em'
+                                            width: "2em",
+                                            height: "2em",
                                         }}
                                         title="US"
                                     />
                                     <Text className={s.serverItemServer}>
-                                        {server.name_server}
+                                        {server.nameServer}
+                                    </Text>
+                                    <Text className={s.serverItemIp}>
+                                        {server.ipServer}
                                     </Text>
                                 </div>
                                 <div className={s.serverItemRight}>
-                                    <div className={`${s.serverItemPing} ${Number(server.load_server) > 90 ? s.serverItemPingRed : ''}`}>
-                                        {server.load_server} ms
+                                    <div
+                                        className={`${s.serverItemPing} ${
+                                            Number(server.userCountOnline) > 90
+                                                ? s.serverItemPingRed
+                                                : ""
+                                        }`}
+                                    >
+                                        {20} ms
                                     </div>
                                 </div>
                             </div>
@@ -152,5 +185,5 @@ export const ServersSelector: FC<ServersSelectorProps> = ({ serversData, selecte
                 )}
             </AnimatePresence>
         </div>
-    )
-}
+    );
+};

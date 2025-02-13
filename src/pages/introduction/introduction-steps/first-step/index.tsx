@@ -88,7 +88,7 @@ export const FirstStep: FC<FirstStepProps> = ({
                 />
 
                 <Title variant="h1" className={s.firstTitle}>
-                    {t('introduction.welcome-title')} <span>DeVPN</span>
+                    {t('introduction.welcome-title')} <span>BeeVPN</span>
                 </Title>
 
                 <Text className={s.firstText}>{t('introduction.welcome-description1')}</Text>

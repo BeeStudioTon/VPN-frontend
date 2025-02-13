@@ -7,84 +7,85 @@ import { UserType, UserTypeUser } from '../@types/user'
 import { RatesType } from '../@types/rates'
 import { KeyType } from '../@types/get-keys'
 import { ServerData } from '../@types/servers'
+import { IAuthTokensResponse } from '../@types/auth'
 
 
 enum ApiEndpoints {
-    GET_USER = 'api/v2/user/getUser',
-    CHECK_PAYMENT = 'api/v2/tariff/checkPayment',
-    GET_SERVERS = 'getServers',
-    GET_TARIFFS = 'api/v2/tariff/getTariffs',
-    GET_KEYS = 'getKeys',
-    ACTIVATE_FREE = 'activateFree',
-    GET_KEY = 'getKey',
-    CREATE_TRANSACTION = 'api/v2/tariff/createTransaction'
+    TELEGRAM_LOGIN = 'auth/telegram/login',
+    JWT_REFRESH = 'auth/jwt/refresh',
+    GET_USER = 'user',
+    GET_INVOICE_LIST = 'invoice/list',
+    CREATE_INVOICE = 'invoice/create',
+    GET_KEY_LIST = 'key/list',
+    GET_OR_CREATE_KEY = 'key/getOrCreate/',
+    CREATE_KEY = 'key/create',
+    GET_SERVER_LIST = 'server/list',
+    GET_SUBSCRIBE_LIST = 'subscribe/list',
+    GET_IP = 'ping/ip'
 }
 
 export class VPN {
-    private _url: string = 'https://lobster-app-7recs.ondigitalocean.app/'
+    private _url: string = 'https://sea-lion-app-eo2pw.ondigitalocean.app/'
+    // private _url: string = 'https://localhost:3001/'
 
-    private getHeaders () {
-        return { 'telegram-data': window.Telegram.WebApp.initData }
+    private getHeaders (key?: string | undefined) {
+        console.log('key', key)
+        return key ? { 'Authorization': `Bearer ${key}` } : {}
     }
 
-    private async get<T> (url: string, data: Record<string, any>): Promise<T> {
-        const res = await axios.get<T>(`${this._url}${url}?${new URLSearchParams(data)}`, { headers: this.getHeaders() })
+    public async postAuth (key: string): Promise<UserType> {
+        const res = await axios.get<UserType>(`${this._url}${ApiEndpoints.GET_USER}`, { headers: this.getHeaders(key) })
         return res.data
     }
 
-    private async post<T> (url: string, data: any): Promise<AxiosResponse<T>> {
-        const res = await axios.post<T>(`${this._url}${url}`, data, { headers: this.getHeaders() })
-        return res
-    }
-
-    public async postAuth (): Promise<UserType> {
-        const res = await axios.get<UserType>(`${this._url}${ApiEndpoints.GET_USER}`, { headers: this.getHeaders() })
+    public async getJWT (): Promise<UserType> {
+        const res = await axios.get<UserType>(`${this._url}${ApiEndpoints.JWT_REFRESH}`, { headers: this.getHeaders() })
         return res.data
     }
 
-    public async checkPayment (): Promise<UserTypeUser> {
-        const res = await axios.get<UserTypeUser>(`${this._url}${ApiEndpoints.CHECK_PAYMENT}`, { headers: this.getHeaders() })
+    public async telegramLogin (init: string): Promise<IAuthTokensResponse> {
+        const res = await axios.post<IAuthTokensResponse>(`${this._url}${ApiEndpoints.TELEGRAM_LOGIN}`, {webAppInitData: init },  { headers: this.getHeaders() })
         return res.data
     }
 
-    public async getServers (): Promise<ServerData[]> {
-        const res = await this.get<{ data: ServerData[] }>(ApiEndpoints.GET_SERVERS, {})
-        return res.data
+    public async getServers (key: string): Promise<ServerData[]> {
+        const res =  await axios.get<{ list: ServerData[] }>(`${this._url}${ApiEndpoints.GET_SERVER_LIST}?skip=0&take=50`, { headers: this.getHeaders(key) })
+        return res.data.list
     }
 
-    public async getRates (): Promise<RatesType[]> {
-        const res = await axios.get<RatesType[]>(`${this._url}${ApiEndpoints.GET_TARIFFS}`, { headers: this.getHeaders() })
-        return res.data
+    public async getRates (key: string): Promise<RatesType[]> {
+        const res = await axios.get<{list: RatesType[]}>(`${this._url}${ApiEndpoints.GET_SUBSCRIBE_LIST}?skip=0&take=50`, { headers: this.getHeaders(key) })
+        return res.data.list
     }
 
-    public async getKeys (): Promise<KeyType[]> {
-        const res = await this.post<{ keys: KeyType[] }>(ApiEndpoints.GET_KEYS, {})
-        return res.data.keys
+    public async getKeys (key: string): Promise<KeyType[]> {
+        const res = await axios.get<{list: KeyType[]}>(`${this._url}${ApiEndpoints.GET_KEY_LIST}?skip=0&take=50`, { headers: this.getHeaders(key) })
+        return res.data.list
+    }
+
+    public async getIp (): Promise<string> {
+        const res = await axios.get<{ip: string}>(`${this._url}${ApiEndpoints.GET_IP}`, { headers: this.getHeaders() })
+        return res.data.ip
     }
 
     // TODO
-    public async activateFree (): Promise<any> {
-        const data = await this.post<any>(ApiEndpoints.ACTIVATE_FREE, { tg_data: window.Telegram.WebApp.initData })
-        return data
-    }
+    // public async activateFree (): Promise<any> {
+    //     const data = await this.post<any>(ApiEndpoints.ACTIVATE_FREE, { tg_data: window.Telegram.WebApp.initData })
+    //     return data
+    // }
 
-    public async getKey (id_server: number): Promise<KeyType> {
+    public async getOrCreateKey (id_server: number, key: string): Promise<KeyType> {
         // const data = querystring.stringify({ id_server })
-        const res = await axios.post<KeyType>(`${this._url}${ApiEndpoints.GET_KEY}`, {id_server: id_server}, {
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                ...this.getHeaders()
-            }
-        })
+        const res = await axios.get<KeyType>(`${this._url}${ApiEndpoints.GET_OR_CREATE_KEY}${id_server}`, { headers: this.getHeaders(key) })
         return res.data
     }
 
     // TODO
-    public async getInvoice (tariffId: string, tokenAddress: string, userAddress: string): Promise<any> {
-        const res = await axios.get<any>(
-            `${this._url}${ApiEndpoints.CREATE_TRANSACTION}?tariffId=${tariffId}&tokenAddress=${tokenAddress}&userAddress=${userAddress}`,
-            { headers: this.getHeaders() }
-        )
-        return res.data
-    }
+    // public async getInvoice (tariffId: string, tokenAddress: string, userAddress: string): Promise<any> {
+    //     const res = await axios.get<any>(
+    //         `${this._url}${ApiEndpoints.CREATE_TRANSACTION}?tariffId=${tariffId}&tokenAddress=${tokenAddress}&userAddress=${userAddress}`,
+    //         { headers: this.getHeaders() }
+    //     )
+    //     return res.data
+    // }
 }

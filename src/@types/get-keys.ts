@@ -1,3 +1,4 @@
+import { ServerData } from './servers';
 import { UserTypeUser } from './user'
 
 export interface KeysType {
@@ -6,8 +7,21 @@ export interface KeysType {
 }
 
 export interface KeyType {
-    id: number
-    idOutline: string
-    key: string
-    serverId: string
+    id: number;
+
+    userId: number;
+  
+    isActive: boolean;
+  
+    nameServer: string;
+  
+    outlineId: string;
+  
+    server: ServerData;
+  
+    serverId: number;
+  
+    keyData: string;
+  
+    createdAt: string;
 }

@@ -145,69 +145,69 @@ export const Subscribe: FC<SubscribeProps> = ({
         TgObj.MainButton.color = '#78B5F9'
         TgObj.MainButton.disable()
         useHapticFeedback()
-        const invoice = await vpn.getInvoice(
-            String(activeRate?.id),
-            payToken.tokenAddress[0],
-            rawAddress
-        )
+        // const invoice = await vpn.getInvoice(
+        //     String(activeRate?.id),
+        //     payToken.tokenAddress[0],
+        //     rawAddress
+        // )
         TgObj.MainButton.hide()
 
-        const tr = await sendTrans(
-            Number(WebAppSDK.initDataUnsafe.user?.id),
-            payToken?.token === 'TON' ? 'TON' : payToken!.tokenAddress[0],
-            invoice.tokenAmount
-        )
+        // const tr = await sendTrans(
+        //     Number(WebAppSDK.initDataUnsafe.user?.id),
+        //     payToken?.token === 'TON' ? 'TON' : payToken!.tokenAddress[0],
+        //     invoice.tokenAmount
+        // )
 
-        if (tr) {
-            setIsPaymentLoading(true)
-            TgObj.MainButton.color = '#78B5F9'
-            TgObj.MainButton.disable()
-            let interval: NodeJS.Timeout
-            const isPaymentPage = localStorage.getItem('toPaymentPage') === 'true'
+        // if (tr) {
+        //     setIsPaymentLoading(true)
+        //     TgObj.MainButton.color = '#78B5F9'
+        //     TgObj.MainButton.disable()
+        //     let interval: NodeJS.Timeout
+        //     const isPaymentPage = localStorage.getItem('toPaymentPage') === 'true'
 
-            interval = setInterval(async () => {
-                const userData = await vpn.checkPayment()
+        //     interval = setInterval(async () => {
+        //         const userData = await vpn.checkPayment()
 
-                if (calculateDaysFromTimestamp(Date.parse(userData?.activeTo ?? '0') / 1000) >= 1) {
-                    clearInterval(interval)
-                    setIsPaymentLoading(false)
-                    setIsSuccessPay(true)
-                    TgObj.MainButton.color = '#40a7e3'
-                    TgObj.MainButton.enable()
-                    if (isPaymentPage) {
-                        localStorage.removeItem('toPaymentPage')
-                        localStorage.setItem('hasPassedIntroduction', 'true')
-                        TgObj.showAlert(t('common.congratulations'))
-                        handleIntroductionClose()
-                    } else {
-                        localStorage.setItem('currentIntroductionStep', '4')
-                        TgObj.showAlert(t('common.congratulations'))
-                        TgObj.MainButton.show()
-                        window.location.href = '/introduction'
-                    }
-                }
-            }, 5000)
+        //         if (calculateDaysFromTimestamp(Date.parse(userData?.activeTo ?? '0') / 1000) >= 1) {
+        //             clearInterval(interval)
+        //             setIsPaymentLoading(false)
+        //             setIsSuccessPay(true)
+        //             TgObj.MainButton.color = '#40a7e3'
+        //             TgObj.MainButton.enable()
+        //             if (isPaymentPage) {
+        //                 localStorage.removeItem('toPaymentPage')
+        //                 localStorage.setItem('hasPassedIntroduction', 'true')
+        //                 TgObj.showAlert(t('common.congratulations'))
+        //                 handleIntroductionClose()
+        //             } else {
+        //                 localStorage.setItem('currentIntroductionStep', '4')
+        //                 TgObj.showAlert(t('common.congratulations'))
+        //                 TgObj.MainButton.show()
+        //                 window.location.href = '/introduction'
+        //             }
+        //         }
+        //     }, 5000)
 
-            setTimeout(async () => {
-                const user = await vpn.postAuth()
-                clearInterval(interval)
-                setIsPaymentLoading(false)
-                TgObj.MainButton.color = '#40a7e3'
-                localStorage.setItem('currentIntroductionStep', '4')
-                TgObj.MainButton.enable()
-                setIsSuccessPay(false)
-                if (user?.user?.activeTariff?.id === '0' || user?.user?.activeTariff === null) {
-                    TgObj.showAlert('Error, please try again')
-                    TgObj.MainButton.show()
-                }
-            }, 120000)
-        } else {
-            TgObj.MainButton.show()
-            TgObj.showAlert('Error, please try again')
-            setIsPaymentLoading(false)
-            TgObj.MainButton.color = '#40a7e3'
-            TgObj.MainButton.enable()
-        }
+        //     setTimeout(async () => {
+        //         const user = await vpn.postAuth()
+        //         clearInterval(interval)
+        //         setIsPaymentLoading(false)
+        //         TgObj.MainButton.color = '#40a7e3'
+        //         localStorage.setItem('currentIntroductionStep', '4')
+        //         TgObj.MainButton.enable()
+        //         setIsSuccessPay(false)
+        //         if (user?.user?.activeTariff?.id === '0' || user?.user?.activeTariff === null) {
+        //             TgObj.showAlert('Error, please try again')
+        //             TgObj.MainButton.show()
+        //         }
+        //     }, 120000)
+        // } else {
+        //     TgObj.MainButton.show()
+        //     TgObj.showAlert('Error, please try again')
+        //     setIsPaymentLoading(false)
+        //     TgObj.MainButton.color = '#40a7e3'
+        //     TgObj.MainButton.enable()
+        // }
     }
 
     const ton = assetsData?.find(el => el.token === 'TON')
@@ -233,9 +233,9 @@ export const Subscribe: FC<SubscribeProps> = ({
                 TgObj.MainButton.disable()
             }
         } else if (currentStep === 3) {
-            if (!activeRate?.price) return
+            if (!activeRate?.priceDollar) return
 
-            if (activeRate?.price > Number(payToken?.amountUSD)) {
+            if (activeRate?.priceDollar > Number(payToken?.amountUSD)) {
                 TgObj.MainButton.text = t('common.insufficient-balance')
                 TgObj.MainButton.color = '#78B5F9'
                 TgObj.MainButton.disable()
@@ -272,24 +272,24 @@ export const Subscribe: FC<SubscribeProps> = ({
                 useHapticFeedback()
                 return
             }
-            const price = activeRate?.price
+            const price = activeRate?.priceDollar
 
             if (price === 0) {
-                try {
-                    const activationResult = await vpn.activateFree()
+                // try {
+                //     const activationResult = await vpn.activateFree()
 
-                    if (activationResult) {
-                        TgObj.showAlert(t('common.congratulations'))
-                        localStorage.removeItem('skippedIntroduction')
-                        localStorage.setItem('currentIntroductionStep', '4')
-                        TgObj.MainButton.show()
-                        window.location.href = '/introduction'
-                        useHapticFeedback()
-                    }
-                } catch (error) {
-                    TgObj.showAlert(t('common.used-subscription'))
-                    console.error(error)
-                }
+                //     if (activationResult) {
+                //         TgObj.showAlert(t('common.congratulations'))
+                //         localStorage.removeItem('skippedIntroduction')
+                //         localStorage.setItem('currentIntroductionStep', '4')
+                //         TgObj.MainButton.show()
+                //         window.location.href = '/introduction'
+                //         useHapticFeedback()
+                //     }
+                // } catch (error) {
+                //     TgObj.showAlert(t('common.used-subscription'))
+                //     console.error(error)
+                // }
             } else {
                 localStorage.setItem('currentIntroductionStep', '3')
                 localStorage.removeItem('skippedIntroduction')
@@ -376,12 +376,13 @@ export const Subscribe: FC<SubscribeProps> = ({
                     setActiveRate={setActiveRate}
                     isTg={isTg}
                     handleIntroductionClose={handleIntroductionClose}
+                    TgObj={TgObj}
                 />
             )}
 
             {currentStep === 3 && (
                 <Method
-                    amount={activeRate?.price}
+                    amount={activeRate?.priceDollar}
                     activePayToken={payToken}
                     setActivePayToken={setPayToken}
                     currentStep={currentStep}

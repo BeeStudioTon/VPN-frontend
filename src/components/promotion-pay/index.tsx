@@ -133,14 +133,14 @@ export const PromotionPay: FC<PromotionPayProps> = ({
                                     <div className={s.promotionLiLeft}>
                                         <div className={s.promotionLiInfo}>
                                             <Text className={s.promotionLiTitle}>
-                                                {el?.name_rate}
+                                                {el?.nameSubscribe}
                                             </Text>
-                                            {el.price_old !== 0 && el.price !== 0 && (
+                                            {el.oldPriceDollar !== 0 && el.priceDollar !== 0 && (
                                                 <div className={s.promotionLiBadge}>
                                                       -
                                                     {Math.round(
-                                                        ((el.price_old - el.price)
-                                                              / el.price_old)
+                                                        ((el.oldPriceDollar - el.priceDollar)
+                                                              / el.oldPriceDollar)
                                                               * 100
                                                     )}
                                                       %
@@ -151,20 +151,20 @@ export const PromotionPay: FC<PromotionPayProps> = ({
                                             className={s.promotionLiDescription}
                                             tgStyles={textTgStyles}
                                         >
-                                            {el?.price_old !== 0 && (
+                                            {el?.oldPriceDollar !== 0 && (
                                                 <span className={s.promotionLiOldPrice}>
-                                                      ${el?.price_old}
+                                                      ${el?.oldPriceDollar}
                                                 </span>
                                             )}{' '}
-                                              ${el?.price} / {el?.name_rate}
+                                              ${el?.priceDollar} / {el?.nameSubscribe}
                                         </Text>
                                     </div>
                                     <div className={s.promotionLiRight}>
                                         <Text className={s.promotionLiPrice}>
-                                            {el.count_days === 7 ? (
+                                            {el.timeSubscribe === 7 ? (
                                                 'Free / 7 days'
                                             ) : (
-                                                <>${el?.price_m.toFixed(2)} / month</>
+                                                <>${el?.priceStar.toFixed(2)} Star</>
                                             )}
                                         </Text>
                                     </div>

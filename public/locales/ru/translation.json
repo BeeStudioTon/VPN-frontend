@@ -22,6 +22,7 @@
   "home": {
     "traffic-title": "Трафика использовано",
     "ready-to-connect": "Готово к подключению",
+    "connected": "Вы подключены",
     "traffic-update-in": "Обновится через",
     "day": "День",
     "days": "Дней"
@@ -42,7 +43,7 @@
   },
   "common": {
     "step": "Шаг",
-    "congratulations": "Поздравляем с активацией подписки DeVPN.",
+    "congratulations": "Поздравляем с активацией подписки BeeVPN.",
     "connect-btn": "Подключить кошелек",
     "next": "Далее",
     "used-subscription": "Вы уже использовали бесплатную подписку.",

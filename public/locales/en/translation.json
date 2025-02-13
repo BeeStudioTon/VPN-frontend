@@ -22,6 +22,7 @@
   "home": {
     "traffic-title": "Traffic used",
     "ready-to-connect": "Ready to connect",
+    "connected": "You connected",
     "traffic-update-in": "Update in",
     "day": "Day",
     "days": "Days"
@@ -42,7 +43,7 @@
   },
   "common": {
     "step": "Step",
-    "congratulations": "Congratulations on activating your DeVPN subscription.",
+    "congratulations": "Congratulations on activating your BeeVPN subscription.",
     "connect-btn": "Connect wallet",
     "next": "Next",
     "used-subscription": "You have already used your free subscription.",
