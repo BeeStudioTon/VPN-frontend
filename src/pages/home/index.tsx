@@ -84,13 +84,9 @@ export const Home: FC<HomeProps> = ({
         null
     );
 
-    const [ipUser, setIpUser] = useState<string | null>(
-        null
-    );
+    const [ipUser, setIpUser] = useState<string | null>(null);
 
-    const [isConnect, setIsConnect] = useState<boolean>(
-        false
-    );
+    const [isConnect, setIsConnect] = useState<boolean>(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -131,32 +127,32 @@ export const Home: FC<HomeProps> = ({
             Date.parse(user?.user?.activeTo ?? "0") / 1000
         ) >= 1;
 
-    async function getIpUser() {
-        const ip = await vpn.getIp()
+    async function getIpUser(ipServer: string) {
+        const ip = await vpn.getIp();
 
         if (ip) {
-            console.log('ipUser', ip)
-            setIpUser(ip)
-
-            if (connectServerData) {
-                console.log('connectServerData', connectServerData)
-                if (connectServerData.server.ipServer === ip) {
-                    console.log('setIsConnect', true)
-                    setIsConnect(true)
-                    return
-                }
-            }
-            setIsConnect(false)
+            console.log("ipUser", ip);
+            setIpUser(ip);
         }
     }
 
     useEffect(() => {
-        getIpUser(); // Вызываем сразу при монтировании
-    
+        if (connectServerData) {
+            if (connectServerData.server.ipServer === ipUser) {
+                setIsConnect(true);
+            } else {
+                setIsConnect(false);
+            }
+        }
+    }, [ipUser]);
+
+    useEffect(() => {
+        getIpUser(connectServerData?.server.ipServer || ""); // Вызываем сразу при монтировании
+
         const interval = setInterval(getIpUser, 5000); // Запускаем интервал на 5 секунд
-    
+
         return () => clearInterval(interval); // Очищаем интервал при размонтировании компонента
-      }, []);
+    }, []);
 
     async function createKey() {
         console.log("init create key");
@@ -204,7 +200,11 @@ export const Home: FC<HomeProps> = ({
         }
 
         // @ts-ignore
-        handleConnect(connectServerData.keyData + '#BeeVPN ' + connectServerData.nameServer);
+        handleConnect(
+            connectServerData.keyData +
+                "#BeeVPN " +
+                connectServerData.nameServer
+        );
     };
 
     const handleButton = () => {
@@ -278,28 +278,36 @@ export const Home: FC<HomeProps> = ({
                             </>
                         )} */}
 
-                        {isConnect ? <Lottie
-                            options={approveOptions}
-                            height={190}
-                            isClickToPauseDisabled={true}
-                            width={190}
-                        /> : <Lottie
-                            options={approveOptions3}
-                            height={190}
-                            isClickToPauseDisabled={true}
-                            width={190}
-                        />}
+                        {isConnect ? (
+                            <Lottie
+                                options={approveOptions}
+                                height={190}
+                                isClickToPauseDisabled={true}
+                                width={190}
+                            />
+                        ) : (
+                            <Lottie
+                                options={approveOptions3}
+                                height={190}
+                                isClickToPauseDisabled={true}
+                                width={190}
+                            />
+                        )}
 
                         <Title
                             variant="h2"
                             className={s.statusTitle}
                             tgStyles={{ color: "var(--tg-theme-button-color)" }}
                         >
-                            {isConnect ? t("home.connected") : t("home.ready-to-connect")}
+                            {isConnect
+                                ? t("home.connected")
+                                : t("home.ready-to-connect")}
                         </Title>
-                        {!isConnect ? <Text className={s.statusText}>
-                            {t("common.download-text")}
-                        </Text> : undefined}
+                        {!isConnect ? (
+                            <Text className={s.statusText}>
+                                {t("common.download-text")}
+                            </Text>
+                        ) : undefined}
                     </>
                 )}
             </div>
