@@ -138,9 +138,9 @@ export const Home: FC<HomeProps> = ({
             console.log('ipUser', ip)
             setIpUser(ip)
 
-            if (selectedServer) {
-                console.log('selectedServer', selectedServer)
-                if (selectedServer.ipServer === ip) {
+            if (connectServerData) {
+                console.log('connectServerData', connectServerData)
+                if (connectServerData.server.ipServer === ip) {
                     console.log('setIsConnect', true)
                     setIsConnect(true)
                     return
