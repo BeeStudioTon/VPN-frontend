@@ -127,7 +127,7 @@ export const Home: FC<HomeProps> = ({
             Date.parse(user?.user?.activeTo ?? "0") / 1000
         ) >= 1;
 
-    async function getIpUser(ipServer: string) {
+    async function getIpUser() {
         const ip = await vpn.getIp();
 
         if (ip) {
@@ -147,7 +147,7 @@ export const Home: FC<HomeProps> = ({
     }, [ipUser]);
 
     useEffect(() => {
-        getIpUser(connectServerData?.server.ipServer || ""); // Вызываем сразу при монтировании
+        getIpUser(); // Вызываем сразу при монтировании
 
         const interval = setInterval(getIpUser, 5000); // Запускаем интервал на 5 секунд
 
