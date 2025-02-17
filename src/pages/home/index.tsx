@@ -135,10 +135,13 @@ export const Home: FC<HomeProps> = ({
         const ip = await vpn.getIp()
 
         if (ip) {
+            console.log('ipUser', ip)
             setIpUser(ip)
 
             if (selectedServer) {
+                console.log('selectedServer', selectedServer)
                 if (selectedServer.ipServer === ip) {
+                    console.log('setIsConnect', true)
                     setIsConnect(true)
                     return
                 }
