@@ -28,7 +28,7 @@ export const SomethingWentWrong: FC<SomethingWentWrongProps> = () => {
     const TgObj = WebAppSDK
 
     const handleButton = () => {
-        window.open('https://t.me/delabvpnbot')
+        TgObj.openTelegramLink("https://t.me/beevpnfree_bot")
         useHapticFeedback()
     }
 
@@ -37,7 +37,7 @@ export const SomethingWentWrong: FC<SomethingWentWrongProps> = () => {
         TgObj.MainButton.text = t('common.to-app')
         TgObj.MainButton.onClick(handleButton)
 
-        return () => TgObj.MainButton.offClick(handleButton)
+        // return () => TgObj.MainButton.offClick(handleButton)
     }, [])
 
     const isTgCheck = window.Telegram.WebApp.initData !== ''

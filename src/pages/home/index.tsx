@@ -14,6 +14,7 @@ import { Button } from "../../components/ui/button";
 import { DownloadModal } from "../../components/download-modal";
 import { Traffic } from "../../components/traffic";
 import { ServersSelector } from "../../components/servers-selector";
+import { ServerSelected } from "../../components/server-selected";
 
 import { VPN } from "../../logic/vpn";
 
@@ -32,6 +33,7 @@ import * as loadingSticker from "../../assets/stickers/loading.json";
 
 import s from "./home.module.scss";
 import { useHapticFeedback } from "../../hooks/useHapticFeedback";
+import ReactCountryFlag from "react-country-flag";
 
 interface HomeProps {
     user: UserType | null;
@@ -110,6 +112,23 @@ export const Home: FC<HomeProps> = ({
     }, []);
 
     useEffect(() => {
+        try {
+            TgObj.CloudStorage.getItem("select-server", async (error, data) => {
+                if (data && serverData) {
+                    const findServer = serverData.find(
+                        (server) => Number(server.id) === Number(data)
+                    );
+                    if (findServer) {
+                        setSelectedServer(findServer);
+                    }
+                }
+            });
+        } catch (error) {
+            console.error("Error CloudStorage:", error);
+        }
+    }, [serverData]);
+
+    useEffect(() => {
         const connectServer = keysData?.find(
             (el) => el.id === selectedServer?.id
         );
@@ -137,22 +156,26 @@ export const Home: FC<HomeProps> = ({
     }
 
     useEffect(() => {
-        if (connectServerData) {
-            if (connectServerData.server.ipServer === ipUser) {
+        console.log("==========selectedServer", selectedServer);
+        if (selectedServer) {
+            // console.log('==========selectedServer', selectedServer)
+            if (selectedServer.ipServer === ipUser) {
                 setIsConnect(true);
             } else {
                 setIsConnect(false);
             }
         }
-    }, [ipUser]);
+    }, [ipUser, selectedServer]);
 
     useEffect(() => {
-        getIpUser(); // Вызываем сразу при монтировании
+        if (selectedServer) {
+            getIpUser(); // Вызываем сразу при монтировании
 
-        const interval = setInterval(getIpUser, 5000); // Запускаем интервал на 5 секунд
+            const interval = setInterval(getIpUser, 5000); // Запускаем интервал на 5 секунд
 
-        return () => clearInterval(interval); // Очищаем интервал при размонтировании компонента
-    }, []);
+            return () => clearInterval(interval); // Очищаем интервал при размонтировании компонента
+        }
+    }, [selectedServer]);
 
     async function createKey() {
         console.log("init create key");
@@ -230,7 +253,7 @@ export const Home: FC<HomeProps> = ({
                 />
             )}
 
-            {/* <Info rawAddress={rawAddress} /> */}
+            <Info rawAddress={rawAddress} />
             <div className={s.status}>
                 {userLoading ? (
                     <>
@@ -303,23 +326,24 @@ export const Home: FC<HomeProps> = ({
                                 ? t("home.connected")
                                 : t("home.ready-to-connect")}
                         </Title>
-                        {!isConnect ? (
+                        {/* {!isConnect ? (
                             <Text className={s.statusText}>
                                 {t("common.download-text")}
                             </Text>
-                        ) : undefined}
+                        ) : undefined} */}
                     </>
                 )}
             </div>
-
-            <ServersSelector
-                serversData={serverData}
-                selectedServer={selectedServer}
-                setSelectedServer={setSelectedServer}
-                isTg={isTg}
-                userLoading={userLoading}
-                isLoading={serverDataLoading}
-            />
+            {selectedServer ? (
+                <ServerSelected
+                    serversData={serverData}
+                    selectedServer={selectedServer}
+                    setSelectedServer={setSelectedServer}
+                    isTg={isTg}
+                    userLoading={userLoading}
+                    isLoading={serverDataLoading}
+                />
+            ) : null}
 
             <div className={s.connectInner}>
                 <Button

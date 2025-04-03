@@ -316,7 +316,7 @@ export const Subscribe: FC<SubscribeProps> = ({
 
         TgObj.MainButton.onClick(handleBtn)
 
-        return () => TgObj.MainButton.offClick(handleBtn)
+        // return () => TgObj.MainButton.offClick(handleBtn)
     }, [ currentStep, activeRate, payToken, user, rawAddress ])
 
     const step: string =        currentStep === 2

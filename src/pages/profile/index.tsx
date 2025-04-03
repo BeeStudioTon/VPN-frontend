@@ -50,11 +50,13 @@ export const Profile: FC<ProfileProps> = ({ rawAddress, selectedLanguage, setSel
     }
 
     const handleExit = () => {
-        TgObj.showConfirm(t('common.you-sure'), (isConfirmed) => {
-            if (isConfirmed) {
-                handleNavigate()
-            }
-        })
+        // TgObj.showConfirm(t('common.you-sure'), (isConfirmed) => {
+        //     if (isConfirmed) {
+        //         handleNavigate()
+        //     }
+        // })
+
+        TgObj.addToHomeScreen()
     }
 
     return (
@@ -232,7 +234,7 @@ export const Profile: FC<ProfileProps> = ({ rawAddress, selectedLanguage, setSel
                     <SvgSelector id="exit" />
                     <div className={s.actionButtonInner}>
                         <div className={`${s.accountAction} ${s.logout}`}>
-                            {t('common.logout')}
+                            {t('common.addhome')}
                         </div>
                     </div>
                 </motion.button>

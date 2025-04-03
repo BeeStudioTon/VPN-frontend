@@ -24,6 +24,8 @@ import { UserType } from "./@types/user";
 import { KeyType } from "./@types/get-keys";
 
 import "./index.scss";
+import { Pay } from "./pages/pay";
+import { ChangeServer } from "./pages/change-server";
 
 declare global {
     interface Window {
@@ -62,19 +64,32 @@ export const App: FC = () => {
     const fetchData = useCallback(async () => {
         try {
             setUserLoading(true);
+            console.log("start fetchData")
 
             TgObj.CloudStorage.getItem("key-api", async (error, jwtKey) => {
+                if (error) {
+                    console.error(error)
+                    throw new Error("Error get item");
+                }
                 let newJwtKey = jwtKey;
-                if (!jwtKey) {
+                if (!jwtKey || jwtKey === "") {
                     const newJwtKeys = await vpn.telegramLogin(TgObj.initData);
 
-                    TgObj.CloudStorage.setItem("key-api", newJwtKeys.accessToken);
+                    if (newJwtKeys instanceof Error) {
+                        throw new Error(newJwtKeys.message);
+                    }
+
+                    TgObj.CloudStorage.setItem(
+                        "key-api",
+                        newJwtKeys.accessToken
+                    );
                     TgObj.CloudStorage.setItem(
                         "refresh-api",
                         newJwtKeys.refreshToken
                     );
 
                     newJwtKey = newJwtKeys.refreshToken;
+                    return
                 }
 
                 if (newJwtKey) {
@@ -88,12 +103,13 @@ export const App: FC = () => {
                     setUser(userData);
                     setIsError(false);
                     setKeysData(keysData);
-					return
+                    return;
                 }
 
-				setIsError(true);
+                setIsError(true);
             });
         } catch (error) {
+            TgObj.CloudStorage.removeItems(["key-api", "refresh-api", "select-server"])
             console.error("Error fetching data:", error);
             setIsError(true);
             navigate(ROUTES.SOMETHING_WENT_WRONG);
@@ -282,6 +298,30 @@ export const App: FC = () => {
                             element={<SomethingWentWrong />}
                         />
                         <Route path={ROUTES.REDIRECT} element={<Redirect />} />
+                        <Route
+                            path={ROUTES.PROMOTIONS}
+                            element={
+                                <Pay
+                                    isTg={isTg}
+                                    rawAddress={rawAddress}
+                                    selectedLanguage={selectedLanguage}
+                                    setSelectedLanguage={setSelectedLanguage}
+                                />
+                            }
+                        />
+
+<Route
+                            path={ROUTES.CHANGE}
+                            element={
+                                <ChangeServer
+                                    rawAddress={rawAddress}
+                                    selectedLanguage={selectedLanguage}
+                                    setSelectedLanguage={setSelectedLanguage}
+                                    keysData={keysData}
+                                    
+                                />
+                            }
+                        />
                         <Route
                             path="*"
                             element={<Navigate to={ROUTES.HOME} replace />}

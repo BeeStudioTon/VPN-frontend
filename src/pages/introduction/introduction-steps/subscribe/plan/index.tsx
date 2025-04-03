@@ -70,7 +70,7 @@ export const Plan: FC<PlanProps> = ({
       </Title>
 
       <div className={s.planActions}>
-        <PromotionPay
+        {/* <PromotionPay
           isTg={isTg}
           ratesLoading={ratesLoading}
           activeRate={activeRate}
@@ -78,7 +78,7 @@ export const Plan: FC<PlanProps> = ({
           data={sortedDataByPrice}
           showTitle={false}
           loadingRate={loadingRate}
-        />
+        /> */}
         {!isPaymentPage && (
           <Button
             className={s.skipButton}

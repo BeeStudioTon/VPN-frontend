@@ -5,5 +5,6 @@ export const ROUTES = {
     INTRODUCTION: '/introduction',
     DOWNLOAD: '/download',
     SOMETHING_WENT_WRONG: '/something_went_wrong',
-    REDIRECT: '/redirect'
+    REDIRECT: '/redirect',
+    CHANGE: '/change'
 } as const

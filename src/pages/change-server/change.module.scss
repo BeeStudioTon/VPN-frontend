@@ -1,0 +1,94 @@
+.serversSelector {
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.selectedServer {
+  position: relative;
+}
+
+.serverDropdown {
+  position: absolute;
+  top: 45px;
+  width: 100%;
+  background: var(--tg-theme-bg-color);
+  margin-bottom: 0 !important;
+  padding: 8px;
+  border-radius: 0px 0px 12px 12px;
+  max-height: 200px;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.serverDropdown::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.serverItem {
+  padding: 18px 16px;
+  border-radius: 22px;
+  background: rgba(118, 118, 128, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+  &:not(:last-child) {
+    margin-bottom: 8px;
+  }
+  &:hover {
+    background: rgba(118, 118, 128, 0.22);
+  }
+  &Flag {
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    background: var(--tg-theme-secondary-bg-color);
+  }
+  &Left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    > img {
+      width: 28px;
+      height: 28px;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+  }
+  &Bottom {
+    
+  }
+  &Right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  &Server {
+    color: var(--tg-theme-text-color);
+    font-size: 17px;
+    font-weight: 400;
+  }
+  &Ip {
+    color: var(--tg-theme-text-color);
+    font-size: 12px;
+    font-weight: 400;
+    opacity: .7;
+    margin-top: 5px;
+  }
+  &ButtonChange {
+    border-radius: 50px;
+    padding: 8px 14px;
+    font-size: 12px;
+    font-weight: 300;
+  }
+  &Ping {
+    font-size: 17px;
+    color: #0C982F;
+    &Red {
+      color: #F53838 !important;
+    }
+  }
+}

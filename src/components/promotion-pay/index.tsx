@@ -22,6 +22,7 @@ interface PromotionPayProps {
     showPayModal?: boolean;
     showTitle?: boolean;
     loadingRate: boolean;
+    handleCreateInvoice: Function
 }
 
 const textTgStyles = { color: 'var(--tg-theme-text-color)' }
@@ -40,7 +41,8 @@ export const PromotionPay: FC<PromotionPayProps> = ({
     setShow,
     showPayModal = false,
     showTitle = true,
-    loadingRate
+    loadingRate,
+    handleCreateInvoice
 }) => {
     const { t } = useTranslation()
 
@@ -174,21 +176,22 @@ export const PromotionPay: FC<PromotionPayProps> = ({
                     ))}
             </ul>
 
-            {showPayModal && setShow && (
+           
                 <Button
                     className={s.promotionActionPay}
                     onClick={() => {
-                        localStorage.removeItem('hasPassedIntroduction')
-                        localStorage.setItem('toPaymentPage', 'true')
-                        localStorage.setItem('currentIntroductionStep', '3')
-                        window.location.href = '/introduction'
+                        handleCreateInvoice(activeRate?.id)
+                        // localStorage.removeItem('hasPassedIntroduction')
+                        // localStorage.setItem('toPaymentPage', 'true')
+                        // localStorage.setItem('currentIntroductionStep', '3')
+                        // window.location.href = '/introduction'
                     }}
                     tgStyles={buttonTgStyles}
                     disabled={!activeRate || loadingRate}
                 >
                     {t('common.pay-btn')}
                 </Button>
-            )}
+            
         </div>
     )
 }

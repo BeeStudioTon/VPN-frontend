@@ -1,34 +1,60 @@
 .inner {
-  margin-top: 31px;
-  background: var(--tg-theme-bg-color);
-  padding: 19px 24px;
-  border-radius: 12px;
+  margin-top: 2px;
+  // background: var(--tg-theme-bg-color);
+  padding: 0px 0px;
+  border-radius: 22px;
   transition: all 0.3s ease 0s;
+  // width: fit-content;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Если нужно выровнять по вертикали */
   &:hover {
     opacity: 0.8;
   }
+  * {
+    flex: 1
+  }
+  
   .user {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 10px;
-    cursor: pointer;
     transition: all 0.3s ease 0s;
     position: relative;
-    &Avatar {
+    &NameApp {
+      font-size: 22px;
+      font-weight: 600;
+      color: #fff;
+      text-align: center;
+      span {
+        color: var(--tg-theme-button-color)
+      }
+    }
+    &Star {
+      text-align: right;
+      
       img {
-        width: 46px;
-        height: 46px;
+        // background: var(--tg-theme-bg-color);
+        // padding:
+      }
+    }
+    &Avatar {
+      cursor: pointer;
+
+      img {
+        width: 48px;
+        height: 48px;
         border-radius: 50%;
         position: absolute;
       }
       &Custom {
-        width: 46px;
-        height: 46px;
+        width: 48px;
+        height: 48px;
         border-radius: 50%;
         display: flex;
         align-items: center;
-        font-size: 19px;
+        font-size: 16px;
         padding: 5px;
         font-weight: 540;
         justify-content: center;
