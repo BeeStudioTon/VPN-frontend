@@ -20,12 +20,13 @@ import "./utils/i18n";
 
 import { VPN } from "./logic/vpn";
 
-import { UserType } from "./@types/user";
+import { UserType, UserTypeUser } from "./@types/user";
 import { KeyType } from "./@types/get-keys";
 
 import "./index.scss";
 import { Pay } from "./pages/pay";
 import { ChangeServer } from "./pages/change-server";
+import { ServerData } from "./@types/servers";
 
 declare global {
     interface Window {
@@ -41,12 +42,17 @@ export const App: FC = () => {
     const TgObj = WebAppSDK;
 
     // user
-    const [user, setUser] = useState<UserType | null>(null);
+    const [user, setUser] = useState<UserTypeUser | null>(null);
     const [userLoading, setUserLoading] = useState<boolean>(false);
     const [isError, setIsError] = useState<boolean>(false);
     // user end
 
     const [keysData, setKeysData] = useState<KeyType[]>([]);
+    const [serverData, setServerData] = useState<ServerData[]>([]);
+    const [selectedServer, setSelectedServer] = useState<
+        ServerData | undefined
+    >(undefined);
+
     // Introduction
     const [showIntroduction, setShowIntroduction] = useState<boolean>(true);
 
@@ -54,29 +60,99 @@ export const App: FC = () => {
     const [isSkippedIntroduction, setIsSkippedIntroduction] =
         useState<boolean>(false);
 
-    const rawAddress = useTonAddress();
+    const [jwtKeys, setJwtKeys] = useState<
+        { accessToken: string; refreshToken: string } | undefined
+    >(undefined);
 
     const navigate = useNavigate();
 
     const vpn = new VPN();
 
-    // fetch keys data
-    const fetchData = useCallback(async () => {
-        try {
-            setUserLoading(true);
-            console.log("start fetchData")
+    const loadJwtKeys = async (): Promise<void> => {
+        return new Promise((resolve, reject) => {
+            TgObj.CloudStorage.getItems(
+                ["refresh-api", "key-api"],
+                (error, keys) => {
+                    if (error) {
+                        reject(new Error("Ошибка при загрузке ключей JWT"));
+                        return;
+                    }
 
-            TgObj.CloudStorage.getItem("key-api", async (error, jwtKey) => {
-                if (error) {
-                    console.error(error)
-                    throw new Error("Error get item");
+                    if (
+                        keys &&
+                        keys["refresh-api"] &&
+                        keys["key-api"] &&
+                        keys["refresh-api"] !== "" &&
+                        keys["key-api"] !== ""
+                    ) {
+                        setJwtKeys({
+                            accessToken: keys["key-api"],
+                            refreshToken: keys["refresh-api"],
+                        });
+                        resolve(); // Успешное завершение
+                    } else {
+                        reject(new Error("Ключи JWT не найдены или пусты"));
+                    }
                 }
-                let newJwtKey = jwtKey;
-                if (!jwtKey || jwtKey === "") {
-                    const newJwtKeys = await vpn.telegramLogin(TgObj.initData);
+            );
+        });
+    };
 
-                    if (newJwtKeys instanceof Error) {
-                        throw new Error(newJwtKeys.message);
+    const refreshToken = async (): Promise<void | Error> => {
+        try {
+            TgObj.CloudStorage.getItems(
+                ["refresh-api", "key-api"],
+                async (error, keys) => {
+                    if (error) {
+                        console.error("Error Tg:", error);
+                        setIsError(true);
+                        navigate(ROUTES.SOMETHING_WENT_WRONG);
+                    }
+                    let newJwtKeys;
+
+                    if (
+                        keys &&
+                        keys["refresh-api"] &&
+                        keys["key-api"] &&
+                        keys["refresh-api"] !== "" &&
+                        keys["key-api"] !== ""
+                    ) {
+                        try {
+                            newJwtKeys = await vpn.refreshJWT(
+                                keys["key-api"],
+                                keys["refresh-api"]
+                            );
+                        } catch (error) {
+                            TgObj.CloudStorage.removeItems([
+                                "key-api",
+                                "refresh-api",
+                                "select-server",
+                            ]);
+                            console.error("Error refreshJWT:", error);
+                            setIsError(true);
+                            navigate(ROUTES.SOMETHING_WENT_WRONG);
+                        }
+                    } else {
+                        try {
+                            newJwtKeys = await vpn.telegramLogin(
+                                TgObj.initData
+                            );
+                        } catch (error) {
+                            TgObj.CloudStorage.removeItems([
+                                "key-api",
+                                "refresh-api",
+                                "select-server",
+                            ]);
+                            console.error("Error telegramLogin:", error);
+                            setIsError(true);
+                            navigate(ROUTES.SOMETHING_WENT_WRONG);
+                        }
+                    }
+
+                    if (newJwtKeys instanceof Error || !newJwtKeys) {
+                        throw new Error(
+                            newJwtKeys?.message ?? "Error newJwtKeys"
+                        );
                     }
 
                     TgObj.CloudStorage.setItem(
@@ -88,40 +164,89 @@ export const App: FC = () => {
                         newJwtKeys.refreshToken
                     );
 
-                    newJwtKey = newJwtKeys.refreshToken;
-                    return
+                    setJwtKeys({
+                        accessToken: newJwtKeys.accessToken,
+                        refreshToken: newJwtKeys.refreshToken,
+                    });
                 }
-
-                if (newJwtKey) {
-                    const userData = await vpn.postAuth(newJwtKey);
-                    if (!userData) {
-                        throw new Error("User data is not available");
-                    }
-
-                    const keysData = await vpn.getKeys(newJwtKey);
-
-                    setUser(userData);
-                    setIsError(false);
-                    setKeysData(keysData);
-                    return;
-                }
-
-                setIsError(true);
-            });
+            );
         } catch (error) {
-            TgObj.CloudStorage.removeItems(["key-api", "refresh-api", "select-server"])
-            console.error("Error fetching data:", error);
+            console.error("Error Tg:", error);
             setIsError(true);
             navigate(ROUTES.SOMETHING_WENT_WRONG);
-        } finally {
-            setUserLoading(false);
         }
-    }, [navigate, vpn]);
+    };
+
+    const getUserKeysAndUserInfo = async (): Promise<boolean> => {
+        if (!jwtKeys) {
+            return false;
+        }
+        try {
+            const keysData = await vpn.getKeys(jwtKeys.accessToken);
+
+            const userInfo = await vpn.getUser(jwtKeys.accessToken);
+            if (userInfo instanceof Error) {
+                throw new Error("User not found");
+            }
+
+            setUser(userInfo);
+            setIsError(false);
+            setKeysData(keysData);
+            return true;
+        } catch (error) {
+            console.error(`getUserKeysAndUserInfo: ${error}`);
+            return false;
+        }
+    };
+
+    const getServers = async (): Promise<boolean> => {
+        if (!jwtKeys) {
+            return false;
+        }
+        try {
+            const res = await vpn.getServers(jwtKeys.accessToken);
+            setServerData(res);
+            return true;
+        } catch (error) {
+            console.error(`getUserKeysAndUserInfo: ${error}`);
+            return false;
+        }
+    };
+
+    const getAndSetActiveServer = async (): Promise<boolean> => {
+        if (!serverData) {
+            return false;
+        }
+        return new Promise((resolve, reject) => {
+            TgObj.CloudStorage.getItem("select-server", async (error, data) => {
+                if (error) {
+                    if (serverData) setSelectedServer(serverData[0]);
+                }
+                if (data && serverData) {
+                    const findServer = serverData.find(
+                        (server) => Number(server.id) === Number(data)
+                    );
+                    if (findServer) {
+                        setSelectedServer(findServer);
+                    } else {
+                        if (serverData) setSelectedServer(serverData[0]);
+                    }
+
+                    resolve(true); // Успешное завершение
+                } else {
+                    if (serverData) setSelectedServer(serverData[0]);
+                    reject(new Error("Ключи JWT не найдены или пусты"));
+                }
+            });
+        });
+    };
 
     // init twa
     useEffect(() => {
         if (!firstRender && TgObj) {
             setFirstRender(true);
+
+            loadJwtKeys();
 
             const isTgCheck = window.Telegram?.WebApp.initData !== "";
             const bodyStyle = document.body.style;
@@ -144,8 +269,6 @@ export const App: FC = () => {
                 TgObj.expand();
                 setIsTg(true);
 
-                fetchData();
-
                 bodyStyle.backgroundColor =
                     "var(--tg-theme-secondary-bg-color)";
                 bodyStyle.setProperty(
@@ -164,8 +287,26 @@ export const App: FC = () => {
                 TgObj.requestWriteAccess();
             }
         }
-    }, [firstRender, isError, fetchData, navigate, TgObj]);
+    }, [firstRender, isError, navigate, TgObj]);
 
+    // когда получены ключи
+    useEffect(() => {
+        if (isTg) {
+            if (jwtKeys) {
+                getUserKeysAndUserInfo();
+                getServers();
+            } else {
+                refreshToken();
+            }
+        }
+    }, [jwtKeys, isTg, navigate]);
+
+    // установка сервера пользователя
+    useEffect(() => {
+        if (serverData) {
+            getAndSetActiveServer()
+        }
+    }, [serverData])
     // introduction check
     useEffect(() => {
         const isTgCheck = window.Telegram?.WebApp.initData !== "";
@@ -259,12 +400,14 @@ export const App: FC = () => {
                             path={ROUTES.HOME}
                             element={
                                 <Home
-                                    rawAddress={rawAddress}
                                     isSkippedIntroduction={
                                         isSkippedIntroduction
                                     }
                                     isTg={isTg}
                                     keysData={keysData}
+                                    serverData={serverData}
+                                    selectedServer={selectedServer}
+                                    setSelectedServer={setSelectedServer}
                                     user={user}
                                     userLoading={userLoading}
                                     TgObj={TgObj}
@@ -275,7 +418,6 @@ export const App: FC = () => {
                             path={ROUTES.INTRODUCTION}
                             element={
                                 <Introduction
-                                    rawAddress={rawAddress}
                                     user={user}
                                     keysData={keysData}
                                     isTg={isTg}
@@ -287,7 +429,6 @@ export const App: FC = () => {
                             path={ROUTES.PROFILE}
                             element={
                                 <Profile
-                                    rawAddress={rawAddress}
                                     selectedLanguage={selectedLanguage}
                                     setSelectedLanguage={setSelectedLanguage}
                                 />
@@ -303,22 +444,20 @@ export const App: FC = () => {
                             element={
                                 <Pay
                                     isTg={isTg}
-                                    rawAddress={rawAddress}
                                     selectedLanguage={selectedLanguage}
-                                    setSelectedLanguage={setSelectedLanguage}
                                 />
                             }
                         />
 
-<Route
+                        <Route
                             path={ROUTES.CHANGE}
                             element={
                                 <ChangeServer
-                                    rawAddress={rawAddress}
                                     selectedLanguage={selectedLanguage}
-                                    setSelectedLanguage={setSelectedLanguage}
                                     keysData={keysData}
-                                    
+                                    serverData={serverData}
+                                    selectedServer={selectedServer}
+                                    setSelectedServer={setSelectedServer}
                                 />
                             }
                         />
@@ -333,7 +472,6 @@ export const App: FC = () => {
                             path={ROUTES.INTRODUCTION}
                             element={
                                 <Introduction
-                                    rawAddress={rawAddress}
                                     user={user}
                                     keysData={keysData}
                                     isTg={isTg}

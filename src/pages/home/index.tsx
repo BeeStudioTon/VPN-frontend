@@ -18,7 +18,7 @@ import { ServerSelected } from "../../components/server-selected";
 
 import { VPN } from "../../logic/vpn";
 
-import { UserType } from "../../@types/user";
+import { UserType, UserTypeUser } from "../../@types/user";
 import { ServerData } from "../../@types/servers";
 import { KeyType } from "../../@types/get-keys";
 
@@ -34,15 +34,19 @@ import * as loadingSticker from "../../assets/stickers/loading.json";
 import s from "./home.module.scss";
 import { useHapticFeedback } from "../../hooks/useHapticFeedback";
 import ReactCountryFlag from "react-country-flag";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../utils/router";
 
 interface HomeProps {
-    user: UserType | null;
+    user: UserTypeUser | null;
     userLoading: boolean;
     keysData: KeyType[] | undefined;
     isTg: boolean;
     isSkippedIntroduction: boolean;
-    rawAddress: string;
     TgObj: typeof WebAppSDK;
+    serverData: ServerData[]
+    selectedServer: ServerData | undefined
+    setSelectedServer: React.Dispatch<React.SetStateAction<ServerData | undefined>>
 }
 
 export const Home: FC<HomeProps> = ({
@@ -50,7 +54,9 @@ export const Home: FC<HomeProps> = ({
     keysData,
     userLoading,
     isTg,
-    rawAddress,
+    serverData,
+    selectedServer,
+    setSelectedServer,
     TgObj,
 }) => {
     const approveOptions: Options = {
@@ -77,56 +83,16 @@ export const Home: FC<HomeProps> = ({
     const { t } = useTranslation();
     const vpn = new VPN();
     const [showDownloadModal, setShowDownloadModal] = useState<boolean>(false);
-    const [serverData, setServerData] = useState<ServerData[]>([]);
     const [serverDataLoading, setServerDataLoading] = useState<boolean>(false);
-    const [selectedServer, setSelectedServer] = useState<ServerData | null>(
-        null
-    );
     const [connectServerData, setConnectServerData] = useState<KeyType | null>(
         null
     );
 
+    const navigate = useNavigate();
+
     const [ipUser, setIpUser] = useState<string | null>(null);
 
     const [isConnect, setIsConnect] = useState<boolean>(false);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                setServerDataLoading(true);
-                TgObj.CloudStorage.getItem("key-api", async (error, data) => {
-                    if (data) {
-                        const res = await vpn.getServers(data);
-                        setServerData(res);
-                        setSelectedServer(res[0]);
-                    }
-                });
-            } catch (error) {
-                console.error("Error fetching servers:", error);
-            } finally {
-                setServerDataLoading(false);
-            }
-        };
-
-        fetchData();
-    }, []);
-
-    useEffect(() => {
-        try {
-            TgObj.CloudStorage.getItem("select-server", async (error, data) => {
-                if (data && serverData) {
-                    const findServer = serverData.find(
-                        (server) => Number(server.id) === Number(data)
-                    );
-                    if (findServer) {
-                        setSelectedServer(findServer);
-                    }
-                }
-            });
-        } catch (error) {
-            console.error("Error CloudStorage:", error);
-        }
-    }, [serverData]);
 
     useEffect(() => {
         const connectServer = keysData?.find(
@@ -140,11 +106,11 @@ export const Home: FC<HomeProps> = ({
         }
     }, [selectedServer, keysData]);
 
-    const isPaid =
-        !!user?.user?.activeTariff &&
-        calculateDaysFromTimestamp(
-            Date.parse(user?.user?.activeTo ?? "0") / 1000
-        ) >= 1;
+    // const isPaid =
+    //     !!user?.user?.activeTariff &&
+    //     calculateDaysFromTimestamp(
+    //         Date.parse(user?.user?.activeTo ?? "0") / 1000
+    //     ) >= 1;
 
     async function getIpUser() {
         const ip = await vpn.getIp();
@@ -156,9 +122,7 @@ export const Home: FC<HomeProps> = ({
     }
 
     useEffect(() => {
-        console.log("==========selectedServer", selectedServer);
         if (selectedServer) {
-            // console.log('==========selectedServer', selectedServer)
             if (selectedServer.ipServer === ipUser) {
                 setIsConnect(true);
             } else {
@@ -242,8 +206,8 @@ export const Home: FC<HomeProps> = ({
         // }
     };
 
-    const limit = isPaid ? user?.infoUser?.limit : 0;
-    const used = isPaid ? user?.infoUser?.used : 0;
+    // const limit = isPaid ? user?.infoUser?.limit : 0;
+    // const used = isPaid ? user?.infoUser?.used : 0;
     return (
         <>
             {showDownloadModal && (
@@ -253,7 +217,7 @@ export const Home: FC<HomeProps> = ({
                 />
             )}
 
-            <Info rawAddress={rawAddress} />
+            <Info />
             <div className={s.status}>
                 {userLoading ? (
                     <>

@@ -17,6 +17,11 @@ const config: Configuration = {
     devServer: {
         static: { directory: path.join(__dirname, 'public') },
         compress: true,
+        https: {
+            key: fs.readFileSync('./server.key'),
+            cert: fs.readFileSync('./server.cert'),
+            rejectUnauthorized: false
+          },
         hot: true,
         port: 3000,
         headers: {

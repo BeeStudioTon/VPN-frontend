@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "homepage": "/",
   "scripts": {
-    "start": "HTTPS=true webpack-dev-server --mode development",
+    "start": "webpack-dev-server --mode development --https",
     "build": "webpack --mode production",
     "eject": "react-scripts eject"
   },

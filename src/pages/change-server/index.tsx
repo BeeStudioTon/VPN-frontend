@@ -23,10 +23,11 @@ import { ServerData } from "../../@types/servers";
 import { ROUTES } from "../../utils/router";
 
 interface ChangeServerProps {
-    rawAddress: string;
     selectedLanguage: string;
     keysData: KeyType[] | undefined;
-    setSelectedLanguage: (el: string) => void;
+    serverData: ServerData[];
+    selectedServer: ServerData | undefined
+    setSelectedServer: React.Dispatch<React.SetStateAction<ServerData | undefined>>
 }
 
 countries.registerLocale(enLocale);
@@ -36,9 +37,10 @@ const getCountryName = (code: string) => {
 };
 
 export const ChangeServer: FC<ChangeServerProps> = ({
-    rawAddress,
     selectedLanguage,
-    setSelectedLanguage,
+    serverData,
+    selectedServer,
+    setSelectedServer,
     keysData,
 }) => {
     const { t } = useTranslation();
@@ -47,10 +49,6 @@ export const ChangeServer: FC<ChangeServerProps> = ({
     const TgObj = WebApp;
 
     const navigate = useNavigate();
-    const [serverData, setServerData] = useState<ServerData[]>([]);
-    const [selectedServer, setSelectedServer] = useState<ServerData | null>(
-        null
-    );
 
     const handleServerSelection = (server: ServerData) => {
         setSelectedServer(server);
@@ -108,26 +106,7 @@ export const ChangeServer: FC<ChangeServerProps> = ({
         return () => {
             TgObj.BackButton.offClick(handlePrev);
         };
-    }, []);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                TgObj.CloudStorage.getItem("key-api", async (error, data) => {
-                    if (data) {
-                        const res = await vpn.getServers(data);
-                        setServerData(res);
-                        setSelectedServer(res[0]);
-                    }
-                });
-            } catch (error) {
-                console.error("Error fetching servers:", error);
-            } finally {
-            }
-        };
-
-        fetchData();
-    }, []);
+    }, [])
 
     return (
         <div>

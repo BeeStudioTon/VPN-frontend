@@ -19,10 +19,9 @@ import { useHapticFeedback } from "../../../hooks/useHapticFeedback";
 import s from "./info.module.scss";
 
 interface InfoProps {
-    rawAddress: string;
 }
 
-export const Info: FC<InfoProps> = ({ rawAddress }) => {
+export const Info: FC<InfoProps> = ({ }) => {
     const [isCopiedAddress, setIsCopiedAddress] = useState<boolean>(false);
 
     const navigate = useNavigate();

@@ -25,7 +25,7 @@ interface ServerSelectedProps {
     isLoading: boolean;
     isTg: boolean;
     userLoading: boolean;
-    setSelectedServer: (el: ServerData | null) => void;
+    setSelectedServer: React.Dispatch<React.SetStateAction<ServerData | undefined>>
 }
 
 countries.registerLocale(enLocale);

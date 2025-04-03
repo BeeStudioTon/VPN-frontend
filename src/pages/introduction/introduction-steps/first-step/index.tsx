@@ -26,14 +26,12 @@ interface FirstStepProps {
     handleNextStep: () => void;
     handleIntroductionClose: () => void;
     currentStep: number;
-    rawAddress: string | undefined;
     user: UserType | null;
 }
 
 export const FirstStep: FC<FirstStepProps> = ({
     handleNextStep,
     currentStep,
-    rawAddress,
     handleIntroductionClose,
     user
 }) => {
@@ -52,15 +50,15 @@ export const FirstStep: FC<FirstStepProps> = ({
     const [ tonConnectUI, setOptions ] = useTonConnectUI()
 
     const isPaidUser = () => {
-        const activeTariff = user?.user?.activeTariff
+        const activeTariff = false
 
-        if (activeTariff === null || activeTariff?.id === null) {
-            return false
-        }
+        // if (activeTariff === null || activeTariff?.id === null) {
+        //     return false
+        // }
 
-        if (calculateDaysFromTimestamp(Date.parse(user?.user?.activeTo ?? '0') / 1000) >= 1) {
-            return true
-        }
+        // if (calculateDaysFromTimestamp(Date.parse(user?.user?.activeTo ?? '0') / 1000) >= 1) {
+        //     return true
+        // }
 
         return false
     }
@@ -75,7 +73,7 @@ export const FirstStep: FC<FirstStepProps> = ({
         } else {
             handleNextStep()
         }
-    }, [ rawAddress ])
+    }, [ ])
 
     return (
         <div className={s.firstStep}>

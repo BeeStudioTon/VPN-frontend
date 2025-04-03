@@ -29,6 +29,7 @@ export const SomethingWentWrong: FC<SomethingWentWrongProps> = () => {
 
     const handleButton = () => {
         TgObj.openTelegramLink("https://t.me/beevpnfree_bot")
+        window.location.reload();
         useHapticFeedback()
     }
 

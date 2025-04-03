@@ -14,19 +14,17 @@ import s from './profile.module.scss'
 import { useHapticFeedback } from '../../hooks/useHapticFeedback'
 
 interface ProfileProps {
-    rawAddress: string
     selectedLanguage: string
     setSelectedLanguage: (el: string) => void
 }
 
-export const Profile: FC<ProfileProps> = ({ rawAddress, selectedLanguage, setSelectedLanguage }) => {
+export const Profile: FC<ProfileProps> = ({ selectedLanguage, setSelectedLanguage }) => {
     const { t } = useTranslation()
 
     const TgObj = WebApp
 
     const navigate = useNavigate()
 
-    const [ isCopiedAddress, setIsCopiedAddress ] = useState<boolean>(false)
     const [ isCopiedUsername, setIsCopiedUsername ] = useState<boolean>(false)
 
     const handlePrev = () => {
@@ -61,19 +59,6 @@ export const Profile: FC<ProfileProps> = ({ rawAddress, selectedLanguage, setSel
 
     return (
         <div>
-            {isCopiedAddress && (
-                <Alert
-                    type="important"
-                    onClose={() => setIsCopiedAddress(false)}
-                    icon={<>📃</>}
-                    autoCloseTimeout={1000}
-                    position="top-right"
-                    tgStyles={{ background: 'var(--tg-theme-button-color)' }}
-                    className={s.alert}
-                >
-                    <span className={s.alertText}>{t('common.address-copied')}</span>
-                </Alert>
-            )}
             {isCopiedUsername && (
                 <Alert
                     type="important"
@@ -120,24 +105,6 @@ export const Profile: FC<ProfileProps> = ({ rawAddress, selectedLanguage, setSel
                     )}
                 </div>
             </div>
-
-            {rawAddress && (
-                <>
-                    <Title variant="h3" className={s.title}>
-                        {t('common.address')}
-                    </Title>
-                    <div className={s.action}>
-                        <div className={`${s.accountAction} ${s.accountAddress}`}  onClick={() => {
-                            copy(rawAddress)
-                            setIsCopiedAddress(true)
-                            useHapticFeedback()
-                        }}>
-                            <div className={s.address}>{rawAddress} <SvgSelector id="copy" /></div>
-                        </div>
-                    </div>
-                </>
-            )}
-
             <Title variant="h3" className={s.title}>
                 {t('common.language')}
             </Title>

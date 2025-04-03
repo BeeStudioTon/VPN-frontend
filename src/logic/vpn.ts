@@ -21,6 +21,7 @@ enum ApiEndpoints {
     GET_SUBSCRIBE_LIST = "subscribe/list",
     GET_IP = "ping/ip",
     CREATE_INVOICE_TELEGRAM = "invoice/createTg",
+    USER_ME = "user/",
 }
 
 export class VPN {
@@ -28,7 +29,6 @@ export class VPN {
     // private _url: string = 'https://localhost:3001/'
 
     private getHeaders(key?: string | undefined) {
-        console.log("key", key);
         return key ? { Authorization: `Bearer ${key}` } : {};
     }
 
@@ -40,28 +40,36 @@ export class VPN {
         return res.data;
     }
 
-    public async getJWT(): Promise<UserType> {
-        const res = await axios.get<UserType>(
-            `${this._url}${ApiEndpoints.JWT_REFRESH}`,
-            { headers: this.getHeaders() }
-        );
-        return res.data;
+    public async refreshJWT(
+        key: string,
+        keyRefresh: string
+    ): Promise<IAuthTokensResponse | Error> {
+        try {
+            const res = await axios.post<IAuthTokensResponse>(
+                `${this._url}${ApiEndpoints.JWT_REFRESH}`,
+                { accessToken: key, refreshToken: keyRefresh },
+                { headers: this.getHeaders() }
+            );
+            return res.data;
+        } catch (error: any) {
+            console.error('refreshJWT', error)
+            return new Error(error);
+        }
     }
 
     public async telegramLogin(
         init: string
     ): Promise<IAuthTokensResponse | Error> {
         try {
-            const res = await axios
-                .post<IAuthTokensResponse>(
-                    `${this._url}${ApiEndpoints.TELEGRAM_LOGIN}`,
-                    { webAppInitData: init },
-                    {
-                        headers: this.getHeaders(),
-                        validateStatus: (status) => true,
-                    }
-                );
-                console.log('res============================', res)
+            const res = await axios.post<IAuthTokensResponse>(
+                `${this._url}${ApiEndpoints.TELEGRAM_LOGIN}`,
+                { webAppInitData: init },
+                {
+                    headers: this.getHeaders(),
+                    validateStatus: (status) => true,
+                }
+            );
+            console.log("res============================", res);
             return res.data;
         } catch (error: any) {
             console.log("error==========");
@@ -91,6 +99,19 @@ export class VPN {
             { headers: this.getHeaders(key) }
         );
         return res.data.list;
+    }
+
+    public async getUser(key: string): Promise<UserTypeUser | Error> {
+        try {
+            const res = await axios.get<UserTypeUser>(
+                `${this._url}${ApiEndpoints.USER_ME}`,
+                { headers: this.getHeaders(key) }
+            );
+            return res.data;
+        } catch (error: any) {
+            console.error("getUser:", error);
+            return new Error(error);
+        }
     }
 
     public async getIp(): Promise<string> {

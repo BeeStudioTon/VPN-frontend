@@ -17,17 +17,13 @@ import { RatesType } from "../../@types/rates";
 import { VPN } from "../../logic/vpn";
 
 interface PayProps {
-    rawAddress: string;
     selectedLanguage: string;
     isTg: boolean;
-    setSelectedLanguage: (el: string) => void;
 }
 
 export const Pay: FC<PayProps> = ({
-    rawAddress,
     selectedLanguage,
-    isTg,
-    setSelectedLanguage,
+    isTg
 }) => {
     const { t } = useTranslation();
 
