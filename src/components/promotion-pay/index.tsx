@@ -11,6 +11,7 @@ import { SvgSelector } from '../../assets/svg-selector'
 
 import s from './promotion-pay.module.scss'
 import { useHapticFeedback } from '../../hooks/useHapticFeedback'
+import { UserTypeUser } from '../../@types/user'
 
 interface PromotionPayProps {
     isTg: boolean;
@@ -18,11 +19,10 @@ interface PromotionPayProps {
     activeRate: RatesType | undefined;
     setActiveRate: React.Dispatch<React.SetStateAction<RatesType | undefined>>;
     ratesLoading: boolean;
-    setShow?: React.Dispatch<React.SetStateAction<boolean>>;
-    showPayModal?: boolean;
     showTitle?: boolean;
     loadingRate: boolean;
-    handleCreateInvoice: Function
+    handleCreateInvoice: Function;
+    user: UserTypeUser | null;
 }
 
 const textTgStyles = { color: '#fff' }
@@ -38,11 +38,10 @@ export const PromotionPay: FC<PromotionPayProps> = ({
     activeRate,
     setActiveRate,
     ratesLoading,
-    setShow,
-    showPayModal = false,
     showTitle = true,
     loadingRate,
-    handleCreateInvoice
+    handleCreateInvoice,
+    user
 }) => {
     const { t } = useTranslation()
 
@@ -102,7 +101,10 @@ export const PromotionPay: FC<PromotionPayProps> = ({
                             </div>
                         </Div>
                     ))
-                    : data.map(el => (
+                    : data.filter(sub => {
+                        if (user?.free === true && Number(sub.id) === 6) return false
+                        else return true
+                    }).map(el => (
                         <Li
                             key={v1()}
                             className={`${s.promotionLi} ${
@@ -121,10 +123,15 @@ export const PromotionPay: FC<PromotionPayProps> = ({
                                         activeRate?.id === el?.id ? s.promotionLiButtonActive : ''
                                     }`}
                                     onClick={() => {
-                                        setActiveRate(el)
-                                        localStorage.setItem('activeRate', JSON.stringify(el))
-                                        setIsSelected(!isSelected)
-                                        useHapticFeedback()
+                                        if (user?.free === true && Number(el.id) === 6) {
+
+                                        } else {
+                                            setActiveRate(el)
+                                            localStorage.setItem('activeRate', JSON.stringify(el))
+                                            setIsSelected(!isSelected)
+                                            useHapticFeedback()
+                                        }
+                                        
                                     }}
                                 >
                                     {activeRate?.id === el?.id ? (
@@ -135,7 +142,7 @@ export const PromotionPay: FC<PromotionPayProps> = ({
                                     <div className={s.promotionLiLeft}>
                                         <div className={s.promotionLiInfo}>
                                             <Text className={s.promotionLiTitle}>
-                                                {el?.nameSubscribe}
+                                                {(user?.free === true && Number(el.id) === 6) ? "Уже использовано" : el?.nameSubscribe}
                                             </Text>
                                             {el.oldPriceDollar !== 0 && el.priceDollar !== 0 && (
                                                 <div className={s.promotionLiBadge}>
@@ -163,11 +170,9 @@ export const PromotionPay: FC<PromotionPayProps> = ({
                                     </div>
                                     <div className={s.promotionLiRight}>
                                         <Text className={s.promotionLiPrice}>
-                                            {el.timeSubscribe === 7 ? (
-                                                'Free / 7 days'
-                                            ) : (
+                                            
                                                 <>{el?.priceStar.toFixed(0)} ⭐</>
-                                            )}
+                                            
                                         </Text>
                                     </div>
                                 </div>

@@ -9,6 +9,7 @@ export interface UserTypeUser {
     banned: boolean
     time_subscribe: number
     active_server?: number
+    free: boolean
 }
 
 export interface ActiveTariffType {

@@ -225,6 +225,7 @@ export const App: FC = () => {
         try {
             const res = await vpn.getServers(jwtKeys.accessToken);
             setServerData(res);
+            setUserLoading(false)
             return true;
         } catch (error) {
             console.error(`getUserKeysAndUserInfo: ${error}`);
@@ -264,6 +265,8 @@ export const App: FC = () => {
     useEffect(() => {
         if (!firstRender && TgObj) {
             setFirstRender(true);
+
+            setUserLoading(true)
 
             loadJwtKeys();
 

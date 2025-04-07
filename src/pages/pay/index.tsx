@@ -72,20 +72,6 @@ export const Pay: FC<PayProps> = ({
         };
     }, []);
 
-    const handleNavigate = () => {
-        window.localStorage.clear();
-        window.location.pathname = "/";
-        useHapticFeedback();
-    };
-
-    const handleExit = () => {
-        TgObj.showConfirm(t("common.you-sure"), (isConfirmed) => {
-            if (isConfirmed) {
-                handleNavigate();
-            }
-        });
-    };
-
     const vpn = new VPN();
 
     useEffect(() => {
@@ -102,15 +88,25 @@ export const Pay: FC<PayProps> = ({
                     }
                 );
             } finally {
-                setRatesLoading(false);
+                // setRatesLoading(false);
             }
         };
 
         fetchRates();
     }, []);
 
+    useEffect(() => {
+        if (ratesData.length > 0) {
+            setRatesLoading(false);
+        }
+    }, [ratesData])
+
     const handleCreateInvoice = async (subId: string | number) => {
         try {
+            // константа на бесплатную подписку
+            if (!user || (user.free === true && Number(subId) === 6)) {
+                console.error('Dont pay')
+            }
             TgObj.CloudStorage.getItem("key-api", async (error, jwtKey) => {
                 let newJwtKey = jwtKey;
                 if (newJwtKey) {
@@ -228,6 +224,7 @@ export const Pay: FC<PayProps> = ({
                 data={sortedDataByPrice}
                 showTitle={false}
                 loadingRate={loadingRate}
+                user={user}
                 handleCreateInvoice={handleCreateInvoice}
             />
             : 
