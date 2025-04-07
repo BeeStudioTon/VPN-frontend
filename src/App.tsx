@@ -105,6 +105,17 @@ export const App: FC = () => {
         });
     };
 
+    const logOutUser = async (error: string) => {
+        TgObj.CloudStorage.removeItems([
+            "key-api",
+            "refresh-api",
+            "select-server",
+        ]);
+        console.error("Error refreshJWT:", error);
+        setIsError(true);
+        navigate(ROUTES.SOMETHING_WENT_WRONG);
+    }
+
     const refreshToken = async (): Promise<void | Error> => {
         try {
             TgObj.CloudStorage.getItems(
@@ -129,30 +140,28 @@ export const App: FC = () => {
                                 keys["key-api"],
                                 keys["refresh-api"]
                             );
-                        } catch (error) {
-                            TgObj.CloudStorage.removeItems([
-                                "key-api",
-                                "refresh-api",
-                                "select-server",
-                            ]);
-                            console.error("Error refreshJWT:", error);
-                            setIsError(true);
-                            navigate(ROUTES.SOMETHING_WENT_WRONG);
+
+                            if (newJwtKeys instanceof Error) {
+                                logOutUser(newJwtKeys.message)
+                                return
+                            }
+                        } catch (error: any) {
+                            logOutUser(error)
+                            return
                         }
                     } else {
                         try {
                             newJwtKeys = await vpn.telegramLogin(
                                 TgObj.initData
                             );
-                        } catch (error) {
-                            TgObj.CloudStorage.removeItems([
-                                "key-api",
-                                "refresh-api",
-                                "select-server",
-                            ]);
-                            console.error("Error telegramLogin:", error);
-                            setIsError(true);
-                            navigate(ROUTES.SOMETHING_WENT_WRONG);
+
+                            if (newJwtKeys instanceof Error) {
+                                logOutUser(newJwtKeys.message)
+                                return
+                            }
+                        } catch (error: any) {
+                            logOutUser(error)
+                            return
                         }
                     }
 
