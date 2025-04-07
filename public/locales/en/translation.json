@@ -35,7 +35,7 @@
   },
   "download": {
     "title": "Download",
-    "description": "Download the Outline utility to add VPN configuration to your device (just install, no need to run)"
+    "description": "Download the Outline utility to add VPN configuration to your device"
   },
   "pay-await": {
     "title": "Waiting for transaction...",
@@ -62,6 +62,7 @@
     "search-token": "Search token",
     "connect": "Connect",
     "select-plan": "Select Plan",
+    "select-plan-btn": "Select Plan",
     "close": "Close",
     "insufficient-balance": "Insufficient balance",
     "insufficient-balance2": "Minimum 0.20 TON",
@@ -78,6 +79,6 @@
     "error-tg": "This application is only available in Telegram",
     "download-app": "Download App",
     "download-text": "Download the app before connecting",
-    "support": "DeLab Support"
+    "support": "Support"
   }
 }

@@ -118,7 +118,7 @@
 .editPlan {
   font-size: 16px;
   font-weight: 540;
-  color: #007AFF;
+  color: #dab200;
   transition: all 0.3s ease 0s;
   &:hover {
     opacity: 0.7;
@@ -161,7 +161,7 @@
 .username {
   font-size: 16px;
   font-weight: 540;
-  color: var(--tg-theme-button-color);
+  color: #dab200;
   cursor: pointer;
   transition: all 0.3s ease 0s;
   text-align: center;
@@ -188,7 +188,7 @@
 }
 
 .alert {
-  background: linear-gradient(180deg, #1680f1 0%, #007aff 100%);
+  background: linear-gradient(180deg, #dab200 0%, #dab200 100%);
   border: 0;
   border-radius: 10px 0 0 10px;
   &Text {

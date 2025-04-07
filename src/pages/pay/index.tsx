@@ -15,15 +15,20 @@ import { useHapticFeedback } from "../../hooks/useHapticFeedback";
 import { PromotionPay } from "../../components/promotion-pay";
 import { RatesType } from "../../@types/rates";
 import { VPN } from "../../logic/vpn";
+import { Status } from "../../components/status";
+import { UserTypeUser } from "../../@types/user";
+import { getCurrentTimestamp } from "../../utils/date";
 
 interface PayProps {
     selectedLanguage: string;
     isTg: boolean;
+    user: UserTypeUser | null 
 }
 
 export const Pay: FC<PayProps> = ({
     selectedLanguage,
-    isTg
+    isTg,
+    user
 }) => {
     const { t } = useTranslation();
 
@@ -44,6 +49,8 @@ export const Pay: FC<PayProps> = ({
     const [activeRate, setActiveRate] = useState<RatesType | undefined>(
         undefined
     );
+
+    const [isPaidStatus, setIsPaidStatus] = useState<boolean | undefined>(undefined);
 
     const isPaymentPage = localStorage.getItem("toPaymentPage") === "true";
 
@@ -113,14 +120,22 @@ export const Pay: FC<PayProps> = ({
                     );
                     TgObj.openInvoice(res, async (status) => {
                         if (status === "paid") {
-                            handleNavigate();
+                            console.log("paid")
+                            setIsPaidStatus(true)
+                            
                         } else {
+                            console.log("other paid", status)
+
+                            setIsPaidStatus(false)
                         }
                     });
                 }
             });
         } catch (error) {}
     };
+
+    const dateSubscribe = user && user.time_subscribe > getCurrentTimestamp() ? new Date(user.time_subscribe * 1000).toLocaleDateString('ru-RU') : ''
+    
 
     return (
         <div>
@@ -131,7 +146,7 @@ export const Pay: FC<PayProps> = ({
                     icon={<>📃</>}
                     autoCloseTimeout={1000}
                     position="top-right"
-                    tgStyles={{ background: "var(--tg-theme-button-color)" }}
+                    tgStyles={{ background: "#dab200" }}
                     className={s.alert}
                 >
                     <span className={s.alertText}>
@@ -146,7 +161,7 @@ export const Pay: FC<PayProps> = ({
                     icon={<>📃</>}
                     autoCloseTimeout={1000}
                     position="top-right"
-                    tgStyles={{ background: "var(--tg-theme-button-color)" }}
+                    tgStyles={{ background: "#dab200" }}
                     className={s.alert}
                 >
                     <span className={s.alertText}>
@@ -154,6 +169,7 @@ export const Pay: FC<PayProps> = ({
                     </span>
                 </Alert>
             )}
+            {isPaidStatus === undefined ?
             <div className={s.userTg}>
                 <div className={s.userTgInner}>
                     <img
@@ -176,6 +192,7 @@ export const Pay: FC<PayProps> = ({
                             {TgObj?.initDataUnsafe?.user?.username?.slice(0, 2)}
                         </div>
                     }
+                    
                 </div>
                 <div>
                     <div className={s.name}>
@@ -198,9 +215,11 @@ export const Pay: FC<PayProps> = ({
                                 @{TgObj?.initDataUnsafe?.user?.username}
                             </div>
                         )}
+                        {user && dateSubscribe !== '' ? <Div tgStyles={{ color: "var(--tg-theme-text-color)" }}>У вас оплачена подписка до {dateSubscribe}</Div> : null }
                 </div>
-            </div>
+            </div> : null }
 
+{isPaidStatus === undefined ?
             <PromotionPay
                 isTg={isTg}
                 ratesLoading={ratesLoading}
@@ -211,6 +230,8 @@ export const Pay: FC<PayProps> = ({
                 loadingRate={loadingRate}
                 handleCreateInvoice={handleCreateInvoice}
             />
+            : 
+            <Status isSuccess={isPaidStatus}/>}
         </div>
     );
 };

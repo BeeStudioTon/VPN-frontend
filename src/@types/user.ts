@@ -4,8 +4,11 @@ export interface UserType extends UserTypeUser {
 export interface UserTypeUser {
     id: string
     telegramId: string
-    nickname: string
-    avatar: string
+    nickname?: string
+    avatar?: string
+    banned: boolean
+    time_subscribe: number
+    active_server?: number
 }
 
 export interface ActiveTariffType {

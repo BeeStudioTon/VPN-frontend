@@ -3,18 +3,28 @@ import { FC } from 'react'
 import Lottie, { Options } from 'react-lottie'
 import { useTranslation } from 'react-i18next'
 
-import { Text, Title } from '@delab-team/de-ui'
+import { Button, Text, Title } from '@delab-team/de-ui'
 
 import * as Oops from '../../assets/stickers/oops.json'
 import * as Success from '../../assets/stickers/success.json'
 
 import s from './status.module.scss'
+import { ROUTES } from '../../utils/router'
+import { Navigate, useNavigate } from 'react-router-dom'
 
 interface StatusProps {
     isSuccess: boolean
 }
 
+const textTgStyles = { color: '#fff' }
+
+const buttonTgStyles = {
+    background: '#dab200',
+    color: '#fff'
+}
+
 export const Status: FC<StatusProps> = ({ isSuccess }) => {
+    const navigate = useNavigate();
     const approveOptions1: Options = {
         loop: true,
         autoplay: true,
@@ -67,6 +77,16 @@ export const Status: FC<StatusProps> = ({ isSuccess }) => {
                     </Text>
                 </>
             )}
+
+            <Button
+                                className={s.innerActionPay}
+                                onClick={() => {
+                                    navigate(ROUTES.HOME)
+                                }}
+                                tgStyles={buttonTgStyles}
+                            >
+                                {t('common.to-app')}
+                            </Button>
         </div>
     )
 }

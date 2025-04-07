@@ -66,7 +66,7 @@ export const Profile: FC<ProfileProps> = ({ selectedLanguage, setSelectedLanguag
                     icon={<>📃</>}
                     autoCloseTimeout={1000}
                     position="top-right"
-                    tgStyles={{ background: 'var(--tg-theme-button-color)' }}
+                    tgStyles={{ background: '#dab200' }}
                     className={s.alert}
                 >
                     <span className={s.alertText}>{t('common.username-copied')}</span>
@@ -180,7 +180,7 @@ export const Profile: FC<ProfileProps> = ({ selectedLanguage, setSelectedLanguag
                     whileHover="hover"
                     initial="nonHover"
                     onClick={() => {
-                        window.open('https://t.me/delabsupportbot', '_blank')
+                        window.open('https://t.me/beevpnchat', '_blank')
                         useHapticFeedback()
                     }}
                 >
@@ -198,7 +198,7 @@ export const Profile: FC<ProfileProps> = ({ selectedLanguage, setSelectedLanguag
                     whileHover="hover"
                     initial="nonHover"
                 >
-                    <SvgSelector id="exit" />
+                    <SvgSelector id="download2" />
                     <div className={s.actionButtonInner}>
                         <div className={`${s.accountAction} ${s.logout}`}>
                             {t('common.addhome')}

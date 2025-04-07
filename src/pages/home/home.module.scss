@@ -33,11 +33,12 @@
   gap: 4px;
   width: 100%;
   border-radius: 12px;
-  color: #007AFF !important;
-  background: rgba(0, 122, 255, 0.15) !important;
+  color: #a18402 !important;
+  background: #a184023b !important;
   transition: all 0.3s ease 0s;
   &:hover {
-    background: rgba(0, 122, 255, 0.35) !important;
+    // background: rgba(0, 122, 255, 0.35) !important;
+    opacity: 0.7;
   }
 }
 

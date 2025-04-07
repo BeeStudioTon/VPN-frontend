@@ -36,6 +36,7 @@ import { useHapticFeedback } from "../../hooks/useHapticFeedback";
 import ReactCountryFlag from "react-country-flag";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../utils/router";
+import { getCurrentTimestamp } from "../../utils/date";
 
 interface HomeProps {
     user: UserTypeUser | null;
@@ -44,9 +45,11 @@ interface HomeProps {
     isTg: boolean;
     isSkippedIntroduction: boolean;
     TgObj: typeof WebAppSDK;
-    serverData: ServerData[]
-    selectedServer: ServerData | undefined
-    setSelectedServer: React.Dispatch<React.SetStateAction<ServerData | undefined>>
+    serverData: ServerData[];
+    selectedServer: ServerData | undefined;
+    setSelectedServer: React.Dispatch<
+        React.SetStateAction<ServerData | undefined>
+    >;
 }
 
 export const Home: FC<HomeProps> = ({
@@ -106,11 +109,13 @@ export const Home: FC<HomeProps> = ({
         }
     }, [selectedServer, keysData]);
 
-    // const isPaid =
-    //     !!user?.user?.activeTariff &&
-    //     calculateDaysFromTimestamp(
-    //         Date.parse(user?.user?.activeTo ?? "0") / 1000
-    //     ) >= 1;
+    const checkPaidUser = (userTime: number): boolean => {
+        console.log("userTime", userTime);
+        console.log("getCurrentTimestamp", getCurrentTimestamp());
+        return userTime > getCurrentTimestamp();
+    };
+
+    const isPaid = checkPaidUser(user?.time_subscribe ?? 0);
 
     async function getIpUser() {
         const ip = await vpn.getIp();
@@ -148,6 +153,11 @@ export const Home: FC<HomeProps> = ({
             return;
         }
 
+        if (!isPaid) {
+            console.log("not user pay");
+            return;
+        }
+
         try {
             TgObj.CloudStorage.getItem("key-api", async (error, data) => {
                 if (data) {
@@ -178,6 +188,10 @@ export const Home: FC<HomeProps> = ({
         } else {
             openTelegramLink(key);
         }
+    };
+
+    const handlePay = () => {
+        navigate(ROUTES.PROMOTIONS);
     };
 
     const handleConnectServer = async () => {
@@ -231,23 +245,34 @@ export const Home: FC<HomeProps> = ({
                     </>
                 ) : (
                     <>
-                        {/* {isPaid ? (
+                        {isPaid ? (
                             <>
-                                <Lottie
-                                    options={approveOptions}
-                                    height={190}
-                                    isClickToPauseDisabled={true}
-                                    width={190}
-                                />
-
+                                {isConnect ? (
+                                    <Lottie
+                                        options={approveOptions}
+                                        height={190}
+                                        isClickToPauseDisabled={true}
+                                        width={190}
+                                    />
+                                ) : (
+                                    <Lottie
+                                        options={approveOptions3}
+                                        height={190}
+                                        isClickToPauseDisabled={true}
+                                        width={190}
+                                    />
+                                )}
                                 <Title
                                     variant="h2"
                                     className={s.statusTitle}
-                                    tgStyles={{ color: 'var(--tg-theme-button-color)' }}
+                                    tgStyles={{
+                                        color: "#dab200",
+                                    }}
                                 >
-                                    {t('home.ready-to-connect')}
+                                    {isConnect
+                                        ? t("home.connected")
+                                        : t("home.ready-to-connect")}
                                 </Title>
-                                <Text className={s.statusText}>{t('common.download-text')}</Text>
                             </>
                         ) : (
                             <>
@@ -259,29 +284,15 @@ export const Home: FC<HomeProps> = ({
                                 />
 
                                 <Title variant="h2" className={s.statusTitle}>
-                                    {t('common.not-active-plan')}
+                                    {t("common.not-active-plan")}
                                 </Title>
-                                <Text className={s.statusText}>{t('common.choose-plan')}</Text>
+                                <Text className={s.statusText}>
+                                    {t("common.choose-plan")}
+                                </Text>
                             </>
-                        )} */}
-
-                        {isConnect ? (
-                            <Lottie
-                                options={approveOptions}
-                                height={190}
-                                isClickToPauseDisabled={true}
-                                width={190}
-                            />
-                        ) : (
-                            <Lottie
-                                options={approveOptions3}
-                                height={190}
-                                isClickToPauseDisabled={true}
-                                width={190}
-                            />
                         )}
 
-                        <Title
+                        {/* <Title
                             variant="h2"
                             className={s.statusTitle}
                             tgStyles={{ color: "var(--tg-theme-button-color)" }}
@@ -289,7 +300,7 @@ export const Home: FC<HomeProps> = ({
                             {isConnect
                                 ? t("home.connected")
                                 : t("home.ready-to-connect")}
-                        </Title>
+                        </Title> */}
                         {/* {!isConnect ? (
                             <Text className={s.statusText}>
                                 {t("common.download-text")}
@@ -298,7 +309,7 @@ export const Home: FC<HomeProps> = ({
                     </>
                 )}
             </div>
-            {selectedServer ? (
+            {selectedServer && isPaid ? (
                 <ServerSelected
                     serversData={serverData}
                     selectedServer={selectedServer}
@@ -309,25 +320,39 @@ export const Home: FC<HomeProps> = ({
                 />
             ) : null}
 
-            <div className={s.connectInner}>
-                <Button
-                    className={s.connectButton}
-                    onClick={handleButton}
-                    disabled={userLoading}
-                >
-                    {userLoading ? t("common.loading") : t("common.connect")}
-                </Button>
-                <Button
-                    className={s.downloadButton}
-                    onClick={() => {
-                        setShowDownloadModal(true);
-                        useHapticFeedback();
-                    }}
-                >
-                    <SvgSelector id="download" />
-                    {t("common.download-app")}
-                </Button>
-            </div>
+            {isPaid ? (
+                <div className={s.connectInner}>
+                    <Button
+                        className={s.connectButton}
+                        onClick={handleButton}
+                        disabled={userLoading}
+                    >
+                        {userLoading
+                            ? t("common.loading")
+                            : t("common.connect")}
+                    </Button>
+                    <Button
+                        className={s.downloadButton}
+                        onClick={() => {
+                            setShowDownloadModal(true);
+                            useHapticFeedback();
+                        }}
+                    >
+                        <SvgSelector id="download" />
+                        {t("common.download-app")}
+                    </Button>
+                </div>
+            ) : (
+                <div className={s.connectInner}>
+                    <Button
+                        className={s.connectButton}
+                        onClick={handlePay}
+                        disabled={userLoading}
+                    >
+                        {t("common.select-plan-btn")}
+                    </Button>
+                </div>
+            )}
 
             {/* <div className={s.traffic}>
                 <div className={s.trafficTop}>

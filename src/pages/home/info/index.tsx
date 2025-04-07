@@ -39,7 +39,7 @@ export const Info: FC<InfoProps> = ({ }) => {
                     icon={<>📃</>}
                     autoCloseTimeout={1000}
                     position="top-right"
-                    tgStyles={{ background: "var(--tg-theme-button-color)" }}
+                    tgStyles={{ background: "#dab200" }}
                     className={s.alert}
                 >
                     <span className={s.alertText}>

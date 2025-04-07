@@ -40,7 +40,7 @@ export const DownloadModal: FC<DownloadModalProps> = ({ showDownloadModal, setSh
         }
 
         return () => {
-            window.document.body.style.overflow = 'visible'
+            window.document.body.style.overflow = 'hidden'
         }
     }, [ showDownloadModal ])
 
@@ -97,7 +97,7 @@ export const DownloadModal: FC<DownloadModalProps> = ({ showDownloadModal, setSh
                         >
                             <Link to={item.link || ''} target="_blank">
                                 <div className={s.downloadItemInfo}>
-                                    {item.icon}
+                                    <span>{item.icon}</span>
                                     <Text className={s.downloadItemName}>{item.name}</Text>
                                     {item === filteredData && <SvgSelector id="check3" />}
                                 </div>

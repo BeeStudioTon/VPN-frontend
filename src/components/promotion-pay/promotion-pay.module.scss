@@ -17,11 +17,12 @@
         font-size: 15px;
         font-weight: 500;
         border-radius: 10px;
-        background: #1c77ff;
+        background: #dab200;
         padding: 14px;
         width: 100%;
         &:hover {
-            background: #1067eb;
+            // background: #1067eb;
+            opacity: 0.7;
         }
     }
     &List {
@@ -105,7 +106,7 @@
             min-width: 22px;
             min-height: 22px;
             background: transparent;
-            border: 2px solid #1c77ff;
+            border: 2px solid #dab200;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -129,7 +130,7 @@
             }
         }
         &ButtonActive {
-            border: 0px solid #1c77ff;
+            border: 0px solid #dab200
         }
     }
 }

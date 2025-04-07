@@ -28,7 +28,7 @@
       color: #fff;
       text-align: center;
       span {
-        color: var(--tg-theme-button-color)
+        color: #dab200
       }
     }
     &Star {
@@ -59,8 +59,9 @@
         font-weight: 540;
         justify-content: center;
         text-transform: uppercase;
-        background: var(--tg-theme-button-color);
-        color: var(--tg-theme-button-text-color);
+        // background: var(--tg-theme-button-color);
+        // color: var(--tg-theme-button-text-color);
+        color: #dab200;
       }
     }
     &Name {
@@ -72,7 +73,8 @@
       font-weight: 410;
       margin-bottom: 1px;
       > div {
-        color: var(--tg-theme-text-color);
+        // color: var(--tg-theme-text-color);
+        color: #dab200;
       }
       @media (max-width: 360px) {
         font-size: 18px;

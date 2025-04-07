@@ -115,7 +115,8 @@ export const ChangeServer: FC<ChangeServerProps> = ({
                 <div
                     key={server.id}
                     className={s.serverItem}
-                    onClick={() => handleServerSelection(server)}
+                    onClick={() => server.active ? handleServerSelection(server) : null}
+                    style={server.active ? {} : {opacity: '0.6', cursor: 'not-allowed'}}
                 >
                     <>
                         <div className={s.serverItemLeft}>
@@ -139,11 +140,12 @@ export const ChangeServer: FC<ChangeServerProps> = ({
                         </div>
                         <div className={s.serverItemRight}>
                             <div className={s.serverItemPing}>
-                                <IconImg src={Cell} />
+                                {server.active ? <IconImg src={Cell} /> : '⛔️' }
                             </div>
                             <Button
                                 size="small"
                                 className={s.serverItemButtonChange}
+                                disabled={!server.active}
                             >
                                 Select
                             </Button>

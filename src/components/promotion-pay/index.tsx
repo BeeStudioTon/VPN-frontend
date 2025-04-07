@@ -25,11 +25,11 @@ interface PromotionPayProps {
     handleCreateInvoice: Function
 }
 
-const textTgStyles = { color: 'var(--tg-theme-text-color)' }
+const textTgStyles = { color: '#fff' }
 
 const buttonTgStyles = {
-    background: 'var(--tg-theme-button-color)',
-    color: 'var(--tg-theme-button-text-color)'
+    background: '#dab200',
+    color: '#fff'
 }
 
 export const PromotionPay: FC<PromotionPayProps> = ({
@@ -158,7 +158,7 @@ export const PromotionPay: FC<PromotionPayProps> = ({
                                                       ${el?.oldPriceDollar}
                                                 </span>
                                             )}{' '}
-                                              ${el?.priceDollar} / {el?.nameSubscribe}
+                                              ${(el?.priceDollar / (el?.timeSubscribe / 30)).toFixed(2)} в месяц
                                         </Text>
                                     </div>
                                     <div className={s.promotionLiRight}>
@@ -166,7 +166,7 @@ export const PromotionPay: FC<PromotionPayProps> = ({
                                             {el.timeSubscribe === 7 ? (
                                                 'Free / 7 days'
                                             ) : (
-                                                <>${el?.priceStar.toFixed(2)} Star</>
+                                                <>{el?.priceStar.toFixed(0)} ⭐</>
                                             )}
                                         </Text>
                                     </div>

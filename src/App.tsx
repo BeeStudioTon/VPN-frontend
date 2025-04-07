@@ -27,6 +27,7 @@ import "./index.scss";
 import { Pay } from "./pages/pay";
 import { ChangeServer } from "./pages/change-server";
 import { ServerData } from "./@types/servers";
+import { getCurrentTimestamp } from "./utils/date";
 
 declare global {
     interface Window {
@@ -67,6 +68,12 @@ export const App: FC = () => {
     const navigate = useNavigate();
 
     const vpn = new VPN();
+
+    const checkPaidUser = (userTime: number): boolean => {
+            return userTime > getCurrentTimestamp();
+        };
+    
+        const isPaid = checkPaidUser(user?.time_subscribe ?? 0);
 
     const loadJwtKeys = async (): Promise<void> => {
         return new Promise((resolve, reject) => {
@@ -182,7 +189,10 @@ export const App: FC = () => {
             return false;
         }
         try {
-            const keysData = await vpn.getKeys(jwtKeys.accessToken);
+            let keysData: KeyType[] = []
+            if (isPaid) {
+                keysData = await vpn.getKeys(jwtKeys.accessToken);
+            }
 
             const userInfo = await vpn.getUser(jwtKeys.accessToken);
             if (userInfo instanceof Error) {
@@ -269,13 +279,13 @@ export const App: FC = () => {
                 TgObj.expand();
                 setIsTg(true);
 
-                bodyStyle.backgroundColor =
-                    "var(--tg-theme-secondary-bg-color)";
-                bodyStyle.setProperty(
-                    "background-color",
-                    "var(--tg-theme-secondary-bg-color)",
-                    "important"
-                );
+                // bodyStyle.backgroundColor =
+                //     "var(--tg-theme-secondary-bg-color)";
+                // bodyStyle.setProperty(
+                //     "background-color",
+                //     "var(--tg-theme-secondary-bg-color)",
+                //     "important"
+                // );
             } else {
                 navigate(ROUTES.SOMETHING_WENT_WRONG);
             }
@@ -444,6 +454,7 @@ export const App: FC = () => {
                             element={
                                 <Pay
                                     isTg={isTg}
+                                    user={user}
                                     selectedLanguage={selectedLanguage}
                                 />
                             }

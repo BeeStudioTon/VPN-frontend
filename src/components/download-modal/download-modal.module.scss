@@ -31,7 +31,7 @@
 }
 
 .modalTopButton {
-  color: #1c77ff;
+  color: #dab200;
   font-size: 16.5px;
   font-weight: 540;
   letter-spacing: 0.43px;
@@ -83,6 +83,20 @@
       height: 32px;
     }
   }
+  span svg {
+    fill: #dab200;
+    // position: absolute;
+  }
+  span {
+    background-color: #fff;
+    border-radius: 25px;
+    width: 40px;
+    height: 40px; 
+    display: flex;
+  justify-content: center; /* по горизонтали */
+  align-items: center;     /* по вертикали */
+  }
+  
 }
 
 // .selected {

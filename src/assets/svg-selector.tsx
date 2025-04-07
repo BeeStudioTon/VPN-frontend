@@ -167,7 +167,7 @@ export const SvgSelector: FC<SvgSelectorProps> = ({ id }) => {
                 >
                     <path
                         d="M3.33331 14.1667V15.8334C3.33331 16.2754 3.50891 16.6993 3.82147 17.0119C4.13403 17.3244 4.55795 17.5 4.99998 17.5H15C15.442 17.5 15.8659 17.3244 16.1785 17.0119C16.4911 16.6993 16.6666 16.2754 16.6666 15.8334V14.1667M5.83331 9.16671L9.99998 13.3334M9.99998 13.3334L14.1666 9.16671M9.99998 13.3334V3.33337"
-                        stroke="#007AFF"
+                        stroke="#a18402"
                         strokeWidth="2"
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -185,7 +185,7 @@ export const SvgSelector: FC<SvgSelectorProps> = ({ id }) => {
                 >
                     <path
                         d="M4 17V19C4 19.5304 4.21071 20.0391 4.58579 20.4142C4.96086 20.7893 5.46957 21 6 21H18C18.5304 21 19.0391 20.7893 19.4142 20.4142C19.7893 20.0391 20 19.5304 20 19V17M7 11L12 16M12 16L17 11M12 16V4"
-                        stroke="#007AFF"
+                        stroke="#a18402"
                         strokeWidth="2"
                         strokeLinecap="round"
                         strokeLinejoin="round"
