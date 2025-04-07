@@ -1,84 +1,84 @@
 {
-  "introduction": {
-    "welcome-title": "Welcome to ",
-    "welcome-description1": "Get protected and fast connection inside Telegram",
-    "welcome-description2": "To get started"
-  },
-  "subscribe": {
-    "title": "Subscribe",
-    "unknown": "UNKNOWN",
-    "select-plan": "Select your plan",
-    "actions": "Actions",
-    "steps": {
-      "plan": "plan",
-      "method": "method",
-      "confirm": "confirm"
+    "introduction": {
+        "welcome-title": "Welcome to ",
+        "welcome-description1": "Fast and secure VPN — right inside Telegram.",
+        "welcome-description2": "Connect in seconds"
     },
-    "method": {
-      "title": "payment token",
-      "total": "Total:"
+    "subscribe": {
+        "title": "Subscribe",
+        "unknown": "UNKNOWN",
+        "select-plan": "Select your plan",
+        "actions": "Actions",
+        "steps": {
+            "plan": "plan",
+            "method": "method",
+            "confirm": "confirm"
+        },
+        "method": {
+            "title": "payment token",
+            "total": "Total:"
+        }
+    },
+    "home": {
+        "traffic-title": "Traffic used",
+        "ready-to-connect": "Ready to connect",
+        "connected": "You connected",
+        "traffic-update-in": "Update in",
+        "day": "Day",
+        "days": "Days"
+    },
+    "status": {
+        "succ-title": "Ready!",
+        "error-title": "Oops!",
+        "succ-description": "Return to main and start enjoying",
+        "error-description": "Something went wrong"
+    },
+    "download": {
+        "title": "Download",
+        "description": "Download the Outline utility to add VPN configuration to your device"
+    },
+    "pay-await": {
+        "title": "Waiting for transaction...",
+        "description": "This can take up to a few minutes."
+    },
+    "common": {
+        "step": "Step",
+        "congratulations": "Congratulations on activating your BeeVPN subscription.",
+        "connect-btn": "Connect wallet",
+        "next": "Next",
+        "used-subscription": "You have already used your free subscription.",
+        "address-copied": "Address has been copied.",
+        "username-copied": "Username has been copied.",
+        "address": "Address",
+        "language": "Language",
+        "actions": "Actions",
+        "logout": "Log out",
+        "addhome": "Add to Home Screen",
+        "you-sure": "Are you sure?",
+        "something-went-wrong": "Something went wrong.",
+        "refresh": "Refresh",
+        "to-app": "Go to application",
+        "oops": "Oops!",
+        "search-token": "Search token",
+        "connect": "Connect",
+        "select-plan": "Select Plan",
+        "select-plan-btn": "Select Plan",
+        "close": "Close",
+        "insufficient-balance": "Insufficient balance",
+        "insufficient-balance2": "Minimum 0.20 TON",
+        "pay-btn": "Confirm and pay",
+        "not-found": "Not found.",
+        "edit-plan": "Edit plan",
+        "return-to-main": "Return to main page",
+        "try-again": "Try Again",
+        "loading": "Loading...",
+        "not-active-plan": "Plan is not active",
+        "choose-plan": "Choose plan",
+        "skip": "Start",
+        "skip-plan": "Skip plan",
+        "error-tg": "This application is only available in Telegram",
+        "download-app": "Download App",
+        "download-text": "Download the app before connecting",
+        "support": "Support"
     }
-  },
-  "home": {
-    "traffic-title": "Traffic used",
-    "ready-to-connect": "Ready to connect",
-    "connected": "You connected",
-    "traffic-update-in": "Update in",
-    "day": "Day",
-    "days": "Days"
-  },
-  "status": {
-    "succ-title": "Ready!",
-    "error-title": "Oops!",
-    "succ-description": "Return to main and start enjoying",
-    "error-description": "Something went wrong"
-  },
-  "download": {
-    "title": "Download",
-    "description": "Download the Outline utility to add VPN configuration to your device"
-  },
-  "pay-await": {
-    "title": "Waiting for transaction...",
-    "description": "This can take up to a few minutes."
-  },
-  "common": {
-    "step": "Step",
-    "congratulations": "Congratulations on activating your BeeVPN subscription.",
-    "connect-btn": "Connect wallet",
-    "next": "Next",
-    "used-subscription": "You have already used your free subscription.",
-    "address-copied": "Address has been copied.",
-    "username-copied": "Username has been copied.",
-    "address": "Address",
-    "language": "Language",
-    "actions": "Actions",
-    "logout": "Log out",
-    "addhome": "Add to Home Screen",
-    "you-sure": "Are you sure?",
-    "something-went-wrong": "Something went wrong.",
-    "refresh": "Refresh",
-    "to-app": "Go to application",
-    "oops": "Oops!",
-    "search-token": "Search token",
-    "connect": "Connect",
-    "select-plan": "Select Plan",
-    "select-plan-btn": "Select Plan",
-    "close": "Close",
-    "insufficient-balance": "Insufficient balance",
-    "insufficient-balance2": "Minimum 0.20 TON",
-    "pay-btn": "Confirm and pay",
-    "not-found": "Not found.",
-    "edit-plan": "Edit plan",
-    "return-to-main": "Return to main page",
-    "try-again": "Try Again",
-    "loading": "Loading...",
-    "not-active-plan": "Plan is not active",
-    "choose-plan": "Choose plan",
-    "skip": "Start",
-    "skip-plan": "Skip plan",
-    "error-tg": "This application is only available in Telegram",
-    "download-app": "Download App",
-    "download-text": "Download the app before connecting",
-    "support": "Support"
-  }
 }

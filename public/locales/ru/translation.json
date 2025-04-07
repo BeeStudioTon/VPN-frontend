@@ -1,84 +1,84 @@
 {
-  "introduction": {
-    "welcome-title": "Добро пожаловать в ",
-    "welcome-description1": "Получите защищенное и быстрое соединение внутри Telegram.",
-    "welcome-description2": "Начни прямо сейчас"
-  },
-  "subscribe": {
-    "title": "Подписаться",
-    "unknown": "НЕИЗВЕСТНЫЙ",
-    "select-plan": "Выберите свой план",
-    "actions": "Действия",
-    "steps": {
-      "plan": "план",
-      "method": "метод",
-      "confirm": "подтвердить"
+    "introduction": {
+        "welcome-title": "Добро пожаловать в ",
+        "welcome-description1": "Надёжный и быстрый VPN — прямо в Telegram.",
+        "welcome-description2": "Подключись за пару секунд"
     },
-    "method": {
-      "title": "платежный токен",
-      "total": "Итого:"
+    "subscribe": {
+        "title": "Подписаться",
+        "unknown": "НЕИЗВЕСТНЫЙ",
+        "select-plan": "Выберите свой план",
+        "actions": "Действия",
+        "steps": {
+            "plan": "план",
+            "method": "метод",
+            "confirm": "подтвердить"
+        },
+        "method": {
+            "title": "платежный токен",
+            "total": "Итого:"
+        }
+    },
+    "home": {
+        "traffic-title": "Трафика использовано",
+        "ready-to-connect": "Готово к подключению",
+        "connected": "Вы подключены",
+        "traffic-update-in": "Обновится через",
+        "day": "День",
+        "days": "Дней"
+    },
+    "status": {
+        "succ-title": "Готово!",
+        "error-title": "Упс!",
+        "succ-description": "Вернитесь на главную и начните наслаждаться",
+        "error-description": "Что-то пошло не так"
+    },
+    "download": {
+        "title": "Скачать",
+        "description": "Установите Outline для настройки VPN. Запускать его не требуется."
+    },
+    "pay-await": {
+        "title": "Ожидание транзакции...",
+        "description": "Это может занять до нескольких минут."
+    },
+    "common": {
+        "step": "Шаг",
+        "congratulations": "Поздравляем с активацией подписки BeeVPN.",
+        "connect-btn": "Подключить кошелек",
+        "next": "Далее",
+        "used-subscription": "Вы уже использовали бесплатную подписку.",
+        "address-copied": "Адрес скопирован.",
+        "username-copied": "Имя пользователя скопировано.",
+        "address": "Адрес",
+        "language": "Язык",
+        "actions": "Действия",
+        "logout": "Выйти",
+        "addhome": "Добавить на главный экран",
+        "you-sure": "Вы уверены?",
+        "something-went-wrong": "Что-то пошло не так.",
+        "refresh": "Обновить",
+        "to-app": "Перейти в приложение",
+        "oops": "Уупс!",
+        "search-token": "Поиск токена",
+        "connect": "Подключиться",
+        "select-plan": "Выберите план",
+        "select-plan-btn": "Выбрать план",
+        "close": "Закрыть",
+        "insufficient-balance": "Недостаточный баланс",
+        "insufficient-balance2": "Минимум 0.20 TON",
+        "pay-btn": "Подтвердить и оплатить",
+        "not-found": "Не найдено.",
+        "edit-plan": "Изменить план",
+        "return-to-main": "Вернуться на главную страницу",
+        "try-again": "Попробуйте еще раз",
+        "loading": "Загрузка...",
+        "not-active-plan": "План не активен",
+        "choose-plan": "Выберите план",
+        "skip": "Начать",
+        "skip-plan": "Пропустить план",
+        "error-tg": "Это приложение доступно только в Телеграм",
+        "download-app": "Скачать приложение",
+        "download-text": "Загрузите приложение перед подключением",
+        "support": "Поддержка"
     }
-  },
-  "home": {
-    "traffic-title": "Трафика использовано",
-    "ready-to-connect": "Готово к подключению",
-    "connected": "Вы подключены",
-    "traffic-update-in": "Обновится через",
-    "day": "День",
-    "days": "Дней"
-  },
-  "status": {
-    "succ-title": "Готово!",
-    "error-title": "Упс!",
-    "succ-description": "Вернитесь на главную и начните наслаждаться",
-    "error-description": "Что-то пошло не так"
-  },
-  "download": {
-    "title": "Скачать",
-    "description": "Установите Outline для настройки VPN. Запускать его не требуется."
-  },
-  "pay-await": {
-    "title": "Ожидание транзакции...",
-    "description": "Это может занять до нескольких минут."
-  },
-  "common": {
-    "step": "Шаг",
-    "congratulations": "Поздравляем с активацией подписки BeeVPN.",
-    "connect-btn": "Подключить кошелек",
-    "next": "Далее",
-    "used-subscription": "Вы уже использовали бесплатную подписку.",
-    "address-copied": "Адрес скопирован.",
-    "username-copied": "Имя пользователя скопировано.",
-    "address": "Адрес",
-    "language": "Язык",
-    "actions": "Действия",
-    "logout": "Выйти",
-    "addhome": "Добавить на главный экран",
-    "you-sure": "Вы уверены?",
-    "something-went-wrong": "Что-то пошло не так.",
-    "refresh": "Обновить",
-    "to-app": "Перейти в приложение",
-    "oops": "Уупс!",
-    "search-token": "Поиск токена",
-    "connect": "Подключиться",
-    "select-plan": "Выберите план",
-    "select-plan-btn": "Выбрать план",
-    "close": "Закрыть",
-    "insufficient-balance": "Недостаточный баланс",
-    "insufficient-balance2": "Минимум 0.20 TON",
-    "pay-btn": "Подтвердить и оплатить",
-    "not-found": "Не найдено.",
-    "edit-plan": "Изменить план",
-    "return-to-main": "Вернуться на главную страницу",
-    "try-again": "Попробуйте еще раз",
-    "loading": "Загрузка...",
-    "not-active-plan": "План не активен",
-    "choose-plan": "Выберите план",
-    "skip": "Начать",
-    "skip-plan": "Пропустить план",
-    "error-tg": "Это приложение доступно только в Телеграм",
-    "download-app": "Скачать приложение",
-    "download-text": "Загрузите приложение перед подключением",
-    "support": "Поддержка"
-  }
 }
