@@ -3,16 +3,13 @@
 import { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import WebAppSDK from "@twa-dev/sdk";
-import copy from "copy-to-clipboard";
 import { useTranslation } from "react-i18next";
 
-import { Alert, Div, IconImg } from "@delab-team/de-ui";
+import { Alert, IconImg } from "@delab-team/de-ui";
 
-import { smlAddr } from "../../../utils/smlAddr";
 import { ROUTES } from "../../../utils/router";
 import star from "../../../assets/icons/categories/star.png";
 
-import { SvgSelector } from "../../../assets/svg-selector";
 
 import { useHapticFeedback } from "../../../hooks/useHapticFeedback";
 

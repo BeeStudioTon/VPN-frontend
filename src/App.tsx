@@ -4,7 +4,6 @@
 import { FC, useEffect, useState, useCallback } from "react";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useTonAddress } from "@tonconnect/ui-react";
 
 import { AppInner } from "@delab-team/de-ui";
 import WebAppSDK from "@twa-dev/sdk";

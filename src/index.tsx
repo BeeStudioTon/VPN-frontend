@@ -5,7 +5,6 @@ import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 // import { TonConnectUIProvider } from '@tonconnect/ui-react'
 // import eruda from 'eruda'
-import { TonConnectProvider } from './logic/tonConnectProvider'
 import { App } from './App'
 
 import './index.scss'
@@ -24,8 +23,6 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
 
     <BrowserRouter>
-        <TonConnectProvider>
             <App />
-        </TonConnectProvider>
     </BrowserRouter>
 )

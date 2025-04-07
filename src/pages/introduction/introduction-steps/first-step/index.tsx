@@ -8,15 +8,12 @@ import { Text, Title } from '@delab-team/de-ui'
 import Lottie, { Options } from 'react-lottie'
 import { useTranslation } from 'react-i18next'
 import WebAppSDK from '@twa-dev/sdk'
-import { useTonConnectUI } from '@tonconnect/ui-react'
 
 import { Button } from '../../../../components/ui/button'
 
 import { UserType } from '../../../../@types/user'
 
-import { useHapticFeedback } from '../../../../hooks/useHapticFeedback'
 
-import { calculateDaysFromTimestamp } from '../../../../utils/formatDateFromTimestamp'
 
 import * as helloSticker from '../../../../assets/stickers/find.json'
 
@@ -46,8 +43,6 @@ export const FirstStep: FC<FirstStepProps> = ({
     const { t } = useTranslation()
 
     const auth = !!localStorage.getItem('ton-connect-ui_wallet-info')
-
-    const [ tonConnectUI, setOptions ] = useTonConnectUI()
 
     const isPaidUser = () => {
         const activeTariff = false
