@@ -175,6 +175,22 @@ export const Profile: FC<ProfileProps> = ({ selectedLanguage, setSelectedLanguag
             </Title>
 
             <div className={`${s.action}`}>
+            <motion.button
+                    className={`${s.actionButton}`}
+                    whileHover="hover"
+                    initial="nonHover"
+                    onClick={() => {
+                        window.open('https://t.me/beevpnpro', '_blank')
+                        useHapticFeedback()
+                    }}
+                >
+                    <SvgSelector id="link" />
+                    <div className={s.actionButtonInner}>
+                        <div className={`${s.accountAction} ${s.actionText}`}>
+                            BeeVPN Channel
+                        </div>
+                    </div>
+                </motion.button>
                 <motion.button
                     className={`${s.actionButton}`}
                     whileHover="hover"
