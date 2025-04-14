@@ -199,7 +199,7 @@ export const Pay: FC<PayProps> = ({
                             {TgObj?.initDataUnsafe?.user?.last_name}
                         </Div>
                     </div>
-                    {TgObj?.initDataUnsafe?.user?.username &&
+                    {/* {TgObj?.initDataUnsafe?.user?.username &&
                         TgObj?.initDataUnsafe?.user?.username?.length >= 1 && (
                             <div
                                 className={s.username}
@@ -210,8 +210,12 @@ export const Pay: FC<PayProps> = ({
                             >
                                 @{TgObj?.initDataUnsafe?.user?.username}
                             </div>
-                        )}
+                        )} */}
                         {user && dateSubscribe !== '' ? <Div tgStyles={{ color: "var(--tg-theme-text-color)" }}>У вас оплачена подписка до {dateSubscribe}</Div> : null }
+                        <Div className={s.username} onClick={()=>{
+                            TgObj.openLink('https://telegra.ph/Gde-kupit-Telegram-Stars-04-14')
+                            
+                        }}>Где купить Telegram Stars?</Div>
                 </div>
             </div> : null }
 
