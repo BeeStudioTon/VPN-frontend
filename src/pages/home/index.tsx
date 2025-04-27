@@ -239,9 +239,9 @@ export const Home: FC<HomeProps> = ({
                     <>
                         <Lottie
                             options={approveOptions3}
-                            height={180}
+                            height={140}
                             isClickToPauseDisabled={true}
-                            width={180}
+                            width={140}
                         />
                         <Text className={s.loading}>{t("common.loading")}</Text>
                     </>
@@ -252,16 +252,16 @@ export const Home: FC<HomeProps> = ({
                                 {isConnect ? (
                                     <Lottie
                                         options={approveOptions}
-                                        height={190}
+                                        height={140}
                                         isClickToPauseDisabled={true}
-                                        width={190}
+                                        width={140}
                                     />
                                 ) : (
                                     <Lottie
                                         options={approveOptions3}
-                                        height={190}
+                                        height={140}
                                         isClickToPauseDisabled={true}
-                                        width={190}
+                                        width={140}
                                     />
                                 )}
                                 <Title
@@ -280,9 +280,9 @@ export const Home: FC<HomeProps> = ({
                             <>
                                 <Lottie
                                     options={approveOptions2}
-                                    height={180}
+                                    height={140}
                                     isClickToPauseDisabled={true}
-                                    width={180}
+                                    width={140}
                                 />
 
                                 <Title variant="h2" className={s.statusTitle}>
