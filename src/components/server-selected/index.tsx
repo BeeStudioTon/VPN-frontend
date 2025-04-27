@@ -25,6 +25,7 @@ interface ServerSelectedProps {
     isLoading: boolean;
     isTg: boolean;
     userLoading: boolean;
+    isPaid: boolean;
     setSelectedServer: React.Dispatch<React.SetStateAction<ServerData | undefined>>
 }
 
@@ -41,6 +42,7 @@ export const ServerSelected: FC<ServerSelectedProps> = ({
     isLoading,
     isTg,
     userLoading,
+    isPaid
 }) => {
     if (!selectedServer) return <></>;
 

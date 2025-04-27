@@ -309,7 +309,7 @@ export const Home: FC<HomeProps> = ({
                     </>
                 )}
             </div>
-            {selectedServer && isPaid ? (
+            {selectedServer ? (
                 <ServerSelected
                     serversData={serverData}
                     selectedServer={selectedServer}
@@ -317,14 +317,17 @@ export const Home: FC<HomeProps> = ({
                     isTg={isTg}
                     userLoading={userLoading}
                     isLoading={serverDataLoading}
+                    isPaid={isPaid}
                 />
             ) : null}
 
-            {isPaid ? (
+            {/* {isPaid ? ( */}
                 <div className={s.connectInner}>
                     <Button
                         className={s.connectButton}
-                        onClick={handleButton}
+                        onClick={() => {
+                            isPaid ? handleButton() : handlePay()
+                        }}
                         disabled={userLoading}
                     >
                         {userLoading
@@ -342,17 +345,17 @@ export const Home: FC<HomeProps> = ({
                         {t("common.download-app")}
                     </Button>
                 </div>
-            ) : (
-                <div className={s.connectInner}>
-                    <Button
-                        className={s.connectButton}
-                        onClick={handlePay}
-                        disabled={userLoading}
-                    >
-                        {t("common.select-plan-btn")}
-                    </Button>
-                </div>
-            )}
+            
+            {/* //     <div className={s.connectInner}>
+            //         <Button
+            //             className={s.connectButton}
+            //             onClick={handlePay}
+            //             disabled={userLoading}
+            //         >
+            //             {t("common.select-plan-btn")}
+            //         </Button>
+            //     </div>
+            // )} */}
 
             {/* <div className={s.traffic}>
                 <div className={s.trafficTop}>
