@@ -184,9 +184,9 @@ export const Home: FC<HomeProps> = ({
             const queryString = new URLSearchParams({
                 key: encodedUrl,
             }).toString();
-            window.open(`/redirect?${queryString}`, "_blank");
+            // window.open(`/redirect?${queryString}`, "_blank");
             openTelegramLink(key);
-            TgObj.openLink(`/redirect?${queryString}`)
+            TgObj.openLink(key)
         } else {
             openTelegramLink(key);
         }
