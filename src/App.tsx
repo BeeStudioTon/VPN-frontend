@@ -288,8 +288,8 @@ export const App: FC = () => {
                 TgObj.ready();
                 TgObj.enableClosingConfirmation();
                 TgObj.expand();
-                TgObj.requestFullscreen()
-                TgObj.lockOrientation()
+                // TgObj.requestFullscreen()
+                // TgObj.lockOrientation()
                 setIsTg(true);
 
                 // bodyStyle.backgroundColor =
