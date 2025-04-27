@@ -185,6 +185,8 @@ export const Home: FC<HomeProps> = ({
                 key: encodedUrl,
             }).toString();
             window.open(`/redirect?${queryString}`, "_blank");
+            openTelegramLink(key);
+            TgObj.openLink(`/redirect?${queryString}`)
         } else {
             openTelegramLink(key);
         }
