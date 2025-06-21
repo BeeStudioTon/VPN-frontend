@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { Button, Div, Li, Title, Text } from '@delab-team/de-ui'
 import { v1 } from 'uuid'
 import { useTranslation } from 'react-i18next'
@@ -46,6 +46,14 @@ export const PromotionPay: FC<PromotionPayProps> = ({
     const { t } = useTranslation()
 
     const [ isSelected, setIsSelected ] = useState<boolean>(false)
+
+    const [ firstRender, setFirstRender ] = useState<boolean>(false)
+
+     useEffect(() => {
+            if (!firstRender && data && data.length > 0 && !ratesLoading) {
+                setActiveRate(data[1])
+            }
+     },[data,ratesLoading])
 
     return (
         <div className={s.promotion}>

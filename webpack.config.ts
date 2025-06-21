@@ -8,13 +8,13 @@ import 'webpack-dev-server'
 import fs from 'fs'
 
 const { IgnorePlugin } = require('webpack')
-const isProduction = 'development';
+const isProduction = 'production';
 
 const config: Configuration = {
     mode: isProduction ? 'production' : 'development',
     entry: { app: path.join(__dirname, 'src', 'index.tsx') },
     target: 'web',
-    devtool: isProduction ? false : 'inline-source-map',
+    devtool: isProduction ? false : 'eval-cheap-module-source-map',
     devServer: {
         static: { directory: path.join(__dirname, 'public') },
         compress: true,

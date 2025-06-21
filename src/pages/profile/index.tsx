@@ -41,11 +41,11 @@ export const Profile: FC<ProfileProps> = ({ selectedLanguage, setSelectedLanguag
         }
     }, [])
 
-    const handleNavigate = () => {
-        window.localStorage.clear()
-        window.location.pathname = '/'
-        useHapticFeedback()
-    }
+    // const handleNavigate = () => {
+    //     window.localStorage.clear()
+    //     window.location.pathname = '/'
+    //     useHapticFeedback()
+    // }
 
     const handleExit = () => {
         // TgObj.showConfirm(t('common.you-sure'), (isConfirmed) => {

@@ -47,7 +47,6 @@
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",
-    "@ton/blueprint": "^0.12.1",
     "@types/react-lottie": "^1.2.10",
     "@types/uuid": "^9.0.7",
     "@types/webpack": "^5.28.0",

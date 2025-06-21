@@ -61,7 +61,7 @@ export const App: FC = () => {
     >(undefined);
 
     // Introduction
-    const [showIntroduction, setShowIntroduction] = useState<boolean>(true);
+    const [showIntroduction, setShowIntroduction] = useState<boolean>(false);
 
     // Skipped introduction
     const [isSkippedIntroduction, setIsSkippedIntroduction] =
@@ -481,7 +481,7 @@ export const App: FC = () => {
                             path={ROUTES.SOMETHING_WENT_WRONG}
                             element={<SomethingWentWrong />}
                         />
-                        <Route path={ROUTES.REDIRECT} element={<Redirect />} />
+                        
 
                         <Route
                             path={ROUTES.CHANGE}
@@ -495,6 +495,7 @@ export const App: FC = () => {
                                 />
                             }
                         />
+                        <Route path={ROUTES.REDIRECT} element={<Redirect />} />
                         <Route
                             path="*"
                             element={<Navigate to={ROUTES.HOME} replace />}

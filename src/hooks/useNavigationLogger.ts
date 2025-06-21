@@ -12,33 +12,33 @@ export const useNavigationLogger = () => {
 
   // Логируем изменения маршрута + стек вызовов
   useEffect(() => {
-    const stackTrace = new Error().stack
-      ?.split('\n')
-      .slice(0, 10) // Берем 3 строки стека (без учета самого хука)
-      .join('\n');
+    // const stackTrace = new Error().stack
+    //   ?.split('\n')
+    //   .slice(0, 10) // Берем 3 строки стека (без учета самого хука)
+    //   .join('\n');
 
-    console.groupCollapsed(`[Navigation] Route changed to ${location.pathname}`);
-    console.log('Previous path:', location.state?.from || '(initial load)');
-    console.log('Search params:', location.search);
-    console.log('Called from:', `\n${stackTrace}`);
-    console.groupEnd();
+    // console.groupCollapsed(`[Navigation] Route changed to ${location.pathname}`);
+    // console.log('Previous path:', location.state?.from || '(initial load)');
+    // console.log('Search params:', location.search);
+    // console.log('Called from:', `\n${stackTrace}`);
+    // console.groupEnd();
   }, [location]);
 
   /** Обертка для navigate с логированием */
   const loggedNavigate = (navigate: (to: To, options?: NavigateOptions) => void, param: string) => {
     return (to: To, options?: NavigateOptions) => {
-      const stackTrace = new Error().stack
-        ?.split('\n')
-        .slice(0, 10) // Берем 3 строки стека
-        .join('\n');
+      // const stackTrace = new Error().stack
+      //   ?.split('\n')
+      //   .slice(0, 10) // Берем 3 строки стека
+      //   .join('\n');
 
-      console.groupCollapsed(`[Navigation] Navigating to ${
-        typeof to === 'string' ? to : to.pathname
-      }`);
-      console.log('From:', location.pathname);
-      console.log('Options:', options);
-      console.log('Called from:', `\n${stackTrace}`);
-      console.groupEnd();
+      // console.groupCollapsed(`[Navigation] Navigating to ${
+      //   typeof to === 'string' ? to : to.pathname
+      // }`);
+      // console.log('From:', location.pathname);
+      // console.log('Options:', options);
+      // console.log('Called from:', `\n${stackTrace}`);
+      // console.groupEnd();
 
       // Добавляем информацию о предыдущем пути в state
       const navOptions = {
@@ -49,7 +49,7 @@ export const useNavigationLogger = () => {
         }
       };
 
-      console.log('[loggedNavigate]: ',param)
+      // console.log('[loggedNavigate2]: ',param)
 
       navigate(to, navOptions);
     };
