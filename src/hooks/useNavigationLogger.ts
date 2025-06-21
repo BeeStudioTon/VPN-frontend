@@ -1,36 +1,48 @@
 import { useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, To, NavigateOptions } from 'react-router-dom';
 
 export const useNavigationLogger = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Логируем инициализацию
+    console.groupCollapsed(`[Navigation] App initialized at ${location.pathname}`);
+    console.log('Initial location:', location);
+    console.groupEnd();
+
     // Сохраняем оригинальную функцию navigate
     const originalNavigate = navigate;
-    
-    // Переопределяем navigate для логирования
-    const loggedNavigate = (to: any, options?: any) => {
-      console.log(`[Navigation] Redirecting from ${location.pathname} to ${typeof to === 'string' ? to : to?.pathname}`);
-      return originalNavigate(to, options);
+
+    // Создаем обертку с правильными типами
+    const loggedNavigate = (to: To, options?: NavigateOptions): void => {
+      console.groupCollapsed(`[Navigation] Navigating from ${location.pathname} to ${
+        typeof to === 'string' ? to : (to as { pathname?: string }).pathname
+      }`);
+      console.log('From:', location);
+      console.log('To:', to);
+      console.log('Options:', options);
+      console.groupEnd();
+      originalNavigate(to, options);
     };
 
-    // Логируем начальный путь при монтировании
-    console.log(`[Navigation] App initialized at ${location.pathname}`);
+    // Переопределяем функцию navigate
+    (navigate as any) = loggedNavigate;
 
-    // Возвращаем оригинальный navigate при размонтировании
     return () => {
-      // Восстанавливаем оригинальный navigate
+      // Восстанавливаем оригинальную функцию при размонтировании
+      (navigate as any) = originalNavigate;
     };
-  }, []);
+  }, [location, navigate]);
 
   useEffect(() => {
-    // Логируем каждое изменение пути
-    console.log(`[Navigation] Route changed to ${location.pathname}`, {
+    console.groupCollapsed(`[Navigation] Route changed to ${location.pathname}`);
+    console.log('New location:', {
       pathname: location.pathname,
       search: location.search,
       hash: location.hash,
       state: location.state
     });
+    console.groupEnd();
   }, [location]);
 };
