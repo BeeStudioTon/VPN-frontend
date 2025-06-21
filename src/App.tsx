@@ -328,10 +328,10 @@ export const App: FC = () => {
 
     // установка сервера пользователя
     useEffect(() => {
-        if (serverData) {
+        if (serverData && !selectedServer) {
             getAndSetActiveServer()
         }
-    }, [serverData])
+    }, [serverData, selectedServer])
     // introduction check
     useEffect(() => {
         const isTgCheck = window.Telegram?.WebApp.initData !== "";
