@@ -141,12 +141,14 @@ export const App: FC = () => {
                             );
 
                             if (newJwtKeys instanceof Error) {
-                                logOutUser(newJwtKeys.message)
-                                return
+                                newJwtKeys = await vpn.telegramLogin(
+                                TgObj.initData
+                            );
                             }
                         } catch (error: any) {
-                            logOutUser(error)
-                            return
+                            newJwtKeys = await vpn.telegramLogin(
+                                TgObj.initData
+                            );
                         }
                     } else {
                         try {
@@ -449,6 +451,16 @@ export const App: FC = () => {
                             }
                         />
                         <Route
+                            path={ROUTES.PROMOTIONS}
+                            element={
+                                <Pay
+                                    isTg={isTg}
+                                    user={user}
+                                    selectedLanguage={selectedLanguage}
+                                />
+                            }
+                        />
+                        <Route
                             path={ROUTES.PROFILE}
                             element={
                                 <Profile
@@ -462,16 +474,7 @@ export const App: FC = () => {
                             element={<SomethingWentWrong />}
                         />
                         <Route path={ROUTES.REDIRECT} element={<Redirect />} />
-                        <Route
-                            path={ROUTES.PROMOTIONS}
-                            element={
-                                <Pay
-                                    isTg={isTg}
-                                    user={user}
-                                    selectedLanguage={selectedLanguage}
-                                />
-                            }
-                        />
+                        
 
                         <Route
                             path={ROUTES.CHANGE}

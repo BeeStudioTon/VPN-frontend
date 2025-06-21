@@ -26,7 +26,9 @@ interface ServerSelectedProps {
     isTg: boolean;
     userLoading: boolean;
     isPaid: boolean;
-    setSelectedServer: React.Dispatch<React.SetStateAction<ServerData | undefined>>
+    setSelectedServer: React.Dispatch<
+        React.SetStateAction<ServerData | undefined>
+    >;
 }
 
 countries.registerLocale(enLocale);
@@ -42,7 +44,7 @@ export const ServerSelected: FC<ServerSelectedProps> = ({
     isLoading,
     isTg,
     userLoading,
-    isPaid
+    isPaid,
 }) => {
     if (!selectedServer) return <></>;
 
@@ -86,9 +88,10 @@ export const ServerSelected: FC<ServerSelectedProps> = ({
         <div className={s.serversSelector}>
             <div
                 className={`${s.selectedServer} ${s.serverItem}`}
-                onClick={() =>
-                    !userLoading && setIsDropdownOpen(!isDropdownOpen)
-                }
+                onClick={() => {
+                    navigate(ROUTES.CHANGE);
+                    useHapticFeedback();
+                }}
                 ref={buttonRef}
             >
                 <>
