@@ -160,18 +160,18 @@ export const PromotionPay: FC<PromotionPayProps> = ({
                                             className={s.promotionLiDescription}
                                             tgStyles={textTgStyles}
                                         >
-                                            {el?.oldPriceDollar !== 0 && (
+                                            {/* {el?.oldPriceDollar !== 0 && (
                                                 <span className={s.promotionLiOldPrice}>
                                                       ${el?.oldPriceDollar}
                                                 </span>
-                                            )}{' '}
+                                            )}{' '} */}
                                               ${(el?.priceDollar / (el?.timeSubscribe / 30)).toFixed(2)} в месяц
                                         </Text>
                                     </div>
                                     <div className={s.promotionLiRight}>
                                         <Text className={s.promotionLiPrice}>
                                             
-                                                <>{el?.priceStar.toFixed(0)} ⭐</>
+                                                <>{el?.priceStar.toFixed(0)} ⭐ ({(el?.priceStar * 0.8).toFixed(0)} руб)</>
                                             
                                         </Text>
                                     </div>
