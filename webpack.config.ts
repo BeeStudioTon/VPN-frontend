@@ -8,7 +8,7 @@ import 'webpack-dev-server'
 import fs from 'fs'
 
 const { IgnorePlugin } = require('webpack')
-const isProduction = 'production';
+const isProduction = 'development';
 
 const config: Configuration = {
     mode: isProduction ? 'production' : 'development',

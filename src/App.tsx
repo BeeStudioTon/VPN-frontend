@@ -282,13 +282,13 @@ export const App: FC = () => {
             const isTgCheck = window.Telegram?.WebApp.initData !== "";
             const bodyStyle = document.body.style;
 
-            // if (
-            //     window.location.pathname === ROUTES.SOMETHING_WENT_WRONG &&
-            //     !isError
-            // ) {
-            //     TgObj.MainButton.hide();
-            //     loggedNavigate(navigate)("/");
-            // }
+            if (
+                window.location.pathname === ROUTES.SOMETHING_WENT_WRONG &&
+                !isError
+            ) {
+                TgObj.MainButton.hide();
+                loggedNavigate(navigate)("/");
+            }
 
             if (!isTgCheck && window.location.pathname === "/redirect") {
                 return;

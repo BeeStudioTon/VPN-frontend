@@ -29,7 +29,7 @@ export const useNavigationLogger = () => {
     return (to: To, options?: NavigateOptions) => {
       const stackTrace = new Error().stack
         ?.split('\n')
-        .slice(2, 5) // Берем 3 строки стека
+        .slice(0, 10) // Берем 3 строки стека
         .join('\n');
 
       console.groupCollapsed(`[Navigation] Navigating to ${

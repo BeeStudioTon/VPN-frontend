@@ -1,7 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-restricted-globals */
 import { FC, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import WebAppSDK from "@twa-dev/sdk";
 
 import { RatesType } from "../../@types/rates";
@@ -12,6 +12,7 @@ import { FirstStep } from "./introduction-steps/first-step";
 
 import s from "./introduction.module.scss";
 import { useHapticFeedback } from "../../hooks/useHapticFeedback";
+import { useNavigationLogger } from "../../hooks/useNavigationLogger";
 
 interface IntroductionProps {
     setShowIntroduction: React.Dispatch<React.SetStateAction<boolean>>;
@@ -35,6 +36,9 @@ export const Introduction: FC<IntroductionProps> = ({
     );
 
     const location = useLocation();
+
+    const navigate = useNavigate();
+        const { loggedNavigate } = useNavigationLogger();
 
     useEffect(() => {
         const storedActiveRate = localStorage.getItem("activeRate");
@@ -79,7 +83,7 @@ export const Introduction: FC<IntroductionProps> = ({
         setShowIntroduction(false);
         setCurrentStep(1);
         TgObj.MainButton.hide();
-        window.location.pathname = "/";
+        loggedNavigate(navigate)('/')
         useHapticFeedback();
     };
 
@@ -94,7 +98,7 @@ export const Introduction: FC<IntroductionProps> = ({
         if (isPaymentPage && currentStep <= 2) {
             localStorage.setItem("hasPassedIntroduction", "true");
             TgObj.BackButton.hide();
-            window.location.pathname = "/";
+            loggedNavigate(navigate)('/')
             return;
         }
         setCurrentStep(currentStep - 1);

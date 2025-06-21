@@ -21,6 +21,7 @@ import s from "./change.module.scss";
 import { useHapticFeedback } from "../../hooks/useHapticFeedback";
 import { ServerData } from "../../@types/servers";
 import { ROUTES } from "../../utils/router";
+import { useNavigationLogger } from "../../hooks/useNavigationLogger";
 
 interface ChangeServerProps {
     selectedLanguage: string;
@@ -49,6 +50,7 @@ export const ChangeServer: FC<ChangeServerProps> = ({
     const TgObj = WebApp;
 
     const navigate = useNavigate();
+    const { loggedNavigate } = useNavigationLogger();
 
     const handleServerSelection = (server: ServerData) => {
         setSelectedServer(server);
@@ -59,13 +61,13 @@ export const ChangeServer: FC<ChangeServerProps> = ({
             console.error(error)
         }
 
-        navigate(ROUTES.HOME);
+        loggedNavigate(navigate)(ROUTES.HOME);
         useHapticFeedback();
     };
 
     const handlePrev = () => {
         TgObj.BackButton.hide();
-        navigate("/");
+        loggedNavigate(navigate)("/");
         useHapticFeedback();
     };
 
