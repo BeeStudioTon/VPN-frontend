@@ -83,7 +83,7 @@ export const Introduction: FC<IntroductionProps> = ({
         setShowIntroduction(false);
         setCurrentStep(1);
         TgObj.MainButton.hide();
-        loggedNavigate(navigate)('/')
+        loggedNavigate(navigate,'3')('/')
         useHapticFeedback();
     };
 
@@ -98,7 +98,7 @@ export const Introduction: FC<IntroductionProps> = ({
         if (isPaymentPage && currentStep <= 2) {
             localStorage.setItem("hasPassedIntroduction", "true");
             TgObj.BackButton.hide();
-            loggedNavigate(navigate)('/')
+            loggedNavigate(navigate,'4')('/')
             return;
         }
         setCurrentStep(currentStep - 1);

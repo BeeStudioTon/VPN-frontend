@@ -120,7 +120,7 @@ export const App: FC = () => {
         ]);
         console.error("Error refreshJWT:", error);
         setIsError(true);
-        loggedNavigate(navigate)(ROUTES.SOMETHING_WENT_WRONG);
+        loggedNavigate(navigate,'6')(ROUTES.SOMETHING_WENT_WRONG);
     };
 
     const refreshToken = async (): Promise<void | Error> => {
@@ -131,7 +131,7 @@ export const App: FC = () => {
                     if (error) {
                         console.error("Error Tg:", error);
                         setIsError(true);
-                        loggedNavigate(navigate)(ROUTES.SOMETHING_WENT_WRONG);
+                        loggedNavigate(navigate,'7')(ROUTES.SOMETHING_WENT_WRONG);
                     }
                     let newJwtKeys;
 
@@ -198,7 +198,7 @@ export const App: FC = () => {
         } catch (error) {
             console.error("Error Tg:", error);
             setIsError(true);
-            loggedNavigate(navigate)(ROUTES.SOMETHING_WENT_WRONG);
+            loggedNavigate(navigate,'8')(ROUTES.SOMETHING_WENT_WRONG);
         }
     };
 
@@ -287,7 +287,7 @@ export const App: FC = () => {
                 !isError
             ) {
                 TgObj.MainButton.hide();
-                loggedNavigate(navigate)("/");
+                loggedNavigate(navigate,'9')("/");
             }
 
             if (!isTgCheck && window.location.pathname === "/redirect") {
@@ -310,7 +310,7 @@ export const App: FC = () => {
                 //     "important"
                 // );
             } else {
-                loggedNavigate(navigate)(ROUTES.SOMETHING_WENT_WRONG);
+                loggedNavigate(navigate,'10')(ROUTES.SOMETHING_WENT_WRONG);
             }
 
             if (window.location.pathname !== ROUTES.INTRODUCTION) {
@@ -352,14 +352,14 @@ export const App: FC = () => {
         }
 
         if (!isTgCheck) {
-            loggedNavigate(navigate)(ROUTES.SOMETHING_WENT_WRONG);
+            loggedNavigate(navigate,'11')(ROUTES.SOMETHING_WENT_WRONG);
             return;
         }
 
         if (hasPassedIntroduction) {
             setShowIntroduction(false);
         } else {
-            loggedNavigate(navigate)(ROUTES.INTRODUCTION);
+            loggedNavigate(navigate,'12')(ROUTES.INTRODUCTION);
         }
     }, [navigate]);
 

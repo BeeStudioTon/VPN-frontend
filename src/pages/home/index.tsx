@@ -196,7 +196,7 @@ export const Home: FC<HomeProps> = ({
     };
 
     const handlePay = () => {
-        loggedNavigate(navigate)(ROUTES.PROMOTIONS);
+        loggedNavigate(navigate,'16')(ROUTES.PROMOTIONS);
     };
 
     const handleConnectServer = async () => {

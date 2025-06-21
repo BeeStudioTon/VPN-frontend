@@ -62,7 +62,7 @@ export const Pay: FC<PayProps> = ({
 
     const handlePrev = () => {
         TgObj.BackButton.hide();
-        loggedNavigate(navigate)("/");
+        loggedNavigate(navigate, '5')("/");
         useHapticFeedback();
     };
 

@@ -61,13 +61,13 @@ export const ChangeServer: FC<ChangeServerProps> = ({
             console.error(error)
         }
 
-        loggedNavigate(navigate)(ROUTES.HOME);
+        loggedNavigate(navigate, '1')(ROUTES.HOME);
         useHapticFeedback();
     };
 
     const handlePrev = () => {
         TgObj.BackButton.hide();
-        loggedNavigate(navigate)("/");
+        loggedNavigate(navigate, '2')("/");
         useHapticFeedback();
     };
 

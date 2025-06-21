@@ -14,7 +14,7 @@ export const useNavigationLogger = () => {
   useEffect(() => {
     const stackTrace = new Error().stack
       ?.split('\n')
-      .slice(2, 5) // Берем 3 строки стека (без учета самого хука)
+      .slice(0, 10) // Берем 3 строки стека (без учета самого хука)
       .join('\n');
 
     console.groupCollapsed(`[Navigation] Route changed to ${location.pathname}`);
@@ -25,7 +25,7 @@ export const useNavigationLogger = () => {
   }, [location]);
 
   /** Обертка для navigate с логированием */
-  const loggedNavigate = (navigate: (to: To, options?: NavigateOptions) => void) => {
+  const loggedNavigate = (navigate: (to: To, options?: NavigateOptions) => void, param: string) => {
     return (to: To, options?: NavigateOptions) => {
       const stackTrace = new Error().stack
         ?.split('\n')
@@ -48,6 +48,8 @@ export const useNavigationLogger = () => {
           from: location.pathname
         }
       };
+
+      console.log('[loggedNavigate]: ',param)
 
       navigate(to, navOptions);
     };

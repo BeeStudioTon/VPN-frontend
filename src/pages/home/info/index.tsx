@@ -51,7 +51,7 @@ export const Info: FC<InfoProps> = ({ }) => {
                     <div
                         className={s.userAvatar}
                         onClick={() => {
-                            loggedNavigate(navigate)(ROUTES.PROFILE);
+                            loggedNavigate(navigate,'14')(ROUTES.PROFILE);
                             useHapticFeedback();
                         }}
                     >
@@ -85,7 +85,7 @@ export const Info: FC<InfoProps> = ({ }) => {
                     <div
                         className={s.userStar}
                         onClick={() => {
-                            loggedNavigate(navigate)(ROUTES.PROMOTIONS);
+                            loggedNavigate(navigate,'15')(ROUTES.PROMOTIONS);
                             useHapticFeedback();
                         }}
                     >
