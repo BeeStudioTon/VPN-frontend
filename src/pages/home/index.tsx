@@ -98,20 +98,21 @@ export const Home: FC<HomeProps> = ({
     const [isConnect, setIsConnect] = useState<boolean>(false);
 
     useEffect(() => {
+        if (selectedServer && keysData) {
         const connectServer = keysData?.find(
-            (el) => el.id === selectedServer?.id
-        );
+                    (el) => el.id === selectedServer?.id
+                );
 
-        if (!connectServer) {
-            createKey();
-        } else {
-            setConnectServerData(connectServer);
+                if (!connectServer) {
+                    createKey();
+                } else {
+                    setConnectServerData(connectServer);
+                }
         }
+       
     }, [selectedServer, keysData]);
 
     const checkPaidUser = (userTime: number): boolean => {
-        console.log("userTime", userTime);
-        console.log("getCurrentTimestamp", getCurrentTimestamp());
         return userTime > getCurrentTimestamp();
     };
 

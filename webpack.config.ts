@@ -1,19 +1,20 @@
 /* eslint-disable import/no-extraneous-dependencies */
-
-import { Configuration, SourceMapDevToolPlugin, ProvidePlugin } from 'webpack'
+import { Configuration, ProvidePlugin, SourceMapDevToolPlugin } from 'webpack'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import { CleanWebpackPlugin } from 'clean-webpack-plugin'
 import path from 'path'
 import 'webpack-dev-server'
 import fs from 'fs'
 
 const { IgnorePlugin } = require('webpack')
+const isProduction = 'production';
 
 const config: Configuration = {
-    mode: 'none',
+    mode: isProduction ? 'production' : 'development',
     entry: { app: path.join(__dirname, 'src', 'index.tsx') },
     target: 'web',
-    devtool: 'inline-source-map',
+    devtool: isProduction ? false : 'inline-source-map',
     devServer: {
         static: { directory: path.join(__dirname, 'public') },
         compress: true,
@@ -21,7 +22,7 @@ const config: Configuration = {
             key: fs.readFileSync('./server.key'),
             cert: fs.readFileSync('./server.cert'),
             rejectUnauthorized: false
-          },
+        },
         hot: true,
         port: 3000,
         headers: {
@@ -47,12 +48,12 @@ const config: Configuration = {
             },
             {
                 test: /\.(css|scss)$/,
-                use: [ 'style-loader', 'css-loader', 'sass-loader' ]
+                use: ['style-loader', 'css-loader', 'sass-loader']
             },
             {
                 test: /\.js$/,
                 enforce: 'pre',
-                use: [ 'source-map-loader' ]
+                use: isProduction ? [] : ['source-map-loader']
             },
             {
                 test: /\.(jpe?g|gif|png|svg)$/i,
@@ -60,26 +61,32 @@ const config: Configuration = {
                 use: [
                     {
                         loader: 'file-loader',
-                        options: { limit: 10000 }
+                        options: {
+                            limit: 10000,
+                            outputPath: 'assets',
+                            publicPath: '/assets'
+                        }
                     }
                 ]
             },
             {
                 test: /\.svg$/,
-                use: [ '@svgr/webpack' ]
+                use: ['@svgr/webpack']
             }
         ]
     },
-    ignoreWarnings: [ /Failed to parse source map/ ],
+    ignoreWarnings: [/Failed to parse source map/],
     output: {
         filename: '[name].js',
         path: path.resolve(__dirname, 'build'),
-        publicPath: '/'
+        publicPath: '/',
+        clean: true
     },
     plugins: [
+        new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({ template: path.join(__dirname, 'public', 'index.html') }),
-        new SourceMapDevToolPlugin({ filename: '[file].map' }),
-        new ProvidePlugin({ Buffer: [ 'buffer', 'Buffer' ] }),
+        ...(isProduction ? [] : [new SourceMapDevToolPlugin({ filename: '[file].map' })]),
+        new ProvidePlugin({ Buffer: ['buffer', 'Buffer'] }),
         new ProvidePlugin({ process: 'process/browser.js' }),
         new IgnorePlugin({ resourceRegExp: /^node:/ }),
         new CopyWebpackPlugin({
@@ -89,11 +96,9 @@ const config: Configuration = {
         }),
     ],
     resolve: {
-        extensions: [ '.ts', '.tsx', '.js' ],
+        extensions: ['.ts', '.tsx', '.js'],
         alias: {
             process: 'process/browser.js'
-            // react: require.resolve("react"),
-            // 'react-dom': require.resolve('react-dom')
         },
         fallback: {
             util: require.resolve('util/'),
@@ -113,5 +118,4 @@ const config: Configuration = {
     }
 }
 
-// eslint-disable-next-line import/no-default-export
 export default config
