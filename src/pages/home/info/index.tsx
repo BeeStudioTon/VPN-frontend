@@ -14,6 +14,7 @@ import star from "../../../assets/icons/categories/star.png";
 import { useHapticFeedback } from "../../../hooks/useHapticFeedback";
 
 import s from "./info.module.scss";
+import { useNavigationLogger } from "../../../hooks/useNavigationLogger";
 
 interface InfoProps {
 }
@@ -22,6 +23,7 @@ export const Info: FC<InfoProps> = ({ }) => {
     const [isCopiedAddress, setIsCopiedAddress] = useState<boolean>(false);
 
     const navigate = useNavigate();
+    const { loggedNavigate } = useNavigationLogger();
 
     const TgObj = WebAppSDK;
 
@@ -49,7 +51,7 @@ export const Info: FC<InfoProps> = ({ }) => {
                     <div
                         className={s.userAvatar}
                         onClick={() => {
-                            navigate(ROUTES.PROFILE);
+                            loggedNavigate(navigate)(ROUTES.PROFILE);
                             useHapticFeedback();
                         }}
                     >
@@ -83,7 +85,7 @@ export const Info: FC<InfoProps> = ({ }) => {
                     <div
                         className={s.userStar}
                         onClick={() => {
-                            navigate(ROUTES.PROMOTIONS);
+                            loggedNavigate(navigate)(ROUTES.PROMOTIONS);
                             useHapticFeedback();
                         }}
                     >

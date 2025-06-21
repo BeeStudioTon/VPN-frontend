@@ -1,48 +1,57 @@
 import { useEffect } from 'react';
-import { useLocation, useNavigate, To, NavigateOptions } from 'react-router-dom';
+import { useLocation, To, NavigateOptions } from 'react-router-dom';
 
+/**
+ * Хук для логирования навигации:
+ * - Показывает текущий и новый путь
+ * - Отображает место вызова navigate в коде
+ * - Не модифицирует оригинальные функции
+ */
 export const useNavigationLogger = () => {
   const location = useLocation();
-  const navigate = useNavigate();
 
+  // Логируем изменения маршрута + стек вызовов
   useEffect(() => {
-    // Логируем инициализацию
-    console.groupCollapsed(`[Navigation] App initialized at ${location.pathname}`);
-    console.log('Initial location:', location);
-    console.groupEnd();
+    const stackTrace = new Error().stack
+      ?.split('\n')
+      .slice(2, 5) // Берем 3 строки стека (без учета самого хука)
+      .join('\n');
 
-    // Сохраняем оригинальную функцию navigate
-    const originalNavigate = navigate;
-
-    // Создаем обертку с правильными типами
-    const loggedNavigate = (to: To, options?: NavigateOptions): void => {
-      console.groupCollapsed(`[Navigation] Navigating from ${location.pathname} to ${
-        typeof to === 'string' ? to : (to as { pathname?: string }).pathname
-      }`);
-      console.log('From:', location);
-      console.log('To:', to);
-      console.log('Options:', options);
-      console.groupEnd();
-      originalNavigate(to, options);
-    };
-
-    // Переопределяем функцию navigate
-    (navigate as any) = loggedNavigate;
-
-    return () => {
-      // Восстанавливаем оригинальную функцию при размонтировании
-      (navigate as any) = originalNavigate;
-    };
-  }, [location, navigate]);
-
-  useEffect(() => {
     console.groupCollapsed(`[Navigation] Route changed to ${location.pathname}`);
-    console.log('New location:', {
-      pathname: location.pathname,
-      search: location.search,
-      hash: location.hash,
-      state: location.state
-    });
+    console.log('Previous path:', location.state?.from || '(initial load)');
+    console.log('Search params:', location.search);
+    console.log('Called from:', `\n${stackTrace}`);
     console.groupEnd();
   }, [location]);
+
+  /** Обертка для navigate с логированием */
+  const loggedNavigate = (navigate: (to: To, options?: NavigateOptions) => void) => {
+    return (to: To, options?: NavigateOptions) => {
+      const stackTrace = new Error().stack
+        ?.split('\n')
+        .slice(2, 5) // Берем 3 строки стека
+        .join('\n');
+
+      console.groupCollapsed(`[Navigation] Navigating to ${
+        typeof to === 'string' ? to : to.pathname
+      }`);
+      console.log('From:', location.pathname);
+      console.log('Options:', options);
+      console.log('Called from:', `\n${stackTrace}`);
+      console.groupEnd();
+
+      // Добавляем информацию о предыдущем пути в state
+      const navOptions = {
+        ...options,
+        state: {
+          ...options?.state,
+          from: location.pathname
+        }
+      };
+
+      navigate(to, navOptions);
+    };
+  };
+
+  return { loggedNavigate };
 };

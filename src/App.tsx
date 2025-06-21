@@ -72,10 +72,9 @@ export const App: FC = () => {
     >(undefined);
 
     const navigate = useNavigate();
+    const { loggedNavigate } = useNavigationLogger();
 
     const vpn = new VPN();
-
-    useNavigationLogger();
 
     const checkPaidUser = (userTime: number): boolean => {
         return userTime > getCurrentTimestamp();
@@ -121,7 +120,7 @@ export const App: FC = () => {
         ]);
         console.error("Error refreshJWT:", error);
         setIsError(true);
-        navigate(ROUTES.SOMETHING_WENT_WRONG);
+        loggedNavigate(navigate)(ROUTES.SOMETHING_WENT_WRONG);
     };
 
     const refreshToken = async (): Promise<void | Error> => {
@@ -132,7 +131,7 @@ export const App: FC = () => {
                     if (error) {
                         console.error("Error Tg:", error);
                         setIsError(true);
-                        navigate(ROUTES.SOMETHING_WENT_WRONG);
+                        loggedNavigate(navigate)(ROUTES.SOMETHING_WENT_WRONG);
                     }
                     let newJwtKeys;
 
@@ -199,7 +198,7 @@ export const App: FC = () => {
         } catch (error) {
             console.error("Error Tg:", error);
             setIsError(true);
-            navigate(ROUTES.SOMETHING_WENT_WRONG);
+            loggedNavigate(navigate)(ROUTES.SOMETHING_WENT_WRONG);
         }
     };
 
@@ -288,7 +287,7 @@ export const App: FC = () => {
                 !isError
             ) {
                 TgObj.MainButton.hide();
-                navigate("/");
+                loggedNavigate(navigate)("/");
             }
 
             if (!isTgCheck && window.location.pathname === "/redirect") {
@@ -311,7 +310,7 @@ export const App: FC = () => {
                 //     "important"
                 // );
             } else {
-                navigate(ROUTES.SOMETHING_WENT_WRONG);
+                loggedNavigate(navigate)(ROUTES.SOMETHING_WENT_WRONG);
             }
 
             if (window.location.pathname !== ROUTES.INTRODUCTION) {
@@ -353,14 +352,14 @@ export const App: FC = () => {
         }
 
         if (!isTgCheck) {
-            navigate(ROUTES.SOMETHING_WENT_WRONG);
+            loggedNavigate(navigate)(ROUTES.SOMETHING_WENT_WRONG);
             return;
         }
 
         if (hasPassedIntroduction) {
             setShowIntroduction(false);
         } else {
-            navigate(ROUTES.INTRODUCTION);
+            loggedNavigate(navigate)(ROUTES.INTRODUCTION);
         }
     }, [navigate]);
 

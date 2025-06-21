@@ -18,6 +18,7 @@ import { VPN } from "../../logic/vpn";
 import { Status } from "../../components/status";
 import { UserTypeUser } from "../../@types/user";
 import { getCurrentTimestamp } from "../../utils/date";
+import { useNavigationLogger } from "../../hooks/useNavigationLogger";
 
 interface PayProps {
     selectedLanguage: string;
@@ -35,6 +36,7 @@ export const Pay: FC<PayProps> = ({
     const TgObj = WebApp;
 
     const navigate = useNavigate();
+    const { loggedNavigate } = useNavigationLogger();
 
     const [isCopiedAddress, setIsCopiedAddress] = useState<boolean>(false);
     const [isCopiedUsername, setIsCopiedUsername] = useState<boolean>(false);
@@ -60,7 +62,7 @@ export const Pay: FC<PayProps> = ({
 
     const handlePrev = () => {
         TgObj.BackButton.hide();
-        navigate("/");
+        loggedNavigate(navigate)("/");
         useHapticFeedback();
     };
 

@@ -37,6 +37,7 @@ import ReactCountryFlag from "react-country-flag";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../utils/router";
 import { getCurrentTimestamp } from "../../utils/date";
+import { useNavigationLogger } from "../../hooks/useNavigationLogger";
 
 interface HomeProps {
     user: UserTypeUser | null;
@@ -92,6 +93,7 @@ export const Home: FC<HomeProps> = ({
     );
 
     const navigate = useNavigate();
+    const { loggedNavigate } = useNavigationLogger();
 
     const [ipUser, setIpUser] = useState<string | null>(null);
 
@@ -194,7 +196,7 @@ export const Home: FC<HomeProps> = ({
     };
 
     const handlePay = () => {
-        navigate(ROUTES.PROMOTIONS);
+        loggedNavigate(navigate)(ROUTES.PROMOTIONS);
     };
 
     const handleConnectServer = async () => {
