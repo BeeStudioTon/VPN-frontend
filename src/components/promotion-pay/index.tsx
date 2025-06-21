@@ -165,13 +165,13 @@ export const PromotionPay: FC<PromotionPayProps> = ({
                                                       ${el?.oldPriceDollar}
                                                 </span>
                                             )}{' '} */}
-                                              ${(el?.priceDollar / (el?.timeSubscribe / 30)).toFixed(2)} в месяц
+                                            ({(el?.priceStar * 0.8).toFixed(0)} руб) - ${(el?.priceDollar / (el?.timeSubscribe / 30)).toFixed(2)} в месяц
                                         </Text>
                                     </div>
                                     <div className={s.promotionLiRight}>
                                         <Text className={s.promotionLiPrice}>
                                             
-                                                <>{el?.priceStar.toFixed(0)} ⭐ ({(el?.priceStar * 0.8).toFixed(0)} руб)</>
+                                                <>{el?.priceStar.toFixed(0)} ⭐</>
                                             
                                         </Text>
                                     </div>
