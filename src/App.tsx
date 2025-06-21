@@ -2,7 +2,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-shadow */
 import { FC, useEffect, useState, useCallback } from "react";
-import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import {
+    Routes,
+    Route,
+    Navigate,
+    useNavigate,
+    useLocation,
+} from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import { AppInner } from "@delab-team/de-ui";
@@ -27,6 +33,7 @@ import { Pay } from "./pages/pay";
 import { ChangeServer } from "./pages/change-server";
 import { ServerData } from "./@types/servers";
 import { getCurrentTimestamp } from "./utils/date";
+import { useNavigationLogger } from "./hooks/useNavigationLogger";
 
 declare global {
     interface Window {
@@ -68,11 +75,13 @@ export const App: FC = () => {
 
     const vpn = new VPN();
 
+    useNavigationLogger();
+
     const checkPaidUser = (userTime: number): boolean => {
-            return userTime > getCurrentTimestamp();
-        };
-    
-        const isPaid = checkPaidUser(user?.time_subscribe ?? 0);
+        return userTime > getCurrentTimestamp();
+    };
+
+    const isPaid = checkPaidUser(user?.time_subscribe ?? 0);
 
     const loadJwtKeys = async (): Promise<void> => {
         return new Promise((resolve, reject) => {
@@ -113,7 +122,7 @@ export const App: FC = () => {
         console.error("Error refreshJWT:", error);
         setIsError(true);
         navigate(ROUTES.SOMETHING_WENT_WRONG);
-    }
+    };
 
     const refreshToken = async (): Promise<void | Error> => {
         try {
@@ -142,8 +151,8 @@ export const App: FC = () => {
 
                             if (newJwtKeys instanceof Error) {
                                 newJwtKeys = await vpn.telegramLogin(
-                                TgObj.initData
-                            );
+                                    TgObj.initData
+                                );
                             }
                         } catch (error: any) {
                             newJwtKeys = await vpn.telegramLogin(
@@ -157,12 +166,12 @@ export const App: FC = () => {
                             );
 
                             if (newJwtKeys instanceof Error) {
-                                logOutUser(newJwtKeys.message)
-                                return
+                                logOutUser(newJwtKeys.message);
+                                return;
                             }
                         } catch (error: any) {
-                            logOutUser(error)
-                            return
+                            logOutUser(error);
+                            return;
                         }
                     }
 
@@ -199,7 +208,7 @@ export const App: FC = () => {
             return false;
         }
         try {
-            let keysData: KeyType[] = []
+            let keysData: KeyType[] = [];
             if (isPaid) {
                 keysData = await vpn.getKeys(jwtKeys.accessToken);
             }
@@ -226,7 +235,7 @@ export const App: FC = () => {
         try {
             const res = await vpn.getServers(jwtKeys.accessToken);
             setServerData(res);
-            setUserLoading(false)
+            setUserLoading(false);
             return true;
         } catch (error) {
             console.error(`getUserKeysAndUserInfo: ${error}`);
@@ -267,7 +276,7 @@ export const App: FC = () => {
         if (!firstRender && TgObj) {
             setFirstRender(true);
 
-            setUserLoading(true)
+            setUserLoading(true);
 
             loadJwtKeys();
 
@@ -329,9 +338,9 @@ export const App: FC = () => {
     // установка сервера пользователя
     useEffect(() => {
         if (serverData && !selectedServer) {
-            getAndSetActiveServer()
+            getAndSetActiveServer();
         }
-    }, [serverData, selectedServer])
+    }, [serverData, selectedServer]);
     // introduction check
     useEffect(() => {
         const isTgCheck = window.Telegram?.WebApp.initData !== "";
@@ -474,7 +483,6 @@ export const App: FC = () => {
                             element={<SomethingWentWrong />}
                         />
                         <Route path={ROUTES.REDIRECT} element={<Redirect />} />
-                        
 
                         <Route
                             path={ROUTES.CHANGE}
