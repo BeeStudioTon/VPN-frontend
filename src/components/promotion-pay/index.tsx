@@ -52,6 +52,7 @@ export const PromotionPay: FC<PromotionPayProps> = ({
      useEffect(() => {
             if (!firstRender && data && data.length > 0 && !ratesLoading) {
                 setActiveRate(data[1])
+                setFirstRender(true)
             }
      },[data,ratesLoading])
 
