@@ -72,6 +72,7 @@ export const App: FC = () => {
     >(undefined);
 
     const navigate = useNavigate();
+    const route = useLocation();
     const { loggedNavigate } = useNavigationLogger();
 
     const vpn = new VPN();
@@ -277,8 +278,8 @@ export const App: FC = () => {
 
             setUserLoading(true);
 
-            console.log(window.location.pathname)
-            if (window.location.pathname === ROUTES.REDIRECT) {
+            console.log(route.hash)
+            if (route.hash === ROUTES.REDIRECT) {
                 return;
             }
 
