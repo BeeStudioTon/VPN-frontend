@@ -310,7 +310,7 @@ export const App: FC = () => {
                 //     "important"
                 // );
             } else {
-                loggedNavigate(navigate,'10')(ROUTES.SOMETHING_WENT_WRONG);
+                // loggedNavigate(navigate,'10')(ROUTES.SOMETHING_WENT_WRONG);
             }
 
             if (window.location.pathname !== ROUTES.INTRODUCTION) {
