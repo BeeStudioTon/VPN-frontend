@@ -25,6 +25,8 @@ export const Redirect: FC<RedirectProps> = () => {
             document.body.appendChild(iframe)
 
             iframe.contentWindow?.location.replace(decodedURI)
+
+            window.location.href = decodedURI
         } catch (error) {
             console.error('Error decoding URL:', error)
             alert('Error decoding URL: ' + error)
@@ -33,6 +35,7 @@ export const Redirect: FC<RedirectProps> = () => {
 
     return (
         <>
+        <p>Redirect VPN...</p>
         </>
     )
 }
