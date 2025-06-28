@@ -278,8 +278,8 @@ export const App: FC = () => {
 
             setUserLoading(true);
 
-            console.log(route.hash)
-            if (route.hash === ROUTES.REDIRECT) {
+            console.log(route.pathname)
+            if (route.pathname === ROUTES.REDIRECT) {
                 return;
             }
 
@@ -289,7 +289,7 @@ export const App: FC = () => {
             const bodyStyle = document.body.style;
 
             if (
-                window.location.pathname === ROUTES.SOMETHING_WENT_WRONG &&
+                route.pathname === ROUTES.SOMETHING_WENT_WRONG &&
                 !isError
             ) {
                 TgObj.MainButton.hide();
@@ -317,7 +317,7 @@ export const App: FC = () => {
                 loggedNavigate(navigate,'10')(ROUTES.SOMETHING_WENT_WRONG);
             }
 
-            if (window.location.pathname !== ROUTES.INTRODUCTION) {
+            if (route.pathname !== ROUTES.INTRODUCTION) {
                 if (!isTg) {
                     return;
                 }
@@ -351,7 +351,7 @@ export const App: FC = () => {
             "hasPassedIntroduction"
         );
 
-        if (window.location.pathname === ROUTES.REDIRECT) {
+        if (route.pathname === ROUTES.REDIRECT) {
             return;
         }
 
@@ -379,10 +379,10 @@ export const App: FC = () => {
     }, []);
 
     useEffect(() => {
-        if (window.location.pathname === ROUTES.HOME) {
+        if (route.pathname === ROUTES.HOME) {
             TgObj.BackButton.hide();
         }
-    }, [window.location.pathname, TgObj]);
+    }, [route.pathname, TgObj]);
 
     // ===================================================
     const savedLanguage = localStorage.getItem("i18nextLng");
