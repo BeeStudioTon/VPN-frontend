@@ -277,6 +277,11 @@ export const App: FC = () => {
 
             setUserLoading(true);
 
+            console.log(window.location.pathname)
+            if (window.location.pathname === ROUTES.REDIRECT) {
+                return;
+            }
+
             loadJwtKeys();
 
             const isTgCheck = window.Telegram?.WebApp.initData !== "";
@@ -290,9 +295,7 @@ export const App: FC = () => {
                 loggedNavigate(navigate,'9')("/");
             }
 
-            if (!isTgCheck && window.location.pathname === "/redirect") {
-                return;
-            }
+            
 
             if (isTgCheck) {
                 TgObj.ready();
@@ -310,7 +313,7 @@ export const App: FC = () => {
                 //     "important"
                 // );
             } else {
-                // loggedNavigate(navigate,'10')(ROUTES.SOMETHING_WENT_WRONG);
+                loggedNavigate(navigate,'10')(ROUTES.SOMETHING_WENT_WRONG);
             }
 
             if (window.location.pathname !== ROUTES.INTRODUCTION) {
