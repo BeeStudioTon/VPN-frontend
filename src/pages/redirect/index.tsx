@@ -17,16 +17,17 @@ export const Redirect: FC<RedirectProps> = () => {
         }
 
         try {
-            const decodedURI = decodeURIComponent(decodedUrl)
+            console.log(decodedUrl)
+            const decodedURI = decodeURIComponent(decodedUrl).split('00000000')
 
             const iframe: HTMLIFrameElement = document.createElement('iframe')
             iframe.style.display = 'none'
 
             document.body.appendChild(iframe)
 
-            iframe.contentWindow?.location.replace(decodedURI)
+            iframe.contentWindow?.location.replace(decodedURI[0] + '#' + decodedURI[1])
 
-            window.location.href = decodedURI
+            window.location.href = decodedURI[0] + '#' + decodedURI[1]
         } catch (error) {
             console.error('Error decoding URL:', error)
             alert('Error decoding URL: ' + error)
